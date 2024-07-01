@@ -4,6 +4,7 @@ import Profile from "../screens/Profile";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CommonActions } from '@react-navigation/native';
 import { BottomNavigation } from 'react-native-paper';
+import CoachDrawer from "../screens/coachdashboard/CoachDrawer";
 
 const Tab = createBottomTabNavigator();
 
@@ -65,7 +66,7 @@ export default function TabNav() {
         />
         <Tab.Screen
           name="CoachDash"
-          component={UserDrawer}
+          component={CoachDrawer}
           options={{
             headerShown: false,
             tabBarLabel: "Coach View",
