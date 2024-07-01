@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
-import { supabase } from '../lib/supabase'
+import { supabase } from '../../lib/supabase'
 import { Button, Input } from '@rneui/themed'
+import { useNavigation } from '@react-navigation/native'
 
 export default function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const navigation = useNavigation()
 
   async function signInWithEmail() {
     setLoading(true)
@@ -17,6 +20,11 @@ export default function Auth() {
 
     if (error) Alert.alert(error.message)
     setLoading(false)
+
+    setEmail('')
+    setPassword('')
+
+    navigation.navigate('LoggedIn', { screen: 'UserDash' })
   }
 
   async function signUpWithEmail() {
