@@ -75,16 +75,6 @@ export default function TabNav() {
           }}
         />
         <Tab.Screen
-          name="Add Log"
-          component={UserDrawer}
-          options={{
-            tabBarLabel: "Add Log",
-            tabBarIcon: ({ color, size }) => {
-              return <Icon name="plus-circle" size={size} color={color} />;
-            },
-          }}
-        />
-        <Tab.Screen
           name="Resources"
           component={UserDrawer}
           options={{
