@@ -4,7 +4,6 @@ import Card from '../../components/Card'
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
-import FloatingButton from '../../components/userdashboard/FloatingButton';
 
 export default function ActivityLog() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -16,7 +15,7 @@ export default function ActivityLog() {
             data: { user },
           } = await supabase.auth.getUser();
           const { data, error } = await supabase
-            .from("activity_log")
+            .from("lifestyle_coach_log")
             .select()
             .eq("user", user.id)
             .order("created_at", { ascending: false });
@@ -24,6 +23,9 @@ export default function ActivityLog() {
           if (error) {
             console.log(error);
           } else {
+            console.log(data[0].created_at)
+            let date = new Date(data[0].created_at)
+            console.log(date)
             setData(data);
           }
         }
@@ -37,7 +39,7 @@ export default function ActivityLog() {
         } = await supabase.auth.getUser();
         if (searchQuery === "") {
           const { data, error } = await supabase
-            .from("activity_log")
+            .from("lifestyle_coach_log")
             .select()
             .eq("user", user.id)
             .order("created_at", { ascending: false });
@@ -48,11 +50,15 @@ export default function ActivityLog() {
             setData(data);
           }
         } else {
+            // Fix on the backend so there is new column that is date as a string not a date
+            let date = new Date(searchQuery)
+            console.log(typeof(date))
+
           const { data, error } = await supabase
-            .from("activity_log")
+            .from("lifestyle_coach_log")
             .select()
             .eq("user", user.id)
-            .ilike("activity", `%${searchQuery}%`)
+            .rangeGte('created_at', `[${date}, ${date.setDate(date.getDate() + 1)})`)
             .order("created_at", { ascending: false });
 
           if (error) {
@@ -69,7 +75,7 @@ export default function ActivityLog() {
     return (
       <View style={styles.container}>
         <Searchbar
-          placeholder="Search"
+          placeholder="Search by Date (YYYY-MM-DD)"
           onChangeText={setSearchQuery}
           onIconPress={activityLog}
           value={searchQuery}
@@ -79,20 +85,19 @@ export default function ActivityLog() {
           renderItem={useCallback(({ item }) => (
             <View key={item.id} style={styles.container}>
               <Card
-                title={item.activity}
-                col1title={"Exercise Type"}
-                col2title={"Duration"}
-                col3title={"Difficulty"}
-                col1={item.activity}
-                col2={`${item.minutes} min`}
-                col3={item.difficulty}
+                title={`Week of ${item.created_at}`}
+                col1title={"Current Weight"}
+                col2title={"Attendance"}
+                col3title={"Session Type"}
+                col1={item.current_weight}
+                col2={item.attendance}
+                col3={item.sesstype}
                 date={item.created_at}
               />
             </View>
           ))}
           keyExtractor={(item) => item.id}
         />
-        <FloatingButton style={styles.container} />
       </View>
     );
 }

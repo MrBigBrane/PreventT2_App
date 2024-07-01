@@ -4,7 +4,6 @@ import Card from '../../components/Card'
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
-import FloatingButton from '../../components/userdashboard/FloatingButton';
 
 export default function ActivityLog() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -92,7 +91,6 @@ export default function ActivityLog() {
           ))}
           keyExtractor={(item) => item.id}
         />
-        <FloatingButton style={styles.container} />
       </View>
     );
 }

@@ -6,24 +6,42 @@ const LeftContent = (props) => (
   <Avatar.Icon {...props} icon={"account-circle"} />
 );
 
-const MyComponent = ({ title, col1, col2, col3, date }) => (
+const MyComponent = ({
+  title,
+  col1title,
+  col2title,
+  col3title,
+  col1,
+  col2,
+  col3,
+  date,
+}) => (
   <Card style={styles.container}>
-    <Card.Title title={title} left={LeftContent} titleVariant="titleLarge" />
+    {/* <View style={styles.title}> */}
+    <Card.Title
+      title={title}
+      left={LeftContent}
+      titleVariant="titleLarge"
+      right={() => (
+        <Text variant='labelSmall'>{date}</Text>
+      )}
+      rightStyle={styles.date}
+    />
     <Card.Content style={styles.textSpace}>
       <View style={styles.grouping}>
-        <Text variant="bodyMedium">Exercise Type</Text>
+        <Text variant="bodyMedium">{col1title}</Text>
         <View style={styles.text}>
           <Text variant="bodySmall">{col1}</Text>
         </View>
       </View>
       <View style={styles.grouping}>
-        <Text variant="bodyMedium">Duration</Text>
+        <Text variant="bodyMedium">{col2title}</Text>
         <View style={styles.text}>
           <Text variant="bodySmall">{col2}</Text>
         </View>
       </View>
       <View style={styles.grouping}>
-        <Text variant="bodyMedium">Perceived Difficulty</Text>
+        <Text variant="bodyMedium">{col3title}</Text>
         <View style={styles.text}>
           <Text variant="bodySmall">{col3}</Text>
         </View>
@@ -42,7 +60,7 @@ export default MyComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 12,
+    padding: 6,
   },
   grouping: {
     alignContent: 'center',
@@ -57,5 +75,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 5,
+  },
+  title: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1
+  },
+  date: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: -50,
   }
 })
