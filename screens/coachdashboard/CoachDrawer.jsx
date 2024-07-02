@@ -4,7 +4,7 @@ import CoachesDashboard from './CoachesDashboard';
 import ClassView from './ClassView';
 
 
-export default function UserDrawer() {
+export default function CoachDrawer() {
     const Stack = createStackNavigator();
   return (
     

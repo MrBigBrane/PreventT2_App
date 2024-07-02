@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { FAB, Portal, PaperProvider, DefaultTheme } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function FloatingButton() {
   const [state, setState] = useState({ open: false });
+
+  const navigation = useNavigation();
 
   const onStateChange = ({ open }) => setState({ open });
 
@@ -30,22 +33,22 @@ export default function FloatingButton() {
           {
             icon: "run",
             label: "Add Activity",
-            onPress: () => console.log("Pressed add"),
+            onPress: () => navigation.navigate("Add Activity"),
           },
           {
             icon: "hand-heart",
             label: "Add Coach Log",
-            onPress: () => console.log("Pressed star"),
+            onPress: () => navigation.navigate("Add Coach Log"),
           },
           {
             icon: "food-fork-drink",
             label: "Add Meal",
-            onPress: () => console.log("Pressed email"),
+            onPress: () => navigation.navigate("Add Meal"),
           },
           {
             icon: "notebook-edit",
             label: "Add Action Plan",
-            onPress: () => console.log("Pressed notifications"),
+            onPress: () => navigation.navigate("Add Action Plan"),
           },
         ]}
         onStateChange={onStateChange}
