@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 
-export default function ActivityLog() {
+export default function MealLog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
 

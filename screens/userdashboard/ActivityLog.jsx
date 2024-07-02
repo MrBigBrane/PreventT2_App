@@ -1,5 +1,5 @@
 import { supabase } from '../../lib/supabase'
-import { StyleSheet, View } from "react-native";
+import { RefreshControl, StyleSheet, View } from "react-native";
 import Card from '../../components/Card'
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
@@ -9,6 +9,8 @@ import FloatingButton from '../../components/userdashboard/FloatingButton';
 export default function ActivityLog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
+
+    const [refreshing, setRefreshing] = useState(true);
 
     useEffect(() => {
         async function activityLog() {
@@ -26,12 +28,14 @@ export default function ActivityLog() {
           } else {
             setData(data);
           }
+          setRefreshing(false);
         }
 
         activityLog();
     }, [])
 
     async function activityLog() {
+      setRefreshing(true);
         const {
           data: { user },
         } = await supabase.auth.getUser();
@@ -59,6 +63,7 @@ export default function ActivityLog() {
             console.log(error);
           } else {
             setData(data);
+            setRefreshing(false);
           }
         }
         
@@ -83,16 +88,19 @@ export default function ActivityLog() {
                 col1title={"Exercise Type"}
                 col2title={"Duration"}
                 col3title={"Difficulty"}
-                col1={item.activity}
+                col1={item.exercise_type}
                 col2={`${item.minutes} min`}
                 col3={item.difficulty}
-                date={item.created_at}
+                date={`${item.created_at.substring(0, 10)}`}
               />
             </View>
           ))}
           keyExtractor={(item) => item.id}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={activityLog} />
+          }
         />
-        <FloatingButton style={styles.container} />
+        <FloatingButton />
       </View>
     );
 }

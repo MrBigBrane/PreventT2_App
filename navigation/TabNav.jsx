@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CommonActions } from '@react-navigation/native';
 import { BottomNavigation } from 'react-native-paper';
 import CoachDrawer from "../screens/coachdashboard/CoachDrawer";
+import UserDashNav from "./UserDashNav";
 
 const Tab = createBottomTabNavigator();
 
@@ -55,7 +56,7 @@ export default function TabNav() {
       <Tab.Navigator tabBar={tabBar}>
         <Tab.Screen
           name="UserDash"
-          component={UserDrawer}
+          component={UserDashNav}
           options={{
             headerShown: false,
             tabBarLabel: "View Logs",
