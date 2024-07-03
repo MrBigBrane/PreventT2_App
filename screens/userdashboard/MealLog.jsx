@@ -4,6 +4,7 @@ import Card from '../../components/Card'
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
+import FloatingButton from '../../components/userdashboard/FloatingButton';
 
 export default function MealLog() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -15,7 +16,7 @@ export default function MealLog() {
             data: { user },
           } = await supabase.auth.getUser();
           const { data, error } = await supabase
-            .from("activity_log")
+            .from("meal_plans")
             .select()
             .eq("user", user.id)
             .order("created_at", { ascending: false });
@@ -36,7 +37,7 @@ export default function MealLog() {
         } = await supabase.auth.getUser();
         if (searchQuery === "") {
           const { data, error } = await supabase
-            .from("activity_log")
+            .from("meal_plans")
             .select()
             .eq("user", user.id)
             .order("created_at", { ascending: false });
@@ -48,7 +49,7 @@ export default function MealLog() {
           }
         } else {
           const { data, error } = await supabase
-            .from("activity_log")
+            .from("meal_plans")
             .select()
             .eq("user", user.id)
             .ilike("activity", `%${searchQuery}%`)
@@ -78,19 +79,20 @@ export default function MealLog() {
           renderItem={useCallback(({ item }) => (
             <View key={item.id} style={styles.container}>
               <Card
-                title={item.activity}
-                col1title={"Exercise Type"}
-                col2title={"Duration"}
-                col3title={"Difficulty"}
-                col1={item.activity}
-                col2={`${item.minutes} min`}
-                col3={item.difficulty}
+                title={item.meal_type}
+                col1title={"Item"}
+                col2title={"Amount"}
+                col3title={"Calories"}
+                col1={item.item}
+                col2={item.amount}
+                col3={item.calories}
                 date={item.created_at}
               />
             </View>
           ))}
           keyExtractor={(item) => item.id}
         />
+        <FloatingButton />
       </View>
     );
 }
