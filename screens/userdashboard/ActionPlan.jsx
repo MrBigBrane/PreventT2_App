@@ -1,9 +1,10 @@
 import { supabase } from '../../lib/supabase'
 import { StyleSheet, View } from "react-native";
-import Card from '../../components/Card'
+import ActivityCard from '../../components/userdashboard/ActivityCard';
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
+import FloatingButton from '../../components/userdashboard/FloatingButton';
 
 export default function ActionPlan() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -15,7 +16,7 @@ export default function ActionPlan() {
             data: { user },
           } = await supabase.auth.getUser();
           const { data, error } = await supabase
-            .from("activity_log")
+            .from("action_plans")
             .select()
             .eq("user", user.id)
             .order("created_at", { ascending: false });
@@ -36,7 +37,7 @@ export default function ActionPlan() {
         } = await supabase.auth.getUser();
         if (searchQuery === "") {
           const { data, error } = await supabase
-            .from("activity_log")
+            .from("action_plans")
             .select()
             .eq("user", user.id)
             .order("created_at", { ascending: false });
@@ -48,7 +49,7 @@ export default function ActionPlan() {
           }
         } else {
           const { data, error } = await supabase
-            .from("activity_log")
+            .from("action_plans")
             .select()
             .eq("user", user.id)
             .ilike("activity", `%${searchQuery}%`)
@@ -77,20 +78,21 @@ export default function ActionPlan() {
           data={data}
           renderItem={useCallback(({ item }) => (
             <View key={item.id} style={styles.container}>
-              <Card
-                title={item.activity}
-                col1title={"Exercise Type"}
-                col2title={"Duration"}
-                col3title={"Difficulty"}
-                col1={item.activity}
-                col2={`${item.minutes} min`}
-                col3={item.difficulty}
+              <ActivityCard
+                title={`${item.created_at} Action Plan`}
+                col1title={"Q1: Routine Change"}
+                col2title={"Q2: New Routine"}
+                col3title={"Q3: Cue"}
+                col1={item.q1}
+                col2={item.q2}
+                col3={item.q3}
                 date={item.created_at}
               />
             </View>
           ))}
           keyExtractor={(item) => item.id}
         />
+        <FloatingButton />
       </View>
     );
 }
