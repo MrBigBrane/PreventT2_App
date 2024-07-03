@@ -1,18 +1,21 @@
 import { supabase } from '../../lib/supabase'
 import { RefreshControl, StyleSheet, View } from "react-native";
 import Card from '../../components/Card'
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import { Searchbar } from 'react-native-paper';
+import { Searchbar, Text } from 'react-native-paper';
 import FloatingButton from '../../components/userdashboard/FloatingButton';
+import Graph from '../../components/graph/Graph';
+import fetchMinutes from '../../serveractions/graph/fetchMinutes';
 
 export default function ActivityLog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
+    const [graphData, setGraphData] = useState([]);
 
     const [refreshing, setRefreshing] = useState(true);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         async function activityLog() {
           const {
             data: { user },
@@ -28,8 +31,14 @@ export default function ActivityLog() {
           } else {
             setData(data);
           }
+
+          const graph = Array.from(await fetchMinutes())
+          setGraphData(graph);
+
           setRefreshing(false);
         }
+
+
 
         activityLog();
     }, [])
@@ -73,6 +82,7 @@ export default function ActivityLog() {
 
     return (
       <View style={styles.container}>
+        {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={graphData[0]}  />}  
         <Searchbar
           placeholder="Search"
           onChangeText={setSearchQuery}

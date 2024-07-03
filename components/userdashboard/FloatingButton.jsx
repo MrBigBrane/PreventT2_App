@@ -21,11 +21,9 @@ export default function FloatingButton() {
   };
 
   return (
-    // <PaperProvider>
-    <Portal>
       <FAB.Group
       theme={theme}
-        style={styles.container}
+        // style={styles.container}
         open={open}
         visible
         icon={open ? "minus" : "plus"}
@@ -59,16 +57,11 @@ export default function FloatingButton() {
         }}
         backdropColor='gray'
       />
-    </Portal>
-    // </PaperProvider>
   );
 };
 
-const styles = StyleSheet.create({
-    container: {
-    //   flex: 1,
-    //   justifyContent: 'flex-end',
-      marginBottom: 100,
-      zIndex: 100
-    },
-  });
+// const styles = StyleSheet.create({
+//     container: {
+//       marginBottom: 100,
+//     },
+  // });
