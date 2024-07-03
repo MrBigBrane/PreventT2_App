@@ -6,7 +6,7 @@ import ActionPlan from './ActionPlan';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function UserDrawer() {
-  const Drawer = createDrawerNavigator();
+  const Drawer = createDrawerNavigator()
   return (
     <Drawer.Navigator>
       <Drawer.Screen
