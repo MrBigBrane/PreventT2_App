@@ -5,10 +5,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import FloatingButton from '../../components/userdashboard/FloatingButton';
+import Graph from '../../components/graph/Graph';
+import fetchWeight from '../../serveractions/graph/fetchWeight';
 
 export default function CoachLog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
+
+    const [graphData, setGraphData] = useState([]);
 
     useEffect(() => {
         async function coachLog() {
@@ -25,6 +29,8 @@ export default function CoachLog() {
             console.log(error);
           } else {
             setData(data);
+            const graph = Array.from(await fetchWeight(user.id))
+            setGraphData(graph);
           }
         }
 
@@ -72,6 +78,7 @@ export default function CoachLog() {
 
     return (
       <View style={styles.container}>
+        {/* {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={[0, 0, 0, 0]} hiddenIndex={graphData[2]} yAxisSuffix={" lbs"}/>}   */}
         <Searchbar
           placeholder="Search by Date (YYYY-MM-DD)"
           onChangeText={setSearchQuery}
