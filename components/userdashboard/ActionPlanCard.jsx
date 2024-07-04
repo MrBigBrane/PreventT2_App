@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Text, Surface } from 'react-native-paper';
 
 
-const LeftContent = (props) => (
+const ActionPlan = (props) => (
   <Avatar.Icon {...props} icon={"account-circle"} />
 );
 

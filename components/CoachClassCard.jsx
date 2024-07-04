@@ -1,22 +1,29 @@
 import { StyleSheet, View } from 'react-native';
-import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { Card } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
-const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
+export default function CoachClassCard({ className, classId }) {
 
-const MyComponent = () => (
-  <Card>
-    <Card.Cover source={{ uri: "https://picsum.photos/700" }} height={200} />
-    <Card.Title
-      title="Card Title"
-      titleVariant="displayMedium"
-      style={styles.textSpace}
-      titleStyle={styles.title}
-      contentstyle={styles.content}
-    />
-  </Card>
-);
+  const navigation = useNavigation();
 
-export default MyComponent;
+  function handleButtonPress() {
+    navigation.navigate("ClassView", { classId: classId, className: className });
+  }
+
+  return (
+    <Card onPress={handleButtonPress}>
+      <Card.Cover source={{ uri: "https://picsum.photos/700" }} height={200} />
+      <Card.Title
+        title={className}
+        titleVariant="displayMedium"
+        style={styles.textSpace}
+        titleStyle={styles.title}
+        contentstyle={styles.content}
+        
+      />
+    </Card>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

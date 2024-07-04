@@ -40,7 +40,7 @@ export default function MyTabs() {
             <Stack.Screen
               name="LoggedIn"
               component={TabNav}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, headerBackTitleVisible: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>

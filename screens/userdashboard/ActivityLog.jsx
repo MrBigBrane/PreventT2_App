@@ -34,7 +34,6 @@ export default function ActivityLog() {
           }
 
           const graph = Array.from(await fetchMinutes(user.id))
-          console.log(graph)
           setGraphData(graph);
 
           setRefreshing(false);

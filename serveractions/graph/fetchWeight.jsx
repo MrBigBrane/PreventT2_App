@@ -34,6 +34,5 @@ export default async function fetchWeight(userId) {
     })
 
     weightGraph = [weight, weeks, hiddenIndex];
-    console.log(weightGraph)
     return weightGraph
 }

@@ -32,6 +32,5 @@ export default async function fetchMinutes(userId) {
     })
     minuteGraph = [minutes, weeks];
     // return minuteGraph;
-    console.log(graphObject)
     return graphObject
 }
