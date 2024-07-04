@@ -4,7 +4,7 @@ import Profile from "../screens/Profile";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CommonActions } from '@react-navigation/native';
 import { BottomNavigation } from 'react-native-paper';
-import CoachDrawer from "../screens/coachdashboard/CoachDrawer";
+import CoachNav from "../screens/coachdashboard/CoachNav";
 import UserDashNav from "./UserDashNav";
 
 const Tab = createBottomTabNavigator();
@@ -67,14 +67,16 @@ export default function TabNav() {
         />
         <Tab.Screen
           name="CoachDash"
-          component={CoachDrawer}
+          component={CoachNav}
           options={{
             headerShown: false,
             tabBarLabel: "Coach View",
             tabBarIcon: ({ color, size }) => {
               return <Icon name="whistle" size={size} color={color} />;
             },
+            
           }}
+          
         />
         <Tab.Screen
           name="Resources"

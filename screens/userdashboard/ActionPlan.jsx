@@ -1,6 +1,6 @@
 import { supabase } from '../../lib/supabase'
 import { StyleSheet, View } from "react-native";
-import ActivityCard from '../../components/userdashboard/ActivityCard';
+import ActionPlanCard from '../../components/userdashboard/ActionPlanCard';
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
@@ -78,7 +78,7 @@ export default function ActionPlan() {
           data={data}
           renderItem={useCallback(({ item }) => (
             <View key={item.id} style={styles.container}>
-              <ActivityCard
+              <ActionPlanCard
                 title={`${item.created_at} Action Plan`}
                 col1title={"Q1: Routine Change"}
                 col2title={"Q2: New Routine"}
