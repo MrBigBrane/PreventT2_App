@@ -17,12 +17,12 @@ const screenConfig =  {
   }
 
 
-export default function Graph({ xdata, ydata, title }) {
+export default function Graph({ xdata, ydata, hiddenIndex, yAxisSuffix }) {
 
     return (
-      <View style={styles.container}>
-        <Text>{title}</Text>
-        <LineChart
+      <View>
+        <View style={styles.container}>
+            <LineChart
           data={{
             labels: xdata,
             datasets: [
@@ -34,13 +34,16 @@ export default function Graph({ xdata, ydata, title }) {
           width={Dimensions.get("screen").width - 20} // from react-native
           height={220}
           chartConfig={screenConfig}
-          yAxisSuffix=" min"
+          yAxisSuffix={yAxisSuffix}
           formatXLabel={(x) => x.substring(5, 10)}
+          hidePointsAtIndex={hiddenIndex}
         //   bezier
           style={{
             borderRadius: 16
           }}
         />
+        </View>
+        
       </View>
     );
     

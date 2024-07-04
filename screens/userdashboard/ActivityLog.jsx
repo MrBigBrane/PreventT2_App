@@ -7,6 +7,7 @@ import { Searchbar, Text } from 'react-native-paper';
 import FloatingButton from '../../components/userdashboard/FloatingButton';
 import Graph from '../../components/graph/Graph';
 import fetchMinutes from '../../serveractions/graph/fetchMinutes';
+import NewGraph from '../../components/graph/NewGraph';
 
 export default function ActivityLog() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -32,7 +33,8 @@ export default function ActivityLog() {
             setData(data);
           }
 
-          const graph = Array.from(await fetchMinutes())
+          const graph = Array.from(await fetchMinutes(user.id))
+          console.log(graph)
           setGraphData(graph);
 
           setRefreshing(false);
@@ -82,9 +84,10 @@ export default function ActivityLog() {
 
     return (
       <View style={styles.container}>
-        {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={graphData[0]}  />}  
+        {/* {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={graphData[0]} yAxisSuffix={" min"}/>}  */}
+        {graphData.length > 0 && <NewGraph datum={graphData} />}
         <Searchbar
-          placeholder="Search"
+          placeholder="Search by activity"
           onChangeText={setSearchQuery}
           onIconPress={activityLog}
           value={searchQuery}
