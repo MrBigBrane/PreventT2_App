@@ -4,11 +4,15 @@ import DropdownList from "../../../components/inputs/DropdownList";
 import { useState } from "react";
 import { supabase } from "../../../lib/supabase";
 
-export default function AddActivity({ navigation }) {
-    const [selected1, setSelected1] = useState();
-    const [selected2, setSelected2] = useState();
-    const [text1, setText1] = useState();
-    const [text2, setText2] = useState();
+export default function AddActivity({ navigation, route }) {
+  const { data } = route.params;
+  console.log(data)
+  
+
+    const [selected1, setSelected1] = useState(data.exercise_type);
+    const [selected2, setSelected2] = useState(data.difficulty);
+    const [text1, setText1] = useState(data.activity);
+    const [text2, setText2] = useState(data.minutes);
 
     const [loading, setLoading] = useState(false);
 

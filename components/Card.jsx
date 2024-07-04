@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 const LeftContent = (props) => (
   <Avatar.Icon {...props} icon={"account-circle"} />
 );
 
-const MyComponent = ({
+export default function UserCard({
   title,
   col1title,
   col2title,
@@ -15,47 +16,51 @@ const MyComponent = ({
   col2,
   col3,
   date,
-}) => (
-  <Card style={styles.container}>
-    {/* <View style={styles.title}> */}
-    <Card.Title
-      title={title}
-      left={LeftContent}
-      titleVariant="titleLarge"
-      right={() => (
-        <Text variant='labelSmall'>{date}</Text>
-      )}
-      rightStyle={styles.date}
-    />
-    <Card.Content style={styles.textSpace}>
-      <View style={styles.grouping}>
-        <Text variant="bodyMedium">{col1title}</Text>
-        <View style={styles.text}>
-          <Text variant="bodySmall">{col1}</Text>
-        </View>
-      </View>
-      <View style={styles.grouping}>
-        <Text variant="bodyMedium">{col2title}</Text>
-        <View style={styles.text}>
-          <Text variant="bodySmall">{col2}</Text>
-        </View>
-      </View>
-      <View style={styles.grouping}>
-        <Text variant="bodyMedium">{col3title}</Text>
-        <View style={styles.text}>
-          <Text variant="bodySmall">{col3}</Text>
-        </View>
-      </View>
-    </Card.Content>
-    {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
-    <Card.Actions>
-      <Button>Edit</Button>
-      <Button>Delete</Button>
-    </Card.Actions>
-  </Card>
-);
+  data,
+  editPage
+}) {
+  const navigation = useNavigation();
 
-export default MyComponent;
+  return (
+    <Card style={styles.container}>
+      {/* <View style={styles.title}> */}
+      <Card.Title
+        title={title}
+        left={LeftContent}
+        titleVariant="titleLarge"
+        right={() => <Text variant="labelSmall">{date}</Text>}
+        rightStyle={styles.date}
+      />
+      <Card.Content style={styles.textSpace}>
+        <View style={styles.grouping}>
+          <Text variant="bodyMedium">{col1title}</Text>
+          <View style={styles.text}>
+            <Text variant="bodySmall">{col1}</Text>
+          </View>
+        </View>
+        <View style={styles.grouping}>
+          <Text variant="bodyMedium">{col2title}</Text>
+          <View style={styles.text}>
+            <Text variant="bodySmall">{col2}</Text>
+          </View>
+        </View>
+        <View style={styles.grouping}>
+          <Text variant="bodyMedium">{col3title}</Text>
+          <View style={styles.text}>
+            <Text variant="bodySmall">{col3}</Text>
+          </View>
+        </View>
+      </Card.Content>
+      {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
+      <Card.Actions>
+        <Button onPress={() => navigation.navigate(editPage, { data: data })}>
+          Edit
+        </Button>
+        <Button>Delete</Button>
+      </Card.Actions>
+    </Card>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

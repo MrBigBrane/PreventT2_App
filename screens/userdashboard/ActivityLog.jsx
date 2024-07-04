@@ -104,6 +104,8 @@ export default function ActivityLog() {
                 col2={`${item.minutes} min`}
                 col3={item.difficulty}
                 date={`${item.created_at.substring(0, 10)}`}
+                data={item}
+                editPage={'Add Activity'}
               />
             </View>
           ))}
