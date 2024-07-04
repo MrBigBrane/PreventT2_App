@@ -13,15 +13,15 @@ export default function AddActivity({ navigation }) {
     const [loading, setLoading] = useState(false);
 
     const exerciseTypes = [
-      { "key": 1, value: "Cardio" },
-      { "key": 2, value: "Strength" },
-      { "key": 3, value: "Balance" },
-      { "key": 4, value: "Yoga" },
+      { "key": 1, value: "Run" },
+      { "key": 2, value: "Walk" },
+      { "key": 3, value: "Swim" },
+      { "key": 4, value: "Weight Training" },
       { "key": 5, value: "Pilates" },
-      { "key": 6, value: "Other" },
-      { "key": 7, value: "Core" },
-      { "key": 8, value: "HIIT" },
-      { "key": 9, value: "Stretching" },
+      { "key": 6, value: "Bike" },
+      { "key": 7, value: "Crossfit " },
+      { "key": 8, value: "Calisthenics" },
+      { "key": 9, value: "Other" },
     ];
 
     const perceivedDifficulty = [
