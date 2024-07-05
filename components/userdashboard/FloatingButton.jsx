@@ -31,7 +31,7 @@ export default function FloatingButton() {
           {
             icon: "run",
             label: "Add Activity",
-            onPress: () => navigation.navigate("Add Activity"),
+            onPress: () => navigation.navigate("Add Activity", { data: null }),
           },
           {
             icon: "hand-heart",

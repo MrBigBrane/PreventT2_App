@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import DialogComponent from './dialog/Dialog';
 
 const LeftContent = (props) => (
   <Avatar.Icon {...props} icon={"account-circle"} />
@@ -17,7 +18,8 @@ export default function UserCard({
   col3,
   date,
   data,
-  editPage
+  editPage,
+  deleteAction
 }) {
   const navigation = useNavigation();
 
@@ -56,7 +58,13 @@ export default function UserCard({
         <Button onPress={() => navigation.navigate(editPage, { data: data })}>
           Edit
         </Button>
-        <Button>Delete</Button>
+        <DialogComponent
+          buttonTitle={"Delete"}
+          alertActionTitle={"Delete"}
+          alertContent={"Are you sure you want to delete this item?"}
+          alertTitle={"Delete Item"}
+          alertAction={deleteAction}
+        />
       </Card.Actions>
     </Card>
   );
