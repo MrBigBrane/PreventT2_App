@@ -44,7 +44,7 @@ export default function AddActivity({ navigation }) {
           console.log(error);
         } else {
           setLoading(false);
-        navigation.replace("User Dashboard", { screen: "Activity Log" });
+        navigation.replace("User Dashboard", { screen: "Meal Log" });
         }
 
         

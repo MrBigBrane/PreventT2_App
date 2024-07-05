@@ -3,11 +3,11 @@ import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Text, Surface } from 'react-native-paper';
 
 
-const ActionPlan = (props) => (
+const LeftContent = (props) => (
   <Avatar.Icon {...props} icon={"account-circle"} />
 );
 
-const MyComponent = ({
+const ActionPlan = ({
   title,
   col1title,
   col2title,
@@ -66,7 +66,7 @@ const MyComponent = ({
   </Card>
 );
 
-export default MyComponent;
+export default ActionPlan;
 
 const styles = StyleSheet.create({
   container: {

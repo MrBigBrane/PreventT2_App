@@ -5,10 +5,9 @@ import { useState } from "react";
 import { supabase } from "../../../lib/supabase";
 
 export default function AddActivity({ navigation }) {
-    const [selected1, setSelected1] = useState();
-    const [selected2, setSelected2] = useState();
     const [text1, setText1] = useState();
     const [text2, setText2] = useState();
+    const [text3, setText3] = useState();
 
     const [loading, setLoading] = useState(false);
 
@@ -38,12 +37,11 @@ export default function AddActivity({ navigation }) {
         } = await supabase.auth.getUser();
 
         const { data, error } = await supabase
-          .from("activity_log")
+          .from("action_plans")
           .insert({
-            activity: text1,
-            exercise_type: selected1,
-            minutes: text2,
-            difficulty: selected2,
+            q1: text1,
+            q2: text2,
+            q3: text3,
             user: user.id,
           })
           .select();
@@ -52,7 +50,7 @@ export default function AddActivity({ navigation }) {
           console.log(error);
         } else {
           setLoading(false);
-        navigation.replace("User Dashboard", { screen: "Activity Log" });
+        navigation.replace("User Dashboard", { screen: "Action Plan" });
         }
 
         
@@ -61,20 +59,16 @@ export default function AddActivity({ navigation }) {
     return (
       <View style={styles.spacing}> 
         <View style={styles.padding}>
-          <Text>Activity Name</Text>
-          <TextInput mode="outlined" placeholder="Enter Activity Name" onChangeText={(text) => setText1(text)} value={text1} />
+          <Text>Question 1: What routine do you want to add, stop, or change?</Text>
+          <TextInput mode="outlined" placeholder="Routine Change" onChangeText={(text) => setText1(text)} value={text1} />
         </View>
         <View style={styles.padding}>
-          <Text>Exercise Type</Text>
-          <DropdownList setSelected={setSelected1} data={exerciseTypes} />
+          <Text>Question 2: What new routine do I want to try?</Text>
+          <TextInput mode="outlined" placeholder="New Routine" onChangeText={(text) => setText2(text)} value={text2} />
         </View>
         <View style={styles.padding}>
-          <Text>Duration (in minutes)</Text>
-          <TextInput mode="outlined" placeholder="How long was your activity?" onChangeText={(text) => setText2(text)} value={text2} />
-        </View>
-        <View style={styles.padding}>
-          <Text>Perceived Difficulty</Text>
-          <DropdownList setSelected={setSelected2} data={perceivedDifficulty} />
+          <Text>Question 3: What cue will help me remember my new routine</Text>
+          <TextInput mode="outlined" placeholder="Cues" onChangeText={(text) => setText3(text)} value={text3} />
         </View>
         <View style={styles.padding}>
             <Button mode="contained" onPress={submit} loading={loading}>Submit</Button>

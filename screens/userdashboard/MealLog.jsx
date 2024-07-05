@@ -87,6 +87,8 @@ export default function MealLog() {
                 col2={item.amount}
                 col3={item.calories}
                 date={item.created_at}
+                editPage={"Add Meal"}
+                deleteAction={() => deleteItem(item.id)}
               />
             </View>
           ))}
