@@ -11,7 +11,7 @@ export default function DatePicker({ setInputDate, value }) {
     const onChange = (event, selectedDate) => {
       const currentDate = selectedDate;
       setShow(false);
-      setInputDate(currentDate);
+      setInputDate(currentDate.toString());
     };
   
     const showMode = (currentMode) => {
