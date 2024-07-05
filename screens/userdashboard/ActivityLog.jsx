@@ -78,6 +78,18 @@ export default function ActivityLog() {
         }
         
       }
+
+      async function deleteItem(id) {
+        const { error } = await supabase
+          .from("activity_log")
+          .delete()
+          .eq("id", id);
+        if (error) {
+          console.log(error);
+        } else {
+          activityLog();
+        }
+      }
     
     
 
@@ -104,6 +116,9 @@ export default function ActivityLog() {
                 col2={`${item.minutes} min`}
                 col3={item.difficulty}
                 date={`${item.created_at.substring(0, 10)}`}
+                data={item}
+                editPage={"Add Activity"}
+                deleteAction={() => deleteItem(item.id)}
               />
             </View>
           ))}
