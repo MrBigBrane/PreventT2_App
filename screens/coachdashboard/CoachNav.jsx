@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import CoachesDashboard from './CoachesDashboard';
 import ClassView from './ClassView';
 import Settings from './Settings';
+import ViewClass from './ViewClass';
 
 
 export default function CoachNav() {
@@ -22,6 +23,10 @@ export default function CoachNav() {
       <Stack.Screen
         name="Settings"
         component={Settings}
+      />
+      <Stack.Screen
+        name="View Class"
+        component={ViewClass}
       />
     </Stack.Navigator>
   );

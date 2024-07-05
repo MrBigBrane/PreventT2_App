@@ -46,7 +46,13 @@ export default function ClassView({ navigation, route }) {
           source={{ uri: "https://picsum.photos/700" }}
           style={{ width: "100%", height: 200 }}
         />
-        <CardButton title={"View Class"} icon={"google-classroom"} />
+        <CardButton
+          title={"View Class"}
+          icon={"google-classroom"}
+          onPress={() =>
+            navigation.navigate("View Class", { classData: classData })
+          }
+        />
         <CardButton title="Announcements" icon={"bullhorn"} />
         <CardButton
           title="Settings"
