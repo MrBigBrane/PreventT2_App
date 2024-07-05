@@ -1,8 +1,10 @@
 import { StyleSheet, View } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, Icon, Text, TextInput } from "react-native-paper";
 import DropdownList from "../../../components/inputs/DropdownList";
 import { useState } from "react";
 import { supabase } from "../../../lib/supabase";
+import DateTimePicker from "../../../components/DatePicker";
+
 
 export default function AddActivity({ navigation }) {
     const [selected1, setSelected1] = useState();
@@ -56,14 +58,32 @@ export default function AddActivity({ navigation }) {
     }
 
     return (
-      <View style={styles.spacing}> 
+      <View style={styles.spacing}>
         <View style={styles.padding}>
           <Text>Date and Time</Text>
-          <TextInput mode="outlined" placeholder="MM/DD/YYYY HH:MM:AA" onChangeText={(text) => setText1(text)} value={text1} />
+          {/* <TextInput
+            mode="outlined"
+            placeholder="MM/DD/YYYY HH:MM:AA"
+            right={
+              <TextInput.Icon
+                icon="calendar"
+                
+              />
+            }
+            onChangeText={(text) => setText1(text)}
+            value={text1}
+          /> */}
+          <DateTimePicker setInputDate={setText1} value={text1}/>
         </View>
         <View style={styles.padding}>
           <Text>Current Weight</Text>
-          <TextInput mode="outlined" placeholder="How long was your activity?" onChangeText={(text) => setText2(text)} value={text2} />
+          <TextInput
+            mode="outlined"
+            placeholder="How long was your activity?"
+            onChangeText={(text) => setText2(text)}
+            value={text2}
+          />
+          
         </View>
         <View style={styles.padding}>
           <Text>Attendance</Text>
@@ -74,7 +94,9 @@ export default function AddActivity({ navigation }) {
           <DropdownList setSelected={setSelected2} data={sessionTypes} />
         </View>
         <View style={styles.padding}>
-            <Button mode="contained" onPress={submit} loading={loading}>Submit</Button>
+          <Button mode="contained" onPress={submit} loading={loading}>
+            Submit
+          </Button>
         </View>
       </View>
     );

@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Text, Surface } from 'react-native-paper';
+import DialogComponent from '../dialog/Dialog';
+import { useNavigation } from '@react-navigation/native';
 
 
-const ActionPlan = (props) => (
+const LeftContent = (props) => (
   <Avatar.Icon {...props} icon={"account-circle"} />
 );
 
-const MyComponent = ({
+const ActionPlan = ({
   title,
   col1title,
   col2title,
@@ -16,57 +18,72 @@ const MyComponent = ({
   col2,
   col3,
   date,
-}) => (
-  <Card style={styles.container}>
-    {/* <View style={styles.title}> */}
-    <Card.Title
-      title={title}
-      left={LeftContent}
-      titleVariant="titleLarge"
-      right={() => <Text variant="labelSmall">{date}</Text>}
-      rightStyle={styles.date}
-    />
-    <Card.Content style={styles.textSpace}>
-      <View style={styles.grouping}>
-        <Surface style={styles.surface} elevation={4}>
-          <Text style={styles.text} variant="titleMedium">
-            {col1title}
-          </Text>
-          <View style={styles.text}>
-            <Text variant="bodySmall">{col1}</Text>
-          </View>
-        </Surface>
-      </View>
-      <View style={styles.grouping}>
-        <Surface style={styles.surface} elevation={4}>
-          <Text style={styles.text} variant="titleMedium">
-            {col2title}
-          </Text>
-          <View style={styles.text}>
-            <Text variant="bodySmall">{col2}</Text>
-          </View>
-        </Surface>
-      </View>
-      <View style={styles.grouping}>
-        <Surface style={styles.surface} elevation={4}>
-          <Text style={styles.text} variant="titleMedium">
-            {col3title}
-          </Text>
-          <View style={styles.text}>
-            <Text variant="bodySmall">{col3}</Text>
-          </View>
-        </Surface>
-      </View>
-    </Card.Content>
-    {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
-    <Card.Actions>
-      <Button>Edit</Button>
-      <Button>Delete</Button>
-    </Card.Actions>
-  </Card>
-);
+  data,
+  editPage,
+  deleteAction,
+}) => {
+  const navigation = useNavigation();
 
-export default MyComponent;
+  return (
+    <Card style={styles.container}>
+      {/* <View style={styles.title}> */}
+      <Card.Title
+        title={title}
+        left={LeftContent}
+        titleVariant="titleLarge"
+        right={() => <Text variant="labelSmall">{date}</Text>}
+        rightStyle={styles.date}
+      />
+      <Card.Content style={styles.textSpace}>
+        <View style={styles.grouping}>
+          <Surface style={styles.surface} elevation={4}>
+            <Text style={styles.text} variant="titleMedium">
+              {col1title}
+            </Text>
+            <View style={styles.text}>
+              <Text variant="bodySmall">{col1}</Text>
+            </View>
+          </Surface>
+        </View>
+        <View style={styles.grouping}>
+          <Surface style={styles.surface} elevation={4}>
+            <Text style={styles.text} variant="titleMedium">
+              {col2title}
+            </Text>
+            <View style={styles.text}>
+              <Text variant="bodySmall">{col2}</Text>
+            </View>
+          </Surface>
+        </View>
+        <View style={styles.grouping}>
+          <Surface style={styles.surface} elevation={4}>
+            <Text style={styles.text} variant="titleMedium">
+              {col3title}
+            </Text>
+            <View style={styles.text}>
+              <Text variant="bodySmall">{col3}</Text>
+            </View>
+          </Surface>
+        </View>
+      </Card.Content>
+      {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
+      <Card.Actions>
+        <Button onPress={() => navigation.navigate(editPage, { data: data })}>
+          Edit
+        </Button>
+        <DialogComponent
+          buttonTitle={"Delete"}
+          alertActionTitle={"Delete"}
+          alertContent={"Are you sure you want to delete this item?"}
+          alertTitle={"Delete Item"}
+          alertAction={deleteAction}
+        />
+      </Card.Actions>
+    </Card>
+  );
+};
+
+export default ActionPlan;
 
 const styles = StyleSheet.create({
   container: {

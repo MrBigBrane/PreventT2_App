@@ -87,6 +87,8 @@ export default function ActionPlan() {
                 col2={item.q2}
                 col3={item.q3}
                 date={item.created_at}
+                editPage={"Add Action Plan"}
+                deleteAction={() => deleteItem(item.id)}
               />
             </View>
           ))}

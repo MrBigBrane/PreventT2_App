@@ -98,6 +98,8 @@ export default function CoachLog() {
                 col2={item.attendance}
                 col3={item.sesstype}
                 date={item.created_at}
+                editPage={"Add Coach Log"}
+                deleteAction={() => deleteItem(item.id)}
               />
             </View>
           ))}
