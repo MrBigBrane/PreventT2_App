@@ -7,11 +7,14 @@ export default function DatePicker({ setInputDate, value }) {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
+
+    
   
     const onChange = (event, selectedDate) => {
-      const currentDate = selectedDate;
+      const currentDate = new Date(selectedDate);
+      let formattedDate = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear() + " " + currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
       setShow(false);
-      setInputDate(currentDate.toString());
+      setInputDate(formattedDate);
     };
   
     const showMode = (currentMode) => {
