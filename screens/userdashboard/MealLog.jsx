@@ -63,6 +63,18 @@ export default function MealLog() {
         }
         
       }
+
+      async function deleteItem(id) {
+        const { error } = await supabase
+          .from("meal_plans")
+          .delete()
+          .eq("id", id);
+        if (error) {
+          console.log(error);
+        } else {
+          activityLog();
+        }
+      }
     
     
 
@@ -83,9 +95,12 @@ export default function MealLog() {
                 col1title={"Item"}
                 col2title={"Amount"}
                 col3title={"Calories"}
+                col1icon={"food"}
                 col1={item.item}
+                col2icon={"weight"}
                 col2={item.amount}
-                col3={item.calories}
+                col3icon={"fire"}
+                col3={`${item.calories} cal`}
                 date={item.created_at}
                 editPage={"Add Meal"}
                 deleteAction={() => deleteItem(item.id)}

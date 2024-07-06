@@ -63,6 +63,17 @@ export default function ActionPlan() {
         }
         
       }
+      async function deleteItem(id) {
+        const { error } = await supabase
+          .from("action_plans")
+          .delete()
+          .eq("id", id);
+        if (error) {
+          console.log(error);
+        } else {
+          activityLog();
+        }
+      }
     
     
 

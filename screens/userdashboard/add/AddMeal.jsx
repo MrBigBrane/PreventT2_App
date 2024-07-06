@@ -72,6 +72,7 @@ export default function AddActivity({ navigation }) {
             placeholder="Item"
             onChangeText={(text) => setText1(text)}
             value={text1}
+            left={<TextInput.Icon icon="food" />}
           />
         </View>
         <View style={styles.padding}>
@@ -81,6 +82,7 @@ export default function AddActivity({ navigation }) {
             placeholder="Amount"
             onChangeText={(text) => setText2(text)}
             value={text2}
+            left={<TextInput.Icon icon="weight" />}
           />
         </View>
         <View style={styles.padding}>
@@ -90,6 +92,7 @@ export default function AddActivity({ navigation }) {
             placeholder="Calories"
             onChangeText={(text) => setText3(text)}
             value={text3}
+            left={<TextInput.Icon icon="fire" />}
           />
         </View>
         <View style={styles.padding}>
