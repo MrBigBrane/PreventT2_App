@@ -63,6 +63,18 @@ export default function MealLog() {
         }
         
       }
+
+      async function deleteItem(id) {
+        const { error } = await supabase
+          .from("meal_plans")
+          .delete()
+          .eq("id", id);
+        if (error) {
+          console.log(error);
+        } else {
+          activityLog();
+        }
+      }
     
     
 
