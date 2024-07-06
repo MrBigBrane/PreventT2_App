@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { FlatList, StyleSheet, View } from "react-native";
-import { Avatar, Text, Card, Button } from "react-native-paper";
+import { Avatar, Text, Card, Button, Searchbar } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import fetchMinutes from "../../serveractions/graph/fetchMinutes";
 import { RefreshControl } from "react-native-gesture-handler";
@@ -11,12 +11,14 @@ export default function ViewClass({ route, navigation }) {
 
     const [studentData, setStudentData] = useState([]);
     const [weekData, setWeekData] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
 
     
 
     const classCode = classData.code;
 
     async function getStudents() {
+      if(searchQuery === "") {
         const { data, error } = await supabase
           .from("profiles")
           .select()
@@ -27,6 +29,22 @@ export default function ViewClass({ route, navigation }) {
         } else {
           setStudentData(data);
         }
+      }
+      else {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select()
+          .eq("class_codes", classCode)
+          .ilike("name", `%${searchQuery}%`);
+
+        if (error) {
+          console.log(error);
+        } else {
+          setStudentData(data);
+        }
+
+        // fix name column in supabase
+      }
     }
 
     useEffect(() => {
@@ -93,6 +111,12 @@ export default function ViewClass({ route, navigation }) {
 
     return (
       <View style={styles.container}>
+        <Searchbar
+          placeholder="Search by name"
+          onChangeText={setSearchQuery}
+          onIconPress={getStudents}
+          value={searchQuery}
+        />
         <FlatList
           data={studentData}
           renderItem={({ item }) => (

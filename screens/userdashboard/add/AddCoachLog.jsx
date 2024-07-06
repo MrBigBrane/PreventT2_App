@@ -4,6 +4,7 @@ import DropdownList from "../../../components/inputs/DropdownList";
 import { useState } from "react";
 import { supabase } from "../../../lib/supabase";
 import DateTimePicker from "../../../components/DatePicker";
+import NewDropdownList from "../../../components/inputs/NewDropdownList";
 
 
 export default function AddActivity({ navigation }) {
@@ -15,11 +16,12 @@ export default function AddActivity({ navigation }) {
     const [loading, setLoading] = useState(false);
 
     const attendanceTypes = [
-      { "key": 1, value: "In-Person" },
-      { "key": 2, value: "Online" },
-      { "key": 3, value: "Distance Learning" },
+      { icon: "human-handsdown", title: "In-Person" },
+      { icon: "laptop", title: "Online" },
+      { icon: "close-box", title: "None" },
     ];
 
+    // Varun change these for new dropdown list
     const sessionTypes = [
       { "key": 1, value: "C Core Session" },
       { "key": 2, value: "CM Core Maintenance Session" },
@@ -40,7 +42,7 @@ export default function AddActivity({ navigation }) {
           .from("lifestyle_coach_log")
           .insert({
             created_at: text1,
-            attendance: selected1,
+            attendance: selected1.title,
             current_weight: text2,
             sesstype: selected2,
             user: user.id,
@@ -87,11 +89,12 @@ export default function AddActivity({ navigation }) {
         </View>
         <View style={styles.padding}>
           <Text>Attendance</Text>
-          <DropdownList setSelected={setSelected1} data={attendanceTypes} />
-          
+          {/* <DropdownList setSelected={setSelected1} data={attendanceTypes} /> */}
+          <NewDropdownList data={attendanceTypes} setSelected={setSelected1} title={"Attendance"} />
         </View>
         <View style={styles.padding}>
           <Text>Session Type</Text>
+          {/* Change this so it supports the new select component */}
           <DropdownList setSelected={setSelected2} data={sessionTypes} />
         </View>
         <View style={styles.padding}>

@@ -55,15 +55,12 @@ export default function CoachLog() {
           }
         } else {
             // Fix on the backend so there is new column that is date as a string not a date
-            let date = new Date(searchQuery)
-            console.log(typeof(date))
 
           const { data, error } = await supabase
             .from("lifestyle_coach_log")
             .select()
             .eq("user", user.id)
-            .rangeGte('created_at', `[${date}, ${date.setDate(date.getDate() + 1)})`)
-            .order("created_at", { ascending: false });
+            .ilike("created_at_string", `%${searchQuery}%`)
 
           if (error) {
             console.log(error);
@@ -72,6 +69,18 @@ export default function CoachLog() {
           }
         }
         
+      }
+
+      async function deleteItem(id) {
+        const { error } = await supabase
+          .from("lifestyle_coach_log")
+          .delete()
+          .eq("id", id);
+        if (error) {
+          console.log(error);
+        } else {
+          coachLog();
+        }
       }
     
     
@@ -87,22 +96,30 @@ export default function CoachLog() {
         />
         <FlatList
           data={data}
-          renderItem={useCallback(({ item }) => (
-            <View key={item.id} style={styles.container}>
+          renderItem={useCallback(({ item }) => {
+            if(item.sesstype.includes('-')) {
+              item.sesstype = item.sesstype.substring(0, 4);
+            }
+            else{
+              item.sesstype = item.sesstype.substring(0, 2).replace(/\s/g, '')
+            }
+
+
+            return <View key={item.id} style={styles.container}>
               <Card
-                title={`Week of ${item.created_at}`}
+                title={`Week of ${item.created_at.substring(0, 10)}`}
                 col1title={"Current Weight"}
                 col2title={"Attendance"}
                 col3title={"Session Type"}
                 col1={item.current_weight}
                 col2={item.attendance}
                 col3={item.sesstype}
-                date={item.created_at}
+                date={item.created_at.substring(0, 10)}
                 editPage={"Add Coach Log"}
                 deleteAction={() => deleteItem(item.id)}
               />
             </View>
-          ))}
+          })}
           refreshControl={
             <RefreshControl refreshing={false} onRefresh={coachLog} />
           }
