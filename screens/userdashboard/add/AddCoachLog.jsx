@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { Button, Icon, Text, TextInput } from "react-native-paper";
+import { Button, Text, TextInput } from "react-native-paper";
 import DropdownList from "../../../components/inputs/DropdownList";
 import { useState } from "react";
 import { supabase } from "../../../lib/supabase";
@@ -73,7 +73,7 @@ export default function AddActivity({ navigation }) {
             onChangeText={(text) => setText1(text)}
             value={text1}
           /> */}
-          <DateTimePicker setInputDate={setText1} value={text1}/>
+          <DateTimePicker setInputDate={setText1} value={text1} />
         </View>
         <View style={styles.padding}>
           <Text>Current Weight</Text>
@@ -81,13 +81,14 @@ export default function AddActivity({ navigation }) {
             mode="outlined"
             placeholder="How long was your activity?"
             onChangeText={(text) => setText2(text)}
+            left={<TextInput.Icon icon="weight" />}
             value={text2}
           />
-          
         </View>
         <View style={styles.padding}>
           <Text>Attendance</Text>
           <DropdownList setSelected={setSelected1} data={attendanceTypes} />
+          
         </View>
         <View style={styles.padding}>
           <Text>Session Type</Text>
@@ -109,5 +110,6 @@ const styles = StyleSheet.create({
     },
     padding: {
         padding: 10
-    }
+    },
+    
 })

@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import DialogComponent from './dialog/Dialog';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const LeftContent = (props) => (
   <Avatar.Icon {...props} icon={"account-circle"} />
@@ -13,8 +14,11 @@ export default function UserCard({
   col1title,
   col2title,
   col3title,
+  col1icon,
   col1,
+  col2icon,
   col2,
+  col3icon,
   col3,
   date,
   data,
@@ -37,19 +41,22 @@ export default function UserCard({
         <View style={styles.grouping}>
           <Text variant="bodyMedium">{col1title}</Text>
           <View style={styles.text}>
-            <Text variant="bodySmall">{col1}</Text>
+            <Icon name={col1icon} size={17} color="grey" marginTop={0}/>
+            <Text variant="bodySmall" marginTop={1} marginLeft={2}>{col1}</Text>
           </View>
         </View>
         <View style={styles.grouping}>
           <Text variant="bodyMedium">{col2title}</Text>
           <View style={styles.text}>
-            <Text variant="bodySmall">{col2}</Text>
+            <Icon name={col2icon} size={17} color="grey" marginTop={0}/>
+            <Text variant="bodySmall" marginTop={1}>{col2}</Text>
           </View>
         </View>
         <View style={styles.grouping}>
           <Text variant="bodyMedium">{col3title}</Text>
           <View style={styles.text}>
-            <Text variant="bodySmall">{col3}</Text>
+            <Icon name={col3icon} size={17} color="grey" marginTop={0}/>
+            <Text variant="bodySmall" marginTop={1}>{col3}</Text>
           </View>
         </View>
       </Card.Content>
