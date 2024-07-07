@@ -3,6 +3,7 @@ import { Button, Text, TextInput } from "react-native-paper";
 import DropdownList from "../../../components/inputs/DropdownList";
 import { useState } from "react";
 import { supabase } from "../../../lib/supabase";
+import NewDropdownList from "../../../components/inputs/NewDropdownList";
 
 export default function AddActivity({ navigation, route }) {
   const { data } = route.params;
@@ -16,31 +17,32 @@ export default function AddActivity({ navigation, route }) {
     const [loading, setLoading] = useState(false);
 
     const exerciseTypes = [
-      { "key": 1, value: "Run" },
-      { "key": 2, value: "Walk" },
-      { "key": 3, value: "Swim" },
-      { "key": 4, value: "Weight Training" },
-      { "key": 5, value: "Pilates" },
-      { "key": 6, value: "Bike" },
-      { "key": 7, value: "Crossfit " },
-      { "key": 8, value: "Calisthenics" },
-      { "key": 9, value: "Other" },
-    ];
+      { icon: "run", title: "Run" },
+      { icon: "walk", title: "Walk" },
+      { icon: "swim", title: "Swim" },
+      { icon: "weight", title: "Weight Training" },
+      { icon: "yoga", title: "Pilates" },
+      { icon: "bike", title: "Bike" },
+      { icon: "jump-rope", title: "Crossfit" },
+      { icon: "human", title: "Calisthenics" },
+      { icon: "adjust", title: "Other" },
+    ]
+
 
     const perceivedDifficulty = [
-      { "key": 1, value: "Easy" },
-      { "key": 2, value: "Medium" },
-      { "key": 3, value: "Difficult" },
-    ];
+      { icon: "human-handsdown", title: "Easy" },
+      { icon: "human", title: "Medium" },
+      { icon: "human-handsup", title: "Difficult" },
+    ]
 
     async function submit() {
-        setLoading(true);
+      setLoading(true);
 
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if(data){
-          const { data, error } = await supabase
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (data) {
+        const { data, error } = await supabase
           .from("activity_log")
           .update({
             activity: text1,
@@ -51,7 +53,13 @@ export default function AddActivity({ navigation, route }) {
           })
           .eq("id", data?.id)
           .select();
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(data);
+          setLoading(false);
         }
+      } else {
         const { data, error } = await supabase
           .from("activity_log")
           .insert({
@@ -62,15 +70,15 @@ export default function AddActivity({ navigation, route }) {
             user: user.id,
           })
           .select();
-
         if (error) {
           console.log(error);
         } else {
+          console.log(data);
           setLoading(false);
-        navigation.replace("User Dashboard", { screen: "Activity Log" });
         }
+      }
 
-        
+      navigation.replace("User Dashboard", { screen: "Activity Log" });
     }
 
     return (
@@ -81,7 +89,8 @@ export default function AddActivity({ navigation, route }) {
         </View>
         <View style={styles.padding}>
           <Text>Exercise Type</Text>
-          <DropdownList setSelected={setSelected1} data={exerciseTypes} defaultValue={data?.exercise_type} />
+          {/* <DropdownList setSelected={setSelected1} data={exerciseTypes} defaultValue={data?.exercise_type} /> */}
+          <NewDropdownList data={exerciseTypes} setSelected={setSelected1} title={"Exercise Type"} defaultValue={selected1} />
         </View>
         <View style={styles.padding}>
           <Text>Duration (in minutes)</Text>
@@ -89,7 +98,8 @@ export default function AddActivity({ navigation, route }) {
         </View>
         <View style={styles.padding}>
           <Text>Perceived Difficulty</Text>
-          <DropdownList setSelected={setSelected2} data={perceivedDifficulty} defaultValue={data?.difficulty}/>
+          {/* <DropdownList setSelected={setSelected2} data={perceivedDifficulty} defaultValue={data?.difficulty}/> */}
+          <NewDropdownList data={perceivedDifficulty} setSelected={setSelected2} title={"Perceived Difficulty"} defaultValue={selected2} />
         </View>
         <View style={styles.padding}>
             <Button mode="contained" onPress={submit} loading={loading}>{data ? "Update" : "Submit"}</Button>

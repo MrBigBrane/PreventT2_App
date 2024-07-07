@@ -6,13 +6,13 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar, Text } from 'react-native-paper';
 import FloatingButton from '../../components/userdashboard/FloatingButton';
 import Graph from '../../components/graph/Graph';
-import fetchMinutes from '../../serveractions/graph/fetchMinutes';
 import NewGraph from '../../components/graph/NewGraph';
+import getWeeklyMinutes from '../../serveractions/graph/getWeeklyMinutes';
 
 export default function ActivityLog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
-    const [graphData, setGraphData] = useState([]);
+    const [user, setUser] = useState({});
 
     const [refreshing, setRefreshing] = useState(true);
 
@@ -21,6 +21,7 @@ export default function ActivityLog() {
           const {
             data: { user },
           } = await supabase.auth.getUser();
+          setUser(user);
           const { data, error } = await supabase
             .from("activity_log")
             .select()
@@ -33,8 +34,7 @@ export default function ActivityLog() {
             setData(data);
           }
 
-          const graph = Array.from(await fetchMinutes(user.id))
-          setGraphData(graph);
+          
 
           setRefreshing(false);
         }
@@ -96,7 +96,8 @@ export default function ActivityLog() {
     return (
       <View style={styles.container}>
         {/* {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={graphData[0]} yAxisSuffix={" min"}/>}  */}
-        {graphData.length > 0 && <NewGraph datum={graphData} />}
+        {/* {graphData.length > 0 && <NewGraph datum={graphData} />} */}
+        {user.id && <NewGraph user={user} />}
         <Searchbar
           placeholder="Search by activity"
           onChangeText={setSearchQuery}
@@ -112,9 +113,12 @@ export default function ActivityLog() {
                 col1title={"Exercise Type"}
                 col2title={"Duration"}
                 col3title={"Difficulty"}
-                col1={item.exercise_type}
+                col1={item.exercise_type?.title}
+                col1icon={item.exercise_type?.icon}
                 col2={`${item.minutes} min`}
-                col3={item.difficulty}
+                col2icon={"timer-outline"}
+                col3={item.difficulty?.title}
+                col3icon={item.difficulty?.icon}
                 date={`${item.created_at.substring(0, 10)}`}
                 data={item}
                 editPage={"Add Activity"}

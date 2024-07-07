@@ -3,7 +3,7 @@ import { supabase } from "../../lib/supabase";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Avatar, Text, Card, Button, Searchbar } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import fetchMinutes from "../../serveractions/graph/fetchMinutes";
+import getWeeklyMinutes from "../../serveractions/graph/getWeeklyMinutes";
 import { RefreshControl } from "react-native-gesture-handler";
 
 export default function ViewClass({ route, navigation }) {
@@ -56,7 +56,7 @@ export default function ViewClass({ route, navigation }) {
     function CardButton({ item }) {
         useEffect(() => {
             async function fetch() {
-                const data = Array.from(await fetchMinutes("92649add-ea69-402d-82c6-dbe144f8f7cc"))
+                const data = Array.from(await getWeeklyMinutes("92649add-ea69-402d-82c6-dbe144f8f7cc"))
                 setWeekData(data[data.length - 1].value);
             }
             fetch();
