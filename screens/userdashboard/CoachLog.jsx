@@ -28,6 +28,7 @@ export default function CoachLog() {
           if (error) {
             console.log(error);
           } else {
+            console.log(data);
             setData(data);
             const graph = Array.from(await fetchWeight(user.id))
             setGraphData(graph);
@@ -97,23 +98,28 @@ export default function CoachLog() {
         <FlatList
           data={data}
           renderItem={useCallback(({ item }) => {
-            if(item.sesstype.includes('-')) {
-              item.sesstype = item.sesstype.substring(0, 4);
+            let sessType;
+            if(item.sesstype.title.includes('-')) {
+              sessType = item.sesstype.title.substring(0, 4);
             }
             else{
-              item.sesstype = item.sesstype.substring(0, 2).replace(/\s/g, '')
+              sessType = item.sesstype.title.substring(0, 2).replace(/\s/g, '')
             }
 
 
             return <View key={item.id} style={styles.container}>
               <Card
+                data={item}
                 title={`Week of ${item.created_at.substring(0, 10)}`}
                 col1title={"Current Weight"}
                 col2title={"Attendance"}
                 col3title={"Session Type"}
                 col1={item.current_weight}
-                col2={item.attendance}
-                col3={item.sesstype}
+                col1icon={"weight"}
+                col2icon={item.attendance.icon}
+                col2={item.attendance.title}
+                col3icon={item.sesstype.icon}
+                col3={sessType}
                 date={item.created_at.substring(0, 10)}
                 editPage={"Add Coach Log"}
                 deleteAction={() => deleteItem(item.id)}

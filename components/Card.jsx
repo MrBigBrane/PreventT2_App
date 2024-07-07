@@ -49,14 +49,14 @@ export default function UserCard({
           <Text variant="bodyMedium">{col2title}</Text>
           <View style={styles.text}>
             <Icon name={col2icon} size={17} color="grey" marginTop={0}/>
-            <Text variant="bodySmall" marginTop={1}>{col2}</Text>
+            <Text variant="bodySmall" marginTop={1} marginLeft={3}>{col2}</Text>
           </View>
         </View>
         <View style={styles.grouping}>
           <Text variant="bodyMedium">{col3title}</Text>
           <View style={styles.text}>
             <Icon name={col3icon} size={17} color="grey" marginTop={0}/>
-            <Text variant="bodySmall" marginTop={1}>{col3}</Text>
+            <Text variant="bodySmall" marginTop={1} marginHorizontal={3}>{col3}</Text>
           </View>
         </View>
       </Card.Content>

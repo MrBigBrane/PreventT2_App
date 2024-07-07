@@ -1,23 +1,29 @@
 import { StyleSheet, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
-import DropdownList from "../../../components/inputs/DropdownList";
+//import DropdownList from "../../../components/inputs/DropdownList";
 import { useState } from "react";
 import { supabase } from "../../../lib/supabase";
+import NewDropdownList from "../../../components/inputs/NewDropdownList";
+import DateTimePicker from "../../../components/DatePicker";
 
-export default function AddActivity({ navigation }) {
-    const [selected1, setSelected1] = useState();
-    const [text1, setText1] = useState();
-    const [text2, setText2] = useState();
-    const [text3, setText3] = useState();
-    const [text4, setText4] = useState();
+export default function AddMeal({ navigation, route }) {
+  const { data } = route.params;
+
+    const [selected1, setSelected1] = useState(data?.meal_type);
+    const [text1, setText1] = useState(data?.item);
+    const [text2, setText2] = useState(data?.amount.toString());
+    const [text3, setText3] = useState(data?.calories.toString());
+    const [text4, setText4] = useState(data?.created_at);
 
     const [loading, setLoading] = useState(false);
 
     const mealTypes = [
-      { "key": 1, value: "Breakfast" },
-      { "key": 2, value: "Lunch" },
-      { "key": 3, value: "Dinner" },
-      { "key": 4, value: "Snack" },
+      { icon: "coffee", title: "Breakfast" },
+      { icon: "hamburger", title: "Lunch" },
+      { icon: "silverware-fork-knife", title: "Dinner" },
+      { icon: "food-fork-drink", title: "Snack" },
+      { icon: "bottle-wine", title: "Drink"},
+      { icon: "food-variant", title: "Other" },
 
     ];
 
@@ -28,6 +34,20 @@ export default function AddActivity({ navigation }) {
           data: { user },
         } = await supabase.auth.getUser();
 
+        if(data){
+          const { data, error } = await supabase
+          .from("meal_plans")
+          .update({
+            created_at: text4,
+            meal_type: selected1,
+            item: text1,
+            amount: text2,
+            calories: text3,
+            user: user.id,
+          })
+          .eq("id", data?.id)
+          .select();
+        } else {
         const { data, error } = await supabase
           .from("meal_plans")
           .insert({
@@ -39,7 +59,7 @@ export default function AddActivity({ navigation }) {
             user: user.id,
           })
           .select();
-
+        }
         if (error) {
           console.log(error);
         } else {
@@ -54,24 +74,25 @@ export default function AddActivity({ navigation }) {
       <View style={styles.spacing}>
         <View style={styles.padding}>
           <Text>Date and Time</Text>
-          <TextInput
+          {/* <TextInput
             mode="outlined"
             placeholder="MM/DD/YYYY HH:MM:AA"
             onChangeText={(text) => setText4(text)}
             value={text4}
-          />
+          /> */}
+          <DateTimePicker setInputDate={setText1} value={text1} />
         </View>
         <View style={styles.padding}>
           <Text>Meal Type</Text>
-          <DropdownList setSelected={setSelected1} data={mealTypes} />
+          <NewDropdownList setSelected={setSelected1} data={mealTypes} title={"Meal Type"} defaultValue={selected1} />
         </View>
         <View style={styles.padding}>
           <Text>Item</Text>
           <TextInput
             mode="outlined"
             placeholder="Item"
-            onChangeText={(text) => setText1(text)}
-            value={text1}
+            onChangeText={(text) => setText2(text)}
+            value={text2}
             left={<TextInput.Icon icon="food" />}
           />
         </View>
@@ -80,8 +101,8 @@ export default function AddActivity({ navigation }) {
           <TextInput
             mode="outlined"
             placeholder="Amount"
-            onChangeText={(text) => setText2(text)}
-            value={text2}
+            onChangeText={(text) => setText3(text)}
+            value={text3}
             left={<TextInput.Icon icon="weight" />}
           />
         </View>
@@ -90,8 +111,8 @@ export default function AddActivity({ navigation }) {
           <TextInput
             mode="outlined"
             placeholder="Calories"
-            onChangeText={(text) => setText3(text)}
-            value={text3}
+            onChangeText={(text) => setText4(text)}
+            value={text4}
             left={<TextInput.Icon icon="fire" />}
           />
         </View>
