@@ -3,7 +3,7 @@ import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const NewDropdownList = ({ data, setSelected, title, defaultValue }) => {
+const NewDropdownList = ({ data, setSelected, onSelect, title, defaultValue }) => {
 
   return (
     <View style={styles.container}>

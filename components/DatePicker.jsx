@@ -12,7 +12,7 @@ export default function DatePicker({ setInputDate, value }) {
   
     const onChange = (event, selectedDate) => {
       const currentDate = new Date(selectedDate);
-      let formattedDate = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear() + " " + currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+      let formattedDate = (currentDate.getMonth() + 1) + "/" + currentDate.getDate() + "/" + currentDate.getFullYear() + " " + currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
       setShow(false);
       setInputDate(formattedDate);
     };

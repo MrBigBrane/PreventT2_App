@@ -1,7 +1,7 @@
 import { supabase } from "../../lib/supabase";
 
 
-export default async function fetchMinutes(userId) {
+export default async function getWeeklyMinutes(userId) {
 
     let creationDate = await supabase
         .from("profiles")
@@ -16,21 +16,12 @@ export default async function fetchMinutes(userId) {
 
     let minuteGraph = data;
 
-    let weeks = []
-    let minutes = []
-    let counter = 0;
     let graphObject = []
     minuteGraph.map((row) => {
-        if (counter === minuteGraph.length - 4) {
-        //     weeks.push(row.week_start)
-        // minutes.push(row.total_minutes)
-        graphObject.push({ value: row.total_minutes, label: row.week_start });
-        }
-        else {
-            counter++;
-        }
+        let weekStart = new Date(row.week_start);
+        // weekStart = weekStart.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+        weekStart = weekStart.toString().substring(4, 15)
+        graphObject.push({ value: row.total_minutes, label: weekStart });
     })
-    minuteGraph = [minutes, weeks];
-    // return minuteGraph;
     return graphObject
 }
