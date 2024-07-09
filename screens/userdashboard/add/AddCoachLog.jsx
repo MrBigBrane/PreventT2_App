@@ -8,13 +8,13 @@ import NewDropdownList from "../../../components/inputs/NewDropdownList";
 
 
 export default function AddCoachLog({ navigation, route }) {
-const { data } = route.params;
-console.log(data)
+    const coachData = route ? route.params : null;
+    let datum = coachData ? coachData.datum : null
 
-    const [selected1, setSelected1] = useState(data?.attendance);
-    const [selected2, setSelected2] = useState(data?.sesstype);
-    const [text1, setText1] = useState(data?.created_at);
-    const [text2, setText2] = useState(data?.current_weight.toString());
+    const [selected1, setSelected1] = useState(datum ? datum.attendance : null);
+    const [selected2, setSelected2] = useState(datum ? datum.sesstype : null);
+    const [text1, setText1] = useState(datum ? datum.created_at : null);
+    const [text2, setText2] = useState(datum ? datum.current_weight.toString() : null);
 
     const [loading, setLoading] = useState(false);
 
@@ -40,7 +40,7 @@ console.log(data)
           data: { user },
         } = await supabase.auth.getUser();
 
-        if(data){
+        if(datum){
           const { data, error } = await supabase
           .from("lifestyle_coach_log")
           .update({
@@ -50,8 +50,14 @@ console.log(data)
             sesstype: selected2,
             user: user.id,
           })
-          .eq("id", data?.id)
+          .eq("id", datum?.id)
           .select();
+          if (error) {
+            console.log(error);
+          } else {
+            setLoading(false);
+          navigation.replace("User Dashboard", { screen: "Coach Log" });
+          }
         } else {
         const { data, error } = await supabase
           .from("lifestyle_coach_log")
@@ -63,13 +69,13 @@ console.log(data)
             user: user.id,
           })
           .select();
-        }
+        
         if (error) {
           console.log(error);
         } else {
           setLoading(false);
         navigation.replace("User Dashboard", { screen: "Coach Log" });
-        }
+        }}
 
 
 
@@ -116,7 +122,7 @@ console.log(data)
         </View>
         <View style={styles.padding}>
           <Button mode="contained" onPress={submit} loading={loading}>
-            Submit
+            {datum ? "Update" : "Submit"}
           </Button>
         </View>
       </View>
