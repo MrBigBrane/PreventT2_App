@@ -62,7 +62,7 @@ export default function UserCard({
       </Card.Content>
       {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
       <Card.Actions>
-        <Button onPress={() => navigation.navigate(editPage, { data: data })}>
+        <Button onPress={() => navigation.navigate(editPage, { datum: data })}>
           Edit
         </Button>
         <DialogComponent

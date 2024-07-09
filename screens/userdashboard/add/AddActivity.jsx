@@ -6,13 +6,14 @@ import { supabase } from "../../../lib/supabase";
 import NewDropdownList from "../../../components/inputs/NewDropdownList";
 
 export default function AddActivity({ navigation, route }) {
-  const { data } = route.params;
+  const activityData = route ? route.params : null
+  let datum = activityData ? activityData.datum : null
   
 
-    const [selected1, setSelected1] = useState(data?.exercise_type);
-    const [selected2, setSelected2] = useState(data?.difficulty);
-    const [text1, setText1] = useState(data?.activity);
-    const [text2, setText2] = useState(data?.minutes.toString());
+    const [selected1, setSelected1] = useState(datum?.exercise_type);
+    const [selected2, setSelected2] = useState(datum?.difficulty);
+    const [text1, setText1] = useState(datum?.activity);
+    const [text2, setText2] = useState(datum?.minutes.toString());
 
     const [loading, setLoading] = useState(false);
 
@@ -41,17 +42,18 @@ export default function AddActivity({ navigation, route }) {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (data) {
+      if (datum) {
+        console.log(datum.id);
         const { data, error } = await supabase
           .from("activity_log")
           .update({
             activity: text1,
             exercise_type: selected1,
-            minutes: parseInt(text2),
+            minutes: text2,
             difficulty: selected2,
             user: user.id,
           })
-          .eq("id", data?.id)
+          .eq("id", datum?.id)
           .select();
         if (error) {
           console.log(error);
@@ -102,7 +104,7 @@ export default function AddActivity({ navigation, route }) {
           <NewDropdownList data={perceivedDifficulty} setSelected={setSelected2} title={"Perceived Difficulty"} defaultValue={selected2} />
         </View>
         <View style={styles.padding}>
-            <Button mode="contained" onPress={submit} loading={loading}>{data ? "Update" : "Submit"}</Button>
+            <Button mode="contained" onPress={submit} loading={loading}>{datum ? "Update" : "Submit"}</Button>
         </View>
       </View>
     );
