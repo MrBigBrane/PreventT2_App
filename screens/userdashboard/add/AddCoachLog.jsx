@@ -74,9 +74,10 @@ export default function AddCoachLog({ navigation, route }) {
           console.log(error);
         } else {
           setLoading(false);
+        
+        }
+      }
         navigation.replace("User Dashboard", { screen: "Coach Log" });
-        }}
-
 
 
         

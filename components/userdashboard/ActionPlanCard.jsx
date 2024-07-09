@@ -5,6 +5,7 @@ import DialogComponent from '../dialog/Dialog';
 import { useNavigation } from '@react-navigation/native';
 
 
+
 const LeftContent = (props) => (
   <Avatar.Icon {...props} icon={"account-circle"} />
 );
@@ -68,7 +69,7 @@ const ActionPlan = ({
       </Card.Content>
       {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
       <Card.Actions>
-        <Button onPress={() => navigation.navigate(editPage, { data: data })}>
+        <Button onPress={() => navigation.navigate(editPage, { datum: data })}>
           Edit
         </Button>
         <DialogComponent
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   },
   surface: {
     padding: 8,
-    height: 80,
+    height: 'flex-start',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
