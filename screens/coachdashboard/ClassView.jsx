@@ -26,6 +26,8 @@ export default function ClassView({ navigation, route }) {
         getClass();
     }, [])
 
+    
+
     function CardButton({ title, icon, onPress}) {
         return (
           <Card style={styles.card} onPress={onPress}>
@@ -39,6 +41,7 @@ export default function ClassView({ navigation, route }) {
           </Card>
         );
     }
+    
 
     return (
       <View>
@@ -73,5 +76,5 @@ const styles = StyleSheet.create({
     card: {
       padding: 12,
       margin: 12,
-    }
+    },
   })

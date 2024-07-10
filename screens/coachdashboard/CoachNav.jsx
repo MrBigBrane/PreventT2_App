@@ -4,6 +4,7 @@ import CoachesDashboard from './CoachesDashboard';
 import ClassView from './ClassView';
 import Settings from './Settings';
 import ViewClass from './ViewClass';
+import ViewStudent from './ViewStudent';
 
 
 export default function CoachNav() {
@@ -27,6 +28,10 @@ export default function CoachNav() {
       <Stack.Screen
         name="View Class"
         component={ViewClass}
+      />
+      <Stack.Screen
+        name="View Student"
+        component={ViewStudent}
       />
     </Stack.Navigator>
   );

@@ -32,6 +32,7 @@ export default function DatePicker({ setInputDate, value }) {
         {/* <Icon name="calendar" onPress={showDatepicker} /> */}
         <TextInput
           mode="outlined"
+          left={<TextInput.Icon icon="clock" />}
           right={<TextInput.Icon icon="calendar" onPress={showDatepicker} />}
           value={value}
           // onChangeText={(text) => setDate(text.toString())}
