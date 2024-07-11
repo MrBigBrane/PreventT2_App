@@ -5,20 +5,19 @@ import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import FloatingButton from '../../components/userdashboard/FloatingButton';
-import Graph from '../../components/graph/Graph';
-import fetchWeight from '../../serveractions/graph/fetchWeight';
+import WeightGraph from '../../components/graph/WeightGraph';
 
 export default function CoachLog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
-
-    const [graphData, setGraphData] = useState([]);
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         async function coachLog() {
           const {
             data: { user },
           } = await supabase.auth.getUser();
+          setUser(user);
           const { data, error } = await supabase
             .from("lifestyle_coach_log")
             .select()
@@ -28,10 +27,7 @@ export default function CoachLog() {
           if (error) {
             console.log(error);
           } else {
-            console.log(data);
             setData(data);
-            const graph = Array.from(await fetchWeight(user.id))
-            setGraphData(graph);
           }
         }
 
@@ -88,7 +84,7 @@ export default function CoachLog() {
 
     return (
       <View style={styles.container}>
-        {/* {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={[0, 0, 0, 0]} hiddenIndex={graphData[2]} yAxisSuffix={" lbs"}/>}   */}
+        {user.id && <WeightGraph user={user} />}
         <Searchbar
           placeholder="Search by Date (YYYY-MM-DD)"
           onChangeText={setSearchQuery}
@@ -99,32 +95,32 @@ export default function CoachLog() {
           data={data}
           renderItem={useCallback(({ item }) => {
             let sessType;
-            if(item.sesstype.title.includes('-')) {
+            if (item.sesstype.title.includes("-")) {
               sessType = item.sesstype.title.substring(0, 4);
-            }
-            else{
-              sessType = item.sesstype.title.substring(0, 2).replace(/\s/g, '')
+            } else {
+              sessType = item.sesstype.title.substring(0, 2).replace(/\s/g, "");
             }
 
-
-            return <View key={item.id} style={styles.container}>
-              <Card
-                data={item}
-                title={`Week of ${item.created_at.substring(0, 10)}`}
-                col1title={"Current Weight"}
-                col2title={"Attendance"}
-                col3title={"Session Type"}
-                col1={item.current_weight}
-                col1icon={"weight"}
-                col2icon={item.attendance.icon}
-                col2={item.attendance.title}
-                col3icon={item.sesstype.icon}
-                col3={sessType}
-                date={item.created_at.substring(0, 10)}
-                editPage={"Add Coach Log"}
-                deleteAction={() => deleteItem(item.id)}
-              />
-            </View>
+            return (
+              <View key={item.id} style={styles.container}>
+                <Card
+                  data={item}
+                  title={`Week of ${item.created_at.substring(0, 10)}`}
+                  col1title={"Current Weight"}
+                  col2title={"Attendance"}
+                  col3title={"Session Type"}
+                  col1={item.current_weight}
+                  col1icon={"weight"}
+                  col2icon={item.attendance.icon}
+                  col2={item.attendance.title}
+                  col3icon={item.sesstype.icon}
+                  col3={sessType}
+                  date={item.created_at.substring(0, 10)}
+                  editPage={"Add Coach Log"}
+                  deleteAction={() => deleteItem(item.id)}
+                />
+              </View>
+            );
           })}
           refreshControl={
             <RefreshControl refreshing={false} onRefresh={coachLog} />
