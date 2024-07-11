@@ -28,7 +28,7 @@ export default function UserDrawer() {
         }}
       />
       <Drawer.Screen
-        name="Meal Logs"
+        name="Meal Log"
         component={MealLog}
         options={{
           drawerIcon: ({ color, size }) => (

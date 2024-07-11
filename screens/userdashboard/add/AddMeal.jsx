@@ -7,13 +7,14 @@ import NewDropdownList from "../../../components/inputs/NewDropdownList";
 import DateTimePicker from "../../../components/DatePicker";
 
 export default function AddMeal({ navigation, route }) {
-  const { data } = route.params;
+  const  mealData = route ? route.params : null;
+  let datum = mealData ? mealData.datum : null
 
-    const [selected1, setSelected1] = useState(data?.meal_type);
-    const [text1, setText1] = useState(data?.item);
-    const [text2, setText2] = useState(data?.amount.toString());
-    const [text3, setText3] = useState(data?.calories.toString());
-    const [text4, setText4] = useState(data?.created_at);
+    const [selected1, setSelected1] = useState(datum ? datum?.meal_type : null);
+    const [text1, setText1] = useState(datum ? datum?.item : null);
+    const [text2, setText2] = useState(datum ?datum?.amount.toString() : null);
+    const [text3, setText3] = useState(datum ? datum?.calories.toString() : null);
+    const [text4, setText4] = useState(datum ? datum?.created_at : null);
 
     const [loading, setLoading] = useState(false);
 
@@ -34,7 +35,7 @@ export default function AddMeal({ navigation, route }) {
           data: { user },
         } = await supabase.auth.getUser();
 
-        if(data){
+        if(datum){
           const { data, error } = await supabase
           .from("meal_plans")
           .update({
@@ -45,7 +46,7 @@ export default function AddMeal({ navigation, route }) {
             calories: text3,
             user: user.id,
           })
-          .eq("id", data?.id)
+          .eq("id", datum?.id)
           .select();
         } else {
         const { data, error } = await supabase
@@ -59,15 +60,16 @@ export default function AddMeal({ navigation, route }) {
             user: user.id,
           })
           .select();
-        }
+        
         if (error) {
           console.log(error);
         } else {
           setLoading(false);
-        navigation.replace("User Dashboard", { screen: "Meal Log" });
-        }
-
         
+        }
+      }
+
+        navigation.replace("User Dashboard", { screen: "Meal Log" });
     }
 
     return (
@@ -80,7 +82,7 @@ export default function AddMeal({ navigation, route }) {
             onChangeText={(text) => setText4(text)}
             value={text4}
           /> */}
-          <DateTimePicker setInputDate={setText1} value={text1} />
+          <DateTimePicker setInputDate={setText4} value={text4} />
         </View>
         <View style={styles.padding}>
           <Text>Meal Type</Text>
@@ -91,8 +93,8 @@ export default function AddMeal({ navigation, route }) {
           <TextInput
             mode="outlined"
             placeholder="Item"
-            onChangeText={(text) => setText2(text)}
-            value={text2}
+            onChangeText={(text) => setText1(text)}
+            value={text1}
             left={<TextInput.Icon icon="food" />}
           />
         </View>
@@ -101,8 +103,8 @@ export default function AddMeal({ navigation, route }) {
           <TextInput
             mode="outlined"
             placeholder="Amount"
-            onChangeText={(text) => setText3(text)}
-            value={text3}
+            onChangeText={(text) => setText2(text)}
+            value={text2}
             left={<TextInput.Icon icon="weight" />}
           />
         </View>
@@ -111,14 +113,14 @@ export default function AddMeal({ navigation, route }) {
           <TextInput
             mode="outlined"
             placeholder="Calories"
-            onChangeText={(text) => setText4(text)}
-            value={text4}
+            onChangeText={(text) => setText3(text)}
+            value={text3}
             left={<TextInput.Icon icon="fire" />}
           />
         </View>
         <View style={styles.padding}>
           <Button mode="contained" onPress={submit} loading={loading}>
-            Submit
+            {datum ? "Update" : "Submit"}
           </Button>
         </View>
       </View>

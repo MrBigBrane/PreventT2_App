@@ -5,13 +5,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import FloatingButton from '../../components/userdashboard/FloatingButton';
+import { RefreshControl } from 'react-native';
 
 export default function MealLog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        async function activityLog() {
+        async function mealLog() {
           const {
             data: { user },
           } = await supabase.auth.getUser();
@@ -28,10 +29,10 @@ export default function MealLog() {
           }
         }
 
-        activityLog();
+        mealLog();
     }, [])
 
-    async function activityLog() {
+    async function mealLog() {
         const {
           data: { user },
         } = await supabase.auth.getUser();
@@ -72,7 +73,7 @@ export default function MealLog() {
         if (error) {
           console.log(error);
         } else {
-          activityLog();
+          mealLog();
         }
       }
     
@@ -83,7 +84,7 @@ export default function MealLog() {
         <Searchbar
           placeholder="Search"
           onChangeText={setSearchQuery}
-          onIconPress={activityLog}
+          onIconPress={mealLog}
           value={searchQuery}
         />
         <FlatList
@@ -91,7 +92,8 @@ export default function MealLog() {
           renderItem={useCallback(({ item }) => (
             <View key={item.id} style={styles.container}>
               <Card
-                title={item.meal_type}
+                data={item}
+                title={item.meal_type.title}
                 col1title={"Item"}
                 col2title={"Amount"}
                 col3title={"Calories"}
@@ -107,6 +109,11 @@ export default function MealLog() {
               />
             </View>
           ))}
+
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={mealLog} />
+          }
+
           keyExtractor={(item) => item.id}
         />
         <FloatingButton />

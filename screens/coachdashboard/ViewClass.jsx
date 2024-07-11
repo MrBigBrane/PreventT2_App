@@ -5,6 +5,7 @@ import { Avatar, Text, Card, Button, Searchbar } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import getWeeklyMinutes from "../../serveractions/graph/getWeeklyMinutes";
 import { RefreshControl } from "react-native-gesture-handler";
+import ViewStudent from "./ViewStudent";
 
 export default function ViewClass({ route, navigation }) {
     const { classData } = route.params;
@@ -68,6 +69,11 @@ export default function ViewClass({ route, navigation }) {
 
         const [showDetails, setShowDetails] = useState(false);
 
+        function handleButtonPress() {
+            console.log(item);
+            navigation.navigate("View Student", { studentData: studentData });
+        }
+
         return (
           <Card style={styles.card}>
             <Card.Title
@@ -98,6 +104,9 @@ export default function ViewClass({ route, navigation }) {
               </Card.Content>
             )}
             <Card.Actions>
+              <Button onPress={handleButtonPress}>
+                View Student
+              </Button>
               <Button
                 onPress={() => setShowDetails(!showDetails)}
                 icon={showDetails ? "chevron-up" : "chevron-down"}

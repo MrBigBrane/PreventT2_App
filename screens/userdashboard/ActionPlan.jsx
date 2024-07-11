@@ -2,7 +2,7 @@ import { supabase } from '../../lib/supabase'
 import { StyleSheet, View } from "react-native";
 import ActionPlanCard from '../../components/userdashboard/ActionPlanCard';
 import { useCallback, useEffect, useState } from 'react';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import FloatingButton from '../../components/userdashboard/FloatingButton';
 
@@ -11,7 +11,7 @@ export default function ActionPlan() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        async function activityLog() {
+        async function actionPlan() {
           const {
             data: { user },
           } = await supabase.auth.getUser();
@@ -28,10 +28,10 @@ export default function ActionPlan() {
           }
         }
 
-        activityLog();
+        actionPlan();
     }, [])
 
-    async function activityLog() {
+    async function actionPlan() {
         const {
           data: { user },
         } = await supabase.auth.getUser();
@@ -71,7 +71,7 @@ export default function ActionPlan() {
         if (error) {
           console.log(error);
         } else {
-          activityLog();
+          actionPlan();
         }
       }
     
@@ -82,7 +82,7 @@ export default function ActionPlan() {
         <Searchbar
           placeholder="Search"
           onChangeText={setSearchQuery}
-          onIconPress={activityLog}
+          onIconPress={actionPlan}
           value={searchQuery}
         />
         <FlatList
@@ -90,6 +90,7 @@ export default function ActionPlan() {
           renderItem={useCallback(({ item }) => (
             <View key={item.id} style={styles.container}>
               <ActionPlanCard
+                data={item}
                 title={`${item.created_at} Action Plan`}
                 col1title={"Q1: Routine Change"}
                 col2title={"Q2: New Routine"}
