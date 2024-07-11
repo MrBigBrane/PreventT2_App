@@ -5,6 +5,7 @@ import ClassView from './ClassView';
 import Settings from './Settings';
 import ViewClass from './ViewClass';
 import ViewStudent from './ViewStudent';
+import AddClass from './AddClass';
 
 
 export default function CoachNav() {
@@ -15,6 +16,10 @@ export default function CoachNav() {
         name="Coaches Dashboard"
         component={CoachesDashboard}
         options={{ headerLeft: null }}
+      />
+      <Stack.Screen
+        name="Add Class"
+        component={AddClass}
       />
       <Stack.Screen
         name="ClassView"

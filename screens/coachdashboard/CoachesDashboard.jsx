@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { FlatList } from "react-native-gesture-handler";
 import CoachClassCard from "../../components/CoachClassCard";
+import { Searchbar } from 'react-native-paper';
+import NewFloatingButton from "../../components/coachesdashboard/NewFloatingButton";
 
 export default function CoachesDashboard({ navigation }) {
     const [data, setData] = useState([]);
@@ -49,7 +51,9 @@ export default function CoachesDashboard({ navigation }) {
               <RefreshControl refreshing={false} onRefresh={getClasses} />
             }
           />
+          
         </View>
+        <NewFloatingButton />
       </View>
     );
 }
