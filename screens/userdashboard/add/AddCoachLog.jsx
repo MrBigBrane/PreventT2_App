@@ -45,6 +45,7 @@ export default function AddCoachLog({ navigation, route }) {
           .from("lifestyle_coach_log")
           .update({
             created_at: text1,
+            created_at_string: text1,
             attendance: selected1,
             current_weight: text2,
             sesstype: selected2,
@@ -63,6 +64,7 @@ export default function AddCoachLog({ navigation, route }) {
           .from("lifestyle_coach_log")
           .insert({
             created_at: text1,
+            created_at_string: text1,
             attendance: selected1,
             current_weight: text2,
             sesstype: selected2,
