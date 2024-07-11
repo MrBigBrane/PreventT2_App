@@ -4,7 +4,7 @@ import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 
 
-export default function AddClass() {
+export default function AddClass({ navigation }) {
     const [text1, setText1] = useState("");
     const [text2, setText2] = useState("");
     const [text3, setText3] = useState("");
@@ -15,7 +15,7 @@ export default function AddClass() {
         setLoading(true);
   
         const {
-          data: { coach_user },
+          data: { user },
         } = await supabase.auth.getUser();
         
           const { data, error } = await supabase
@@ -25,7 +25,7 @@ export default function AddClass() {
                 coachid: text2,
                 cohortid: text3,
                 orgcode: text4,
-                coach_user: coach_user.code,
+                coach_user: user.id
             })
             .select();
           if (error) {
