@@ -75,7 +75,7 @@ export default function ViewClass({ route, navigation }) {
         }
 
         return (
-          <Card style={styles.card}>
+          <Card style={styles.card} onPress={handleButtonPress}>
             <Card.Title
               title={`${item.first_name} ${item.last_name}`}
               titleVariant="headlineMedium"
@@ -104,9 +104,9 @@ export default function ViewClass({ route, navigation }) {
               </Card.Content>
             )}
             <Card.Actions>
-              <Button onPress={handleButtonPress}>
+              {/* <Button onPress={handleButtonPress}>
                 View Student
-              </Button>
+              </Button> */}
               <Button
                 onPress={() => setShowDetails(!showDetails)}
                 icon={showDetails ? "chevron-up" : "chevron-down"}
