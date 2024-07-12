@@ -31,7 +31,24 @@ export default function WeightGraph({ user }) {
         graph()
       }, [])
 
-      
+      let text;
+
+      if (setting.title === "Week" && data[value]?.value !== null && data[value]?.date !== null) {
+        text = (
+          <>
+            <Text>{data[value]?.date}</Text>
+            <Text>{data[value]?.value} min</Text>
+          </>
+        );
+      }
+      else if (setting.title === "Month" && monthData[value]?.value !== null && monthData[value]?.date !== null) {
+        text = (
+          <>
+            <Text>{monthData[value]?.date}</Text>
+            <Text>{monthData[value]?.value} lbs</Text>
+          </>
+        );
+      }
           
       
       
@@ -47,15 +64,15 @@ export default function WeightGraph({ user }) {
         <View
           style={[
             styles.container,
-            setting.title === "Week" ? { marginBottom: 25 } : {},
           ]}
         >
           {data.length > 0 && (
             <>
               {value !== null && (
                 <Surface style={styles.paper}>
-                  <Text>{setting.title === "Week" && data[value]?.date ? data[value]?.date : monthData[value]?.date}</Text>
-                  <Text>{setting.title === "Week" && data[value]?.value ? data[value]?.value : monthData[value]?.value} lbs</Text>
+                  {/* <Text>{setting.title === "Week" && data[value]?.date ? data[value]?.date : monthData[value]?.date}</Text>
+                  <Text>{setting.title === "Week" && data[value]?.value ? data[value]?.value : monthData[value]?.value} lbs</Text> */}
+                  {text}
                 </Surface>
               )}
               <LineChart

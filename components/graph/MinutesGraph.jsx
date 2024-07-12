@@ -31,6 +31,24 @@ export default function MinutesGraph({ user }) {
         graph()
       }, [])
 
+      let text;
+
+      if (setting.title === "Week" && data[value]?.value !== null && data[value]?.date !== null) {
+        text = (
+          <>
+            <Text>{data[value]?.date}</Text>
+            <Text>{data[value]?.value} min</Text>
+          </>
+        );
+      }
+      else if (setting.title === "Month" && monthData[value]?.value !== null && monthData[value]?.date !== null) {
+        text = (
+          <>
+            <Text>{monthData[value]?.date}</Text>
+            <Text>{monthData[value]?.value} min</Text>
+          </>
+        );
+      }
       
           
       
@@ -47,14 +65,14 @@ export default function MinutesGraph({ user }) {
         <View
           style={[
             styles.container,
-            setting.title === "Week" ? { marginBottom: 25 } : {},
           ]}
         >
           {data.length > 0 && (
             <>
               {value !== null ? <Surface style={styles.paper}>
-                <Text>{setting.title === "Week" && data[value]?.date ? data[value]?.date.toString() : monthData[value]?.date.toString()}</Text>
-                <Text>{setting.title === "Week" && data[value]?.value ? data[value]?.value.toString() : monthData[value]?.value.toString()} min</Text>
+                {/* <Text>{setting.title === "Week" && data[value]?.date || monthData[value]?.date ? data[value]?.date.toString() : monthData[value]?.date.toString()}</Text>
+                <Text>{setting.title === "Week" && data[value]?.value || monthData[value]?.value ? data[value]?.value : monthData[value]?.value} min</Text> */}
+                {text}
               </Surface> : null}
               <LineChart
                 initialSpacing={50}

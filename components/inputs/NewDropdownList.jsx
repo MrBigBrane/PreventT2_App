@@ -11,6 +11,7 @@ const NewDropdownList = ({ data, setSelected, onSelected, title, defaultValue })
         data={data}
         onSelect={(selectedItem, index) => {
           setSelected(selectedItem);
+          console.log(selectedItem);
         }}
         // defaultValueByIndex={8} // use default value by index or default value
         defaultValue={defaultValue} // use default value by index or default value

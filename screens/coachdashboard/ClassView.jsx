@@ -56,7 +56,13 @@ export default function ClassView({ navigation, route }) {
             navigation.navigate("View Class", { classData: classData })
           }
         />
-        <CardButton title="Announcements" icon={"bullhorn"} />
+        <CardButton
+          title="Announcements"
+          icon={"bullhorn"}
+          onPress={() => {
+            navigation.navigate("Announcements", { classData: classData });
+          }}
+        />
         <CardButton
           title="Settings"
           icon={"cog"}
