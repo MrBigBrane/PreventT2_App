@@ -70,7 +70,6 @@ export default function ViewClass({ route, navigation }) {
         const [showDetails, setShowDetails] = useState(false);
 
         function handleButtonPress() {
-            console.log(item);
             navigation.navigate("View Student", { studentData: studentData });
         }
 

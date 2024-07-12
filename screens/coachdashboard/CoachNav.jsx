@@ -6,6 +6,8 @@ import Settings from './Settings';
 import ViewClass from './ViewClass';
 import ViewStudent from './ViewStudent';
 import AddClass from './AddClass';
+import Announcements from './Announcements';
+import ViewAnnouncement from "./ViewAnnouncement";
 
 
 export default function CoachNav() {
@@ -17,27 +19,17 @@ export default function CoachNav() {
         component={CoachesDashboard}
         options={{ headerLeft: null }}
       />
-      <Stack.Screen
-        name="Add Class"
-        component={AddClass}
-      />
+      <Stack.Screen name="Add Class" component={AddClass} />
       <Stack.Screen
         name="ClassView"
         component={ClassView}
         options={({ route }) => ({ title: route.params.className })}
       />
-      <Stack.Screen
-        name="Settings"
-        component={Settings}
-      />
-      <Stack.Screen
-        name="View Class"
-        component={ViewClass}
-      />
-      <Stack.Screen
-        name="View Student"
-        component={ViewStudent}
-      />
+      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="View Class" component={ViewClass} />
+      <Stack.Screen name="View Student" component={ViewStudent} />
+      <Stack.Screen name="Announcements" component={Announcements} />
+      <Stack.Screen name="View Announcement" component={ViewAnnouncement} />
     </Stack.Navigator>
   );
 }

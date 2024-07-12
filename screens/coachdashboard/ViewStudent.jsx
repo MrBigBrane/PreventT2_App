@@ -1,18 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
 import { supabase } from "../../lib/supabase";
-import { useEffect, useState, useRef, useCallback } from "react";
-import NewDropdownList from "../../components/inputs/NewDropdownList";
+import { useEffect, useState, useCallback } from "react";
 import { FlatList } from "react-native";
 import Card from "../../components/Card";
-import fetchWeight from '../../serveractions/graph/fetchWeight';
 import { RefreshControl } from "react-native-gesture-handler";
 import { Searchbar } from 'react-native-paper';
 
 
 export default function ViewStudent({ route, navigation }) {
     const { studentData } = route.params;
-
-    console.log(studentData)
 
     const [data, setData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -78,9 +74,7 @@ export default function ViewStudent({ route, navigation }) {
             if (error) {
               console.log(error);
             } else {
-              console.log(data);
               setData(data);
-              const graph = Array.from(await fetchWeight(user.id))
             }
           }
   

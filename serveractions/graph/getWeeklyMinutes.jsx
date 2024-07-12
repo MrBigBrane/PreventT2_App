@@ -37,9 +37,6 @@ export default async function getWeeklyMinutes(userId) {
             graphObject.push({ value: row.total_minutes, date: weekStart })
         }
         counter++
-        if(counter == 1){
-            console.log(graphObject)
-        }
         
     })
     return graphObject
