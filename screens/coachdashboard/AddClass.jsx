@@ -12,31 +12,47 @@ export default function AddClass({ navigation }) {
     const [loading, setLoading] = useState(false);
 
     async function submit() {
-        setLoading(true);
-  
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        
-          const { data, error } = await supabase
-            .from("coach_codes")
-            .insert({
-                class_name: text1,
-                coachid: text2,
-                cohortid: text3,
-                orgcode: text4,
-                coach_user: user.id
-            })
-            .select();
-          if (error) {
-            console.log(error);
-          } else {
-            console.log(data);
-            setLoading(false);
-          }
-  
-        navigation.replace("Coaches Dashboard", { screen: "Class View" });
+      setLoading(true);
+
+      const codes = await supabase.from("coach_codes").select("code");
+
+      let codeList = codes.data.map((code) => code.code);
+
+      console.log(codeList);
+
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let result = "";
+      while (true) {
+        for (let i = 0; i < 6; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+       }
+       if(!codeList.includes(result)) break;
       }
+
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      const { data, error } = await supabase
+        .from("coach_codes")
+        .insert({
+          code: result,
+          class_name: text1,
+          coachid: text2,
+          cohortid: text3,
+          orgcode: text4,
+          coach_user: user.id,
+        })
+        .select();
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(data);
+        setLoading(false);
+      }
+
+      navigation.replace("Coaches Dashboard", { screen: "Class View" });
+    }
 
 
     return (
