@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { supabase } from "../../lib/supabase";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
+import NewDropdownList from "../../components/inputs/NewDropdownList";
 import { FlatList } from "react-native";
 import Card from "../../components/Card";
 import { RefreshControl } from "react-native-gesture-handler";
@@ -9,6 +10,8 @@ import { Searchbar } from 'react-native-paper';
 
 export default function ViewStudent({ route, navigation }) {
     const { studentData } = route.params;
+
+    console.log(studentData)
 
     const [data, setData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -74,6 +77,7 @@ export default function ViewStudent({ route, navigation }) {
             if (error) {
               console.log(error);
             } else {
+              console.log(data);
               setData(data);
             }
           }
