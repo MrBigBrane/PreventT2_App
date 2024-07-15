@@ -37,7 +37,7 @@ export default function WeightGraph({ user }) {
         text = (
           <>
             <Text>{data[value]?.date}</Text>
-            <Text>{data[value]?.value} min</Text>
+            <Text>{data[value]?.value} lbs</Text>
           </>
         );
       }

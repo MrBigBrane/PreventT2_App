@@ -2,9 +2,10 @@ import { Button, Text, TextInput, Surface, Divider } from 'react-native-paper';
 import { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Dimensions, StyleSheet, View } from 'react-native';
+import PickPhoto from '../../components/pickphoto/PickPhoto';
 
 export default function Settings({ navigation, route }) {
-    const { classData } = route.params;
+    const { classData, backgroundUri } = route.params;
 
     const [loading, setLoading] = useState(false);
     const [locked, setLocked] = useState(true);
@@ -26,6 +27,7 @@ export default function Settings({ navigation, route }) {
 
     return (
       <View style={styles.container}>
+        <PickPhoto classData={classData} backgroundUri={backgroundUri}/>
         <Surface style={styles.surface} elevation={4}>
           <Icon
             name="lock"

@@ -7,13 +7,15 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 export default function ClassView({ navigation, route }) {
     const [classData, setClassData] = useState({});
 
-    const { classId, className } = route.params;
+    const { classId, className, backgroundUri } = route.params;
 
     async function getClass() {
         const { data, error } = await supabase
           .from("coach_codes")
           .select()
           .eq("code", classId);
+
+          
 
         if (error) {
           console.log(error);
@@ -46,7 +48,7 @@ export default function ClassView({ navigation, route }) {
     return (
       <View>
         <Image
-          source={{ uri: "https://picsum.photos/700" }}
+          source={{ uri: backgroundUri }}
           style={{ width: "100%", height: 200 }}
         />
         <CardButton
@@ -67,7 +69,7 @@ export default function ClassView({ navigation, route }) {
           title="Settings"
           icon={"cog"}
           onPress={() => {
-            navigation.navigate("Settings", { classData: classData });
+            navigation.navigate("Settings", { classData: classData, backgroundUri: backgroundUri });
           }}
         />
       </View>

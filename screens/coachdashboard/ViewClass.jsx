@@ -57,7 +57,7 @@ export default function ViewClass({ route, navigation }) {
     function CardButton({ item }) {
         useEffect(() => {
             async function fetch() {
-                const data = Array.from(await getWeeklyMinutes("92649add-ea69-402d-82c6-dbe144f8f7cc"))
+                const data = Array.from(await getWeeklyMinutes(item.id))
                 setWeekData(data[data.length - 1].value);
             }
             fetch();

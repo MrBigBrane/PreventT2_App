@@ -1,6 +1,6 @@
 import UserDrawer from "../screens/userdashboard/UserDrawer";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Profile from "../screens/Profile";
+import Profile from "../screens/profile/Profile";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CommonActions } from '@react-navigation/native';
 import { BottomNavigation } from 'react-native-paper';
