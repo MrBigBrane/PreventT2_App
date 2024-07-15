@@ -1,7 +1,5 @@
-import { View, Text, StyleSheet, Pressable, RefreshControl } from "react-native";
-import { Button } from "react-native-paper";
-import CoachesClassCard from "../../components/CoachClassCard";
-import { useCallback, useEffect, useState } from "react";
+import { View, Text, StyleSheet, Pressable, RefreshControl, ScrollView } from "react-native";
+import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { FlatList } from "react-native-gesture-handler";
 import CoachClassCard from "../../components/CoachClassCard";
@@ -20,6 +18,22 @@ export default function CoachesDashboard({ navigation }) {
           .eq("coach_user", user.id)
           .order("created_at", { ascending: true });
 
+        console.log(data)
+
+        for(let i = 0; i < data.length; i++) {
+          const pictureFetch = await supabase.storage
+            .from("class_backgrounds") // Replace with your bucket name
+            .getPublicUrl(data[i].background_picture_path);
+
+          if (pictureFetch.error) {
+            console.log(pictureFetch.error);
+          } else {
+            data[i].background_picture_path = pictureFetch.data.publicUrl;
+          }
+        }
+
+          
+
           if (error) {
             console.log(error);
           } else {
@@ -33,25 +47,27 @@ export default function CoachesDashboard({ navigation }) {
 
     
 
+    
+
     return (
       <View style={styles.container}>
         <View>
           <FlatList
             data={data}
-            renderItem={useCallback(({ item }) => (
-              <View key={item.code} style={styles.container}>
+            renderItem={({ item }) => {
+              return <View key={item.code} style={styles.container}>
                 <CoachClassCard
                   classId={item.code}
                   className={item.class_name}
+                  backgroundUri={item.background_picture_path ? item.background_picture_path : 'https://picsum.photos/700'}
                 />
-              </View>
-            ))}
+              </View>;
+            }}
             keyExtractor={(item) => item.code}
             refreshControl={
               <RefreshControl refreshing={false} onRefresh={getClasses} />
             }
           />
-          
         </View>
         <NewFloatingButton />
       </View>

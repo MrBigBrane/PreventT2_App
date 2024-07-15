@@ -18,13 +18,21 @@ export default function Auth() {
       password: password,
     })
 
-    if (error) Alert.alert(error.message)
-    setLoading(false)
+    if (error) {
+      setLoading(false);
+      Alert.alert(error.message);
+    }
+    else {
+      setLoading(false);
+      setEmail("");
+      setPassword("");
+      navigation.navigate("LoggedIn", { screen: "UserDash" });
+    }
+    
 
-    setEmail('')
-    setPassword('')
+    
 
-    navigation.navigate('LoggedIn', { screen: 'UserDash' })
+    
   }
 
   async function signUpWithEmail() {

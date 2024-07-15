@@ -13,7 +13,7 @@ export default function Announcements({ navigation, route }) {
 
     async function getAnnouncements() {
       if(searchQuery === "") {
-          const { data, error } = await supabase.from("announcements").select().eq('class_code', classData.code);
+          const { data, error } = await supabase.from("announcements").select().eq('class_code', classData.code).order("created_at", { ascending: false });
 
       if (error) {
         console.log(error);
@@ -57,6 +57,7 @@ export default function Announcements({ navigation, route }) {
                       <View key={item.id} style={styles.container}>
                         <AnnouncementCard
                           item={item}
+                          classData={classData}
                         />
                       </View>
                     );

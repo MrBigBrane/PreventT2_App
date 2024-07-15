@@ -1,11 +1,26 @@
 import { StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
+import DialogComponent from "../../components/dialog/Dialog";
+import { supabase } from "../../lib/supabase";
 
 export default function ViewAnnouncement({ navigation, route }) {
 
-    const { announcementData } = route.params;
+    const { announcementData, classData } = route.params;
 
     let date = new Date(announcementData.created_at);
+
+    async function deleteAnnouncement() {
+      const { error } = await supabase
+        .from("announcements")
+        .delete()
+        .eq("id", announcementData.id);
+
+      if (error) {
+        console.log(error);
+      } else {
+        navigation.goBack();
+      }
+    }
 
     return (
       <View style={{ flex: 1, padding: 12 }}>
@@ -24,21 +39,21 @@ export default function ViewAnnouncement({ navigation, route }) {
                 announcementData: announcementData,
               })
             }
-            style={{flex: 1, margin: 8}}
+            style={{ flex: 1, margin: 8 }}
           >
             Edit
           </Button>
-          <Button
+          <DialogComponent
+            buttonTitle={"Delete"}
+            alertTitle={"Delete Announcement"}
+            alertContent={"Are you sure you want to delete this announcement?"}
+            alertAction={() => {
+              deleteAnnouncement();
+            }}
+            alertActionTitle={"Delete"}
             mode="contained-tonal"
-            onPress={() =>
-              navigation.navigate("Delete Announcement", {
-                announcementData: announcementData,
-              })
-            }
-            style={{flex: 1 , margin: 8}}
-          >
-            Delete
-          </Button>
+            style={{ flex: 1, margin: 8 }}
+          />
         </View>
       </View>
     );

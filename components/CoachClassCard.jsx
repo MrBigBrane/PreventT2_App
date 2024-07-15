@@ -2,17 +2,17 @@ import { StyleSheet, View } from 'react-native';
 import { Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-export default function CoachClassCard({ className, classId }) {
+export default function CoachClassCard({ className, classId, backgroundUri }) {
 
   const navigation = useNavigation();
 
   function handleButtonPress() {
-    navigation.navigate("ClassView", { classId: classId, className: className });
+    navigation.navigate("ClassView", { classId: classId, className: className, backgroundUri: backgroundUri });
   }
 
   return (
     <Card onPress={handleButtonPress}>
-      <Card.Cover source={{ uri: "https://picsum.photos/700" }} height={200} />
+      <Card.Cover source={{ uri: backgroundUri }} height={200} />
       <Card.Title
         title={className}
         titleVariant="displayMedium"
