@@ -13,7 +13,6 @@ import MinutesGraph from '../../components/graph/MinutesGraph';
 export default function ViewStudent({ route, navigation }) {
     const { studentData } = route.params;
 
-    console.log(studentData)
 
     const [data, setData] = useState([]);
     const [user, setUser] = useState({});
@@ -25,11 +24,11 @@ export default function ViewStudent({ route, navigation }) {
         .select()
         .eq("id", studentData.id);
 
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(data);
-      }
+      // if (error) {
+      //   console.log(error);
+      // } else {
+      //   console.log(data);
+      // }
     }
 
     async function coachLog() {
@@ -81,7 +80,7 @@ export default function ViewStudent({ route, navigation }) {
             if (error) {
               console.log(error);
             } else {
-              console.log(data);
+              // console.log(data);
               setData(data);
             }
           }
@@ -98,6 +97,8 @@ export default function ViewStudent({ route, navigation }) {
       else{
         sessType = item.sesstype.title.substring(0, 2).replace(/\s/g, '')
       }
+
+      // console.log(item)
 
 
       return <View key={item.id} style={styles.container}>
@@ -122,13 +123,14 @@ export default function ViewStudent({ route, navigation }) {
         {/* {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={[0, 0, 0, 0]} hiddenIndex={graphData[2]} yAxisSuffix={" lbs"}/>}   */}
         {user.id && <MinutesGraph user={user} />}
         {user.id && <WeightGraph user={user} />}
-        {coachLog}
+        
         <Searchbar
           placeholder="Search by Date (YYYY-MM-DD)"
           onChangeText={setSearchQuery}
           onIconPress={coachLog}
           value={searchQuery}
         />
+        {coachLogs}
 
           
       </ScrollView>
