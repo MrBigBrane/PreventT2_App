@@ -2,6 +2,7 @@ import { StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import DialogComponent from "../../components/dialog/Dialog";
 import { supabase } from "../../lib/supabase";
+import ComposeFloatingButton from "../../components/announcements/ComposeFloatingButton";
 
 export default function ViewAnnouncement({ navigation, route }) {
 
@@ -55,6 +56,7 @@ export default function ViewAnnouncement({ navigation, route }) {
             style={{ flex: 1, margin: 8 }}
           />
         </View>
+        <ComposeFloatingButton />
       </View>
     );
 }

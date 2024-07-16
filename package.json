@@ -17,6 +17,8 @@
     "@rneui/themed": "^4.0.0-rc.8",
     "@supabase/supabase-js": "^2.43.5",
     "expo": "~51.0.14",
+    "expo-image": "~1.12.12",
+    "expo-image-picker": "~15.0.7",
     "expo-linear-gradient": "~13.0.2",
     "expo-media-library": "~16.0.4",
     "expo-status-bar": "~1.12.1",
@@ -24,6 +26,7 @@
     "react-native": "0.74.2",
     "react-native-chart-kit": "^6.12.0",
     "react-native-date-picker": "^5.0.4",
+    "react-native-document-picker": "^8.2.1",
     "react-native-dropdown-select-list": "^2.0.5",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-gifted-charts": "^1.4.15",
@@ -34,8 +37,7 @@
     "react-native-svg": "15.2.0",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vector-icons": "^10.1.0",
-    "expo-image-picker": "~15.0.7",
-    "expo-image": "~1.12.12"
+    "expo-document-picker": "~12.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
