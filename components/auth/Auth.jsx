@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { supabase } from '../../lib/supabase'
-import { Button, Input } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
+import { Text, TextInput, Button } from 'react-native-paper'
 
 export default function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const [viewPassword, setViewPassword] = useState(false)
 
   const navigation = useNavigation()
 
@@ -53,34 +55,69 @@ export default function Auth() {
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Input
-          label="Email"
-          leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+        <Text style={{ fontSize: 18 }}>Email</Text>
+        <TextInput
+          left={{ type: "font-awesome", name: "envelope" }}
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
-          autoCapitalize={'none'}
+          autoCapitalize={"none"}
+          activeUnderlineColor='#1d62d1'
+          underlineColor='#1d62d1'
+          style={{ backgroundColor: "transparent" }}
         />
       </View>
       <View style={styles.verticallySpaced}>
-        <Input
-          label="Password"
-          leftIcon={{ type: 'font-awesome', name: 'lock' }}
+        <Text style={{ fontSize: 18 }}>Password</Text>
+        <TextInput
+          right={
+            <TextInput.Icon
+              icon="eye"
+              onPress={() => setViewPassword(!viewPassword)}
+            />
+          }
           onChangeText={(text) => setPassword(text)}
           value={password}
-          secureTextEntry={true}
-          placeholder="Password"
-          autoCapitalize={'none'}
+          secureTextEntry={!viewPassword}
+          placeholder="••••••••"
+          placeholderTextColor={"grey"}
+          autoCapitalize={"none"}
+          activeUnderlineColor='#1d62d1'
+          underlineColor='#1d62d1'
+          style={{ backgroundColor: "transparent" }}
+          
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
+      <Button
+        mode="contained"
+        loading={loading}
+        onPress={() => signInWithEmail()}
+        style={{ marginTop: 20, backgroundColor: '#1d62d1' }}
+      >
+        {loading? "Logging In" : "Log In"}
+      </Button>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
+        <Button
+          mode="text"
+          disabled={loading}
+          onPress={() => console.log("Sign Up")}
+          style={{ flex: 1, marginRight: 8 }}
+          textColor='#1d62d1'
+        >
+          Sign Up
+        </Button>
+        <Button
+          mode="text"
+          disabled={loading}
+          onPress={() => signUpWithEmail()}
+          style={{ flex: 1, marginLeft: 8,  }}
+          textColor='#1d62d1'
+        >
+          Forgot Password?
+        </Button>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -89,8 +126,8 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
+    paddingTop: 6,
+    paddingBottom: 6,
     alignSelf: 'stretch',
   },
   mt20: {

@@ -8,6 +8,7 @@ export default function ClassView({ navigation, route }) {
     const [classData, setClassData] = useState({});
 
     const { classId, className, backgroundUri } = route.params;
+    console.log(backgroundUri)
 
     async function getClass() {
         const { data, error } = await supabase

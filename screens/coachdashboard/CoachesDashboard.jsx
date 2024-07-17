@@ -21,14 +21,16 @@ export default function CoachesDashboard({ navigation }) {
         console.log(data)
 
         for(let i = 0; i < data.length; i++) {
-          const pictureFetch = await supabase.storage
-            .from("class_backgrounds") // Replace with your bucket name
-            .getPublicUrl(data[i].background_picture_path);
+          if(data[i].background_picture_path !== null) {
+            const pictureFetch = await supabase.storage
+              .from("class_backgrounds") // Replace with your bucket name
+              .getPublicUrl(data[i].background_picture_path);
 
-          if (pictureFetch.error) {
-            console.log(pictureFetch.error);
-          } else {
-            data[i].background_picture_path = pictureFetch.data.publicUrl;
+            if (pictureFetch.error) {
+              console.log(pictureFetch.error);
+            } else {
+              data[i].background_picture_path = pictureFetch.data.publicUrl;
+            }
           }
         }
 
@@ -59,7 +61,7 @@ export default function CoachesDashboard({ navigation }) {
                 <CoachClassCard
                   classId={item.code}
                   className={item.class_name}
-                  backgroundUri={item.background_picture_path ? item.background_picture_path : 'https://picsum.photos/700'}
+                  backgroundUri={item.background_picture_path !== null ? item.background_picture_path : 'https://picsum.photos/700'}
                 />
               </View>;
             }}

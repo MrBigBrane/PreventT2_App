@@ -1,8 +1,10 @@
 import { Button, Text, TextInput, Surface, Divider } from 'react-native-paper';
 import { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
 import PickPhoto from '../../components/pickphoto/PickPhoto';
+import { supabase } from '../../lib/supabase';
+import DialogComponent from '../../components/dialog/Dialog';
 
 export default function Settings({ navigation, route }) {
     const { classData, backgroundUri } = route.params;
@@ -20,22 +22,51 @@ export default function Settings({ navigation, route }) {
         setLocked(!locked);
     }
 
-    function handleLoading() {
+    async function handleLoading() {
       setLoading(true);
+
+      const { data, error } = await supabase
+        .from("coach_codes")
+        .update({
+          class_name: text1,
+          coachid: text2,
+          cohortid: text3,
+          orgcode: text4
+        })
+        .eq("code", classData.code);
+
+        setLoading(false);
+        setLocked(true);
+
+        if (error) {
+          console.log(error);
+          console.log('hey')
+        } 
+    }
+
+    async function handleDelete() {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("coach_codes")
+        .delete()
+        .eq("code", classData.code);
+        if (error) {
+          console.log(error);
+        } 
+        else {
+          setLoading(false);
+          navigation.replace("Coaches Dashboard");
+        }
     }
 
 
     return (
-      <View style={styles.container}>
-        <PickPhoto classData={classData} backgroundUri={backgroundUri}/>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={{ flex: 1 }}>
+          <PickPhoto classData={classData} backgroundUri={backgroundUri} />
+        </View>
+
         <Surface style={styles.surface} elevation={4}>
-          <Icon
-            name="lock"
-            size={24}
-            color="black"
-            style={styles.lock}
-            onPress={handleLock}
-          />
           <View style={styles.spacing}>
             <TextInput
               mode="outlined"
@@ -76,22 +107,62 @@ export default function Settings({ navigation, route }) {
               disabled={locked}
             />
           </View>
-          {!locked && (
-            <Button mode="contained" onPress={handleLoading} loading={loading} style={{ marginBottom: 15 }}>
-              Save
-            </Button>
-          )}
+          <View style={styles.buttons}>
+            {locked ? (
+              <Button
+                mode="contained"
+                onPress={() => setLocked(!locked)}
+                style={{ marginBottom: 15, margin: 10 }}
+              >
+                Edit
+              </Button>
+            ) : (
+              <>
+                <Button
+                  mode="contained"
+                  onPress={handleLoading}
+                  loading={loading}
+                  style={{ marginBottom: 15, margin: 10 }}
+                >
+                  Save
+                </Button>
+                <Button
+                  mode="outlined"
+                  onPress={() => setLocked(!locked)}
+                  style={{ marginBottom: 15, margin: 10 }}
+                >
+                  Cancel
+                </Button>
+              </>
+            )}
+          </View>
+
           <Divider style={{ width: "100%" }} bold />
-          <Button
+          {/* <Button
             mode="outlined"
             onPress={() => console.log("Delete class")}
             textColor="red"
-            style={{ borderColor: "red", marginTop: 15 }}
+            style={{ borderColor: "red", marginTop: 15, marginBottom: 15 }}
           >
             Remove Class
-          </Button>
+          </Button> */}
+          {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 10 }}> */}
+            <DialogComponent
+            mode={"outlined"}
+            buttonTitle="Remove Class"
+            alertTitle={"Are you sure you want to remove this class?"}
+            alertContent={"This cannot be undone."}
+            alertAction={handleDelete}
+            alertActionTitle={"Remove"}
+            style={{ marginTop: 15, marginBottom: 15 }}
+            buttonStyle={{ borderColor: "red" }}
+            textColor={"red"}
+          />
+          {/* </View> */}
+          
+
         </Surface>
-      </View>
+      </ScrollView>
     );
 }
 
@@ -102,19 +173,19 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     surface: {
-      padding: 25,
+      width: "100%",
       alignItems: 'center',
       justifyContent: 'center',
     },
     spacing: {
-      padding: 40,
-      paddingHorizontal: 60,
+      padding: 10,
+      paddingHorizontal: 20,
+      marginTop: 10,
       width: Dimensions.get('window').width * 0.8,
     },
-    lock: {
-      position: 'absolute',
-      right: 15,
-      top: 15,
+    buttons: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     }
 
   });
