@@ -3,6 +3,7 @@ import { Searchbar, Text } from "react-native-paper";
 import AnnouncementCard from "../../components/coachesdashboard/AnnouncementCard";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
+import ComposeFloatingButton from "../../components/announcements/ComposeFloatingButton";
 
 export default function Announcements({ navigation, route }) {
 
@@ -59,6 +60,7 @@ export default function Announcements({ navigation, route }) {
                           item={item}
                           classData={classData}
                         />
+                        
                       </View>
                     );
                 }}
@@ -66,7 +68,9 @@ export default function Announcements({ navigation, route }) {
                 refreshControl={
                     <RefreshControl refreshing={false} onRefresh={getAnnouncements} />
                 }
+                
             />
+            <ComposeFloatingButton />
         </View>
     );
 }

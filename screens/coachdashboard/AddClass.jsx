@@ -65,7 +65,7 @@ export default function AddClass({ navigation }) {
           <Text>Coach ID</Text>
           {/* <DropdownList setSelected={setSelected1} data={exerciseTypes} defaultValue={data?.exercise_type} /> */}
           {/* <NewDropdownList data={exerciseTypes} setSelected={setSelected1} title={"Exercise Type"} defaultValue={selected1} /> */}
-          <TextInput mode="outlined" placeholder="Coach ID (if applicable)" onChangeText={(text) => setText2(text)} value={text3} />
+          <TextInput mode="outlined" placeholder="Coach ID (if applicable)" onChangeText={(text) => setText2(text)} value={text2} />
         </View>
         <View style={styles.padding}>
           <Text>Cohort ID</Text>

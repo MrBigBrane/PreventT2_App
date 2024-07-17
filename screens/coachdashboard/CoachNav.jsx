@@ -6,12 +6,14 @@ import Settings from './Settings';
 import ViewClass from './ViewClass';
 import ViewStudent from './ViewStudent';
 import AddClass from './AddClass';
-import Announcements from './Announcements';
+import Announcements from './Annoucements';
 import ViewAnnouncement from "./ViewAnnouncement";
 import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import InviteUser from './InviteUser';
 import { navigation } from '@react-navigation/native';
+import AddAnnouncemnt from './AddAnnouncment';
+
 
 export default function CoachNav({navigation}) {
     const Stack = createStackNavigator();
@@ -52,6 +54,7 @@ export default function CoachNav({navigation}) {
       <Stack.Screen name="Announcements" component={Announcements} />
       <Stack.Screen name="View Announcement" component={ViewAnnouncement} />
       <Stack.Screen name="Invite User" component={InviteUser} />
+      <Stack.Screen name="Add Announcement" component={AddAnnouncemnt} />
     </Stack.Navigator>
   );
 }
