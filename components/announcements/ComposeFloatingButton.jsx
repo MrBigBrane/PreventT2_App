@@ -3,7 +3,7 @@ import { FAB, Portal, PaperProvider, DefaultTheme } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function ComposeFloatingButton() {
+export default function ComposeFloatingButton({ classData }) {
     const [state, setState] = useState({ open: false });
 
     const navigation = useNavigation();
@@ -24,7 +24,7 @@ export default function ComposeFloatingButton() {
         <FAB
             icon={"plus"}
             label="Compose"
-            onPress={() => navigation.navigate("Add Announcement")}
+            onPress={() => navigation.navigate("Add Announcement", { classData: classData })}
             style={styles.fab}
             theme={theme}
         />
