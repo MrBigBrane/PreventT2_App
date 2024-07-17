@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: Dimensions.get('window').width * 0.9,
+    flex: 1,
+    width: Dimensions.get('window').width,
     height: 300,
   },
   icon: {
