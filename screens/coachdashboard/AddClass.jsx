@@ -9,6 +9,7 @@ export default function AddClass({ navigation }) {
     const [text2, setText2] = useState("");
     const [text3, setText3] = useState("");
     const [text4, setText4] = useState("");
+    const [text5, setText5] = useState("")
     const [loading, setLoading] = useState(false);
 
     async function submit() {
@@ -42,6 +43,7 @@ export default function AddClass({ navigation }) {
           cohortid: text3,
           orgcode: text4,
           coach_user: user.id,
+          meet_link: text5
         })
         .select();
       if (error) {
@@ -76,6 +78,10 @@ export default function AddClass({ navigation }) {
           {/* <DropdownList setSelected={setSelected2} data={perceivedDifficulty} defaultValue={data?.difficulty}/> */}
           {/* <NewDropdownList data={perceivedDifficulty} setSelected={setSelected2} title={"Perceived Difficulty"} defaultValue={selected2} /> */}
           <TextInput mode="outlined" placeholder="Org Code (if applicable)" onChangeText={(text) => setText4(text)} value={text4} />
+        </View>
+        <View style={styles.padding}>
+          <Text>Class Meeting Link &#40;Optional&#41;</Text>
+          <TextInput mode="outlined" placeholder="Meeting Link" onChangeText={(text) => setText5(text)} value={text5} />
         </View>
         <View style={styles.padding}>
             <Button mode="contained" onPress={submit} loading={loading}>Create</Button>

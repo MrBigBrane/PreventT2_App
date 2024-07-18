@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, Image, Dimensions, Pressable } from 'react-native';
+import { View, StyleSheet, Image, Dimensions, Pressable } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../../lib/supabase';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Button, IconButton } from 'react-native-paper';
 
 export default function PickPhoto({ classData, backgroundUri }) {
   const [image, setImage] = useState(backgroundUri ? backgroundUri : null);
@@ -59,7 +60,7 @@ export default function PickPhoto({ classData, backgroundUri }) {
     <View style={styles.container}>
       <Pressable onPress={pickImage}>
         {image && <Image source={{ uri: image !== null ? image : 'https://picsum.photos/700' }} style={styles.image} />}
-        <Icon  name="pencil-outline" size={50} color="black" style={styles.icon}/>
+        <IconButton icon="pencil-outline" iconColor='aqua' containerColor='teal' onPress={pickImage} style={styles.icon} />
       </Pressable>
     </View>
   );
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
   icon: {
     position: 'absolute',
     bottom: 10,
-    right: 10
+    right: 10,
+    width: "10%"
   }
 });
