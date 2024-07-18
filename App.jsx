@@ -6,9 +6,9 @@ import { StatusBar } from 'expo-status-bar';
 import { PaperProvider } from 'react-native-paper';
 import { supabase } from './lib/supabase';
 import { useLayoutEffect, useState } from 'react';
-import Login from './screens/Login';
 import 'react-native-gesture-handler';
 import TabNav from './navigation/TabNav';
+import LoginNav from './screens/login/LoginNav';
 
 const Stack = createStackNavigator();
 
@@ -36,7 +36,7 @@ export default function MyTabs() {
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Login" component={LoginNav} options={{ headerShown: false }} />
             <Stack.Screen
               name="LoggedIn"
               component={TabNav}

@@ -12,10 +12,10 @@ export default function CoachClassCard({ className, classId, backgroundUri }) {
 
   return (
     <Card onPress={handleButtonPress}>
-      <Card.Cover source={{ uri: backgroundUri }} height={200} />
+      <Card.Cover source={{ uri: backgroundUri }} height={100} />
       <Card.Title
         title={className}
-        titleVariant="displayMedium"
+        titleVariant="displaySmall"
         style={styles.textSpace}
         titleStyle={styles.title}
         contentstyle={styles.content}
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    textAlign: 'center',
+    // textAlign: 'center',
+    padding: 12,
   },
   
 });

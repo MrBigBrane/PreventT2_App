@@ -6,6 +6,7 @@ import { CommonActions } from '@react-navigation/native';
 import { BottomNavigation } from 'react-native-paper';
 import CoachNav from "../screens/coachdashboard/CoachNav";
 import UserDashNav from "./UserDashNav";
+import MyClass from "../screens/myclass/MyClass";
 
 const Tab = createBottomTabNavigator();
 
@@ -77,6 +78,17 @@ export default function TabNav() {
             
           }}
           
+        />
+        <Tab.Screen
+          name="MyClass"
+          component={MyClass}
+          options={{
+            headerShown: false,
+            tabBarLabel: "My Class",
+            tabBarIcon: ({ color, size }) => {
+              return <Icon name="account-group" size={size} color={color} />;
+            },
+          }}
         />
         <Tab.Screen
           name="Resources"

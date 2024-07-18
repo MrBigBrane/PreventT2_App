@@ -15,6 +15,7 @@ export default function Settings({ navigation, route }) {
     const [text2, setText2] = useState(classData.coachid ? classData.coachid : "N/A");
     const [text3, setText3] = useState(classData.cohortid ? classData.cohortid : "N/A");
     const [text4, setText4] = useState(classData.orgcode ? classData.orgcode : "N/A");
+    const [text5, setText5] = useState(classData.meet_link ? classData.meet_link : "N/A");
 
 
 
@@ -104,6 +105,16 @@ export default function Settings({ navigation, route }) {
               label={"Organization Code"}
               onChangeText={(text) => setText4(text)}
               value={text4}
+              disabled={locked}
+            />
+          </View>
+          <View style={styles.spacing}>
+            <TextInput
+              mode="outlined"
+              placeholder="Enter Class Meeting Link"
+              label={"Meeting Link"}
+              onChangeText={(text) => setText5(text)}
+              value={text5}
               disabled={locked}
             />
           </View>

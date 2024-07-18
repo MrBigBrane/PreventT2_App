@@ -37,27 +37,16 @@ export default function Auth() {
     
   }
 
-  async function signUpWithEmail() {
-    setLoading(true)
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    })
-
-    if (error) Alert.alert(error.message)
-    if (!session) Alert.alert('Please check your inbox for email verification!')
-    setLoading(false)
-  }
-
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Text style={{ fontSize: 18 }}>Email</Text>
         <TextInput
-          left={{ type: "font-awesome", name: "envelope" }}
+          left={
+            <TextInput.Icon
+              icon="email"
+            />
+          }
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
@@ -74,6 +63,11 @@ export default function Auth() {
             <TextInput.Icon
               icon="eye"
               onPress={() => setViewPassword(!viewPassword)}
+            />
+          }
+          left={
+            <TextInput.Icon
+              icon="lock"
             />
           }
           onChangeText={(text) => setPassword(text)}
@@ -100,7 +94,7 @@ export default function Auth() {
         <Button
           mode="text"
           disabled={loading}
-          onPress={() => console.log("Sign Up")}
+          onPress={() => navigation.navigate("Signup")}
           style={{ flex: 1, marginRight: 8 }}
           textColor='#1d62d1'
         >
@@ -109,7 +103,7 @@ export default function Auth() {
         <Button
           mode="text"
           disabled={loading}
-          onPress={() => signUpWithEmail()}
+          onPress={() => navigation.navigate("Forgot Password")}
           style={{ flex: 1, marginLeft: 8,  }}
           textColor='#1d62d1'
         >
