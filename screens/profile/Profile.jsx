@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { supabase } from "../../lib/supabase"
-import { Avatar, Button, Text } from "react-native-paper";
+import { Avatar, Button, Text, Surface, Divider } from "react-native-paper";
 import PickAvatar from "../../components/pickphoto/PickAvatar";
 
 
@@ -61,10 +61,17 @@ export default function Profile({ navigation }) {
             <Text variant="displayMedium" style={{ color: "white", marginLeft: 20 }}>{data.first_name} {data.last_name}</Text>
           </View>
         </View>
+        <View>
+          <Surface elevation={4} style={styles.security}>
+            <Text variant="headlineMedium" style={{ fontWeight: "bold", color: "red" }}>Security:</Text>
+            <Divider />
+            <Text variant="bodyLarge">Email: {data.email}</Text>
+          </Surface>
 
-        <Button mode="contained" onPress={signOutUser} style={styles.button}>
-          Sign Out
-        </Button>
+          <Button mode="contained" onPress={signOutUser} style={styles.button}>
+            Sign Out
+          </Button>
+        </View>
       </View>
     );
 }
@@ -77,18 +84,29 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: '100%',
-    height: 200
+    height: 200,
   },
   button: {
     margin: 12,
-    marginTop: 100
+    marginTop: 40,
+    color: "red",
   },
   avatar: {
     marginTop: 50,
+    marginBottom: 100,
     marginLeft: 20,
     flexDirection: 'row',
     alignItems: 'center',
     // justifyContent: 'center',
   },
+  security: {
+    width: "91%",
+    alignSelf: "center",
+    padding: 10,
+    marginTop: 20,
+    marginBottom: 20,
+    backgroundColor: "white",
+    borderRadius: 10
+  }
 });
 
