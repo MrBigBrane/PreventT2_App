@@ -6,7 +6,7 @@ import Settings from './Settings';
 import ViewClass from './ViewClass';
 import ViewStudent from './ViewStudent';
 import AddClass from './AddClass';
-import Announcements from './Annoucements';
+import Announcements from './Announcements';
 import ViewAnnouncement from "./ViewAnnouncement";
 import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";

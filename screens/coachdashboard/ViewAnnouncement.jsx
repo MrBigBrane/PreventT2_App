@@ -21,6 +21,7 @@ export default function ViewAnnouncement({ navigation, route }) {
       } else {
         navigation.goBack();
       }
+
     }
 
     return (

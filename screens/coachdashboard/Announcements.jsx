@@ -70,7 +70,7 @@ export default function Announcements({ navigation, route }) {
                 }
                 
             />
-            <ComposeFloatingButton />
+            <ComposeFloatingButton classData={classData} />
         </View>
     );
 }
