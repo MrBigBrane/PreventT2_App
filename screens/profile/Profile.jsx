@@ -3,6 +3,8 @@ import { Image, StyleSheet, View } from "react-native";
 import { supabase } from "../../lib/supabase"
 import { Avatar, Button, Text, Surface, Divider } from "react-native-paper";
 import PickAvatar from "../../components/pickphoto/PickAvatar";
+import ChangeEmail from "../../components/reset/ChangeEmail";
+import ChangePassword from "../../components/reset/ChangePassword";
 
 
 export default function Profile({ navigation }) {
@@ -64,8 +66,12 @@ export default function Profile({ navigation }) {
         <View>
           <Surface elevation={4} style={styles.security}>
             <Text variant="headlineMedium" style={{ fontWeight: "bold", color: "red" }}>Security:</Text>
-            <Divider />
-            <Text variant="bodyLarge">Email: {data.email}</Text>
+            <Divider style={styles.Divider} />
+            <Text variant="bodyLarge">Change Email:</Text>
+            <ChangeEmail />
+            <Divider style={styles.Divider} />
+            <Text variant="bodyLarge">Change/Reset Password:</Text>
+            <ChangePassword />
           </Surface>
 
           <Button mode="contained" onPress={signOutUser} style={styles.button}>
@@ -102,11 +108,15 @@ const styles = StyleSheet.create({
   security: {
     width: "91%",
     alignSelf: "center",
-    padding: 10,
+    padding: 15,
     marginTop: 20,
     marginBottom: 20,
     backgroundColor: "white",
     borderRadius: 10
+  },
+  Divider: {
+    marginTop: 10,
+    marginBottom: 10
   }
 });
 
