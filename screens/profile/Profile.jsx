@@ -60,6 +60,12 @@ export default function Profile({ navigation }) {
 
             <Text variant="displayMedium" style={{ color: "white", marginLeft: 20 }}>{data.first_name} {data.last_name}</Text>
           </View>
+          <Button mode="contained" onPress={() => navigation.navigate("Onboarding")}>
+            Onboarding Form
+          </Button>
+          <Button mode="contained" onPress={() => navigation.navigate("Become Coach")}>
+            Become a Coach
+          </Button>
         </View>
         <View>
           <Surface elevation={4} style={styles.security}>

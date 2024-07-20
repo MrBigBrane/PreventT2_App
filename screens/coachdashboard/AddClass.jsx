@@ -53,7 +53,7 @@ export default function AddClass({ navigation }) {
         setLoading(false);
       }
 
-      navigation.replace("Coaches Dashboard", { screen: "Class View" });
+      navigation.replace("LoggedIn", { screen: "CoachDash" });
     }
 
 
