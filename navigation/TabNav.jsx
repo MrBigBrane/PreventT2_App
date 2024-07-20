@@ -7,6 +7,7 @@ import { BottomNavigation } from 'react-native-paper';
 import CoachNav from "../screens/coachdashboard/CoachNav";
 import UserDashNav from "./UserDashNav";
 import MyClass from "../screens/myclass/MyClass";
+import Resources from "../screens/resources/Resources";
 
 const Tab = createBottomTabNavigator();
 
@@ -92,7 +93,7 @@ export default function TabNav() {
         />
         <Tab.Screen
           name="Resources"
-          component={UserDrawer}
+          component={Resources}
           options={{
             tabBarLabel: "Resources",
             tabBarIcon: ({ color, size }) => {
