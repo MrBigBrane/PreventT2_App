@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // marginTop: 20,
-    marginBottom: 50,
+    // marginBottom: 50,
     justifyContent: 'space-between',
     width: Dimensions.get('window').width * 1.135,
   },

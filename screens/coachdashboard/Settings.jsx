@@ -46,16 +46,19 @@ export default function Settings({ navigation, route }) {
     }
 
     async function handleDelete() {
+      console.log('yo')
       setLoading(true);
       const { data, error } = await supabase
         .from("coach_codes")
         .delete()
-        .eq("code", classData.code);
+        .eq("code", classData.code)
+        .select();
         if (error) {
           console.log(error);
         } 
         else {
           setLoading(false);
+          console.log(data)
           navigation.replace("Coaches Dashboard");
         }
     }

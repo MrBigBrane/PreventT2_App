@@ -1,12 +1,12 @@
 import UserDrawer from "../screens/userdashboard/UserDrawer";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Profile from "../screens/profile/Profile";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CommonActions } from '@react-navigation/native';
 import { BottomNavigation } from 'react-native-paper';
 import CoachNav from "../screens/coachdashboard/CoachNav";
 import UserDashNav from "./UserDashNav";
 import MyClass from "../screens/myclass/MyClass";
+import ProfileNav from "../screens/profile/ProfileNav";
 import Resources from "../screens/resources/Resources";
 
 const Tab = createBottomTabNavigator();
@@ -108,9 +108,10 @@ export default function TabNav() {
           }}
         />
         <Tab.Screen
-          name="Profile"
-          component={Profile}
+          name="Profile Page"
+          component={ProfileNav}
           options={{
+            headerShown: false,
             tabBarLabel: "Profile",
             tabBarIcon: ({ color, size }) => {
               return <Icon name="account-circle" size={size} color={color} />;
