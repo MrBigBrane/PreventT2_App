@@ -65,16 +65,16 @@ export default function Profile({ navigation }) {
         </View>
         <View>
           <Surface elevation={4} style={styles.security}>
-            <Text variant="headlineMedium" style={{ fontWeight: "bold", color: "red" }}>Security:</Text>
+            <Text variant="headlineMedium" style={{ fontWeight: "bold", color: "green" }}>Security:</Text>
             <Divider style={styles.Divider} />
-            <Text variant="bodyLarge">Change Email:</Text>
+            <Text variant="bodyLarge" >Change Email:</Text>
             <ChangeEmail />
             <Divider style={styles.Divider} />
-            <Text variant="bodyLarge">Change/Reset Password:</Text>
+            <Text variant="bodyLarge" >Change/Reset Password:</Text>
             <ChangePassword />
           </Surface>
 
-          <Button mode="contained" onPress={signOutUser} style={styles.button}>
+          <Button mode="elevated" textColor="white" buttonColor="teal" onPress={signOutUser} style={styles.button}>
             Sign Out
           </Button>
         </View>
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
   button: {
     margin: 12,
     marginTop: 40,
-    color: "red",
   },
   avatar: {
     marginTop: 50,
@@ -112,7 +111,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     backgroundColor: "white",
-    borderRadius: 10
+    borderColor: "red",
+    borderWidth: 1
   },
   Divider: {
     marginTop: 10,

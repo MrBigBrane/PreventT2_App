@@ -27,9 +27,11 @@ export default function ChangePassword() {
             <TextInput
                 mode="outlined"
                 placeholder="Change Password"
+                outlineColor="gray"
+                activeOutlineColor="gray"
                 value={password}
                 onChangeText={(text) => setPassword(text)}
-                right={<TextInput.Icon icon="check" onPress={changePassword} loading={loading} />}
+                right={<TextInput.Icon color={"red"} icon="check" onPress={changePassword} loading={loading} />}
                 style={styles.input}
             />
         </View>

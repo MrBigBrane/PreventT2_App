@@ -28,9 +28,11 @@ export default function ChangeEmail() {
         <TextInput
           mode="outlined"
           placeholder="Change Email"
+          outlineColor="gray"
+          activeOutlineColor="gray"
           value={email}
           onChangeText={(text) => setEmail(text)}
-          right={<TextInput.Icon icon="check" onPress={changeEmail} loading={loading} />}
+          right={<TextInput.Icon color={"red"} icon="check" onPress={changeEmail} loading={loading} />}
           style={styles.input}
         />
       </View>
