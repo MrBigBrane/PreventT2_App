@@ -1,10 +1,11 @@
 import { useLayoutEffect, useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, ScrollView } from "react-native";
 import { supabase } from "../../lib/supabase"
 import { Avatar, Button, Text, Surface, Divider } from "react-native-paper";
 import PickAvatar from "../../components/pickphoto/PickAvatar";
 import ChangeEmail from "../../components/reset/ChangeEmail";
 import ChangePassword from "../../components/reset/ChangePassword";
+import { S } from "@expo/html-elements";
 
 
 export default function Profile({ navigation }) {
@@ -45,7 +46,7 @@ export default function Profile({ navigation }) {
     
 
     return (
-      <View>
+      <ScrollView>
         <View>
           <Image
             source={{
@@ -58,33 +59,88 @@ export default function Profile({ navigation }) {
               size={100}
               source={{ uri: "https://picsum.photos/700" }}
             /> */}
-            {data.id && <PickAvatar userId={data.id} firstName={data.first_name} lastName={data.last_name} />}
+            {data.id && (
+              <PickAvatar
+                userId={data.id}
+                firstName={data.first_name}
+                lastName={data.last_name}
+              />
+            )}
 
-            <Text variant="displayMedium" style={{ color: "white", marginLeft: 20 }}>{data.first_name} {data.last_name}</Text>
+            <Text
+              variant="displayMedium"
+              style={{ color: "white", marginLeft: 20 }}
+            >
+              {data.first_name} {data.last_name}
+            </Text>
           </View>
-          <Button mode="contained" onPress={() => navigation.navigate("Onboarding")}>
-            Onboarding Form
-          </Button>
-          <Button mode="contained" onPress={() => navigation.navigate("Become Coach")}>
-            Become a Coach
-          </Button>
+        </View>
+        <View>
+          <Surface elevation={4} style={styles.forms}>
+            <Text
+              variant="headlineMedium"
+              style={{ fontWeight: "bold", color: "green" }}
+            >
+              Forms
+            </Text>
+            <Divider style={styles.divider} />
+            <Text variant="titleLarge" style={styles.textForms}>
+              Onboarding Form
+            </Text>
+            <Text style={styles.textForms}>
+              If you are an NRIVA DPP member, fill out the onboarding form to
+              get started!
+            </Text>
+            <Button
+              mode="contained"
+              onPress={() => navigation.navigate("Onboarding")}
+              style={styles.buttonForms}
+            >
+              Onboarding Form
+            </Button>
+            <Divider style={styles.divider} />
+            <Text variant="titleLarge" style={styles.textForms}>
+              Become a Coach
+            </Text>
+            <Text style={styles.textForms}>
+              Sign up to become a coach today!
+            </Text>
+            <Button
+              mode="contained"
+              onPress={() => navigation.navigate("Become Coach")}
+              style={styles.buttonForms}
+            >
+              Become a Coach
+            </Button>
+          </Surface>
         </View>
         <View>
           <Surface elevation={4} style={styles.security}>
-            <Text variant="headlineMedium" style={{ fontWeight: "bold", color: "green" }}>Security:</Text>
-            <Divider style={styles.Divider} />
-            <Text variant="bodyLarge" >Change Email:</Text>
+            <Text
+              variant="headlineMedium"
+              style={{ fontWeight: "bold", color: "green" }}
+            >
+              Security:
+            </Text>
+            <Divider style={styles.divider} />
+            <Text variant="bodyLarge">Change Email:</Text>
             <ChangeEmail />
-            <Divider style={styles.Divider} />
-            <Text variant="bodyLarge" >Change/Reset Password:</Text>
+            <Divider style={styles.divider} />
+            <Text variant="bodyLarge">Change/Reset Password:</Text>
             <ChangePassword />
           </Surface>
 
-          <Button mode="elevated" textColor="white" buttonColor="teal" onPress={signOutUser} style={styles.button}>
+          <Button
+            mode="elevated"
+            textColor="white"
+            buttonColor="teal"
+            onPress={signOutUser}
+            style={styles.button}
+          >
             Sign Out
           </Button>
         </View>
-      </View>
+      </ScrollView>
     );
 }
 
@@ -120,9 +176,25 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderWidth: 1
   },
-  Divider: {
+  divider: {
     marginTop: 10,
     marginBottom: 10
+  },
+  forms: {
+    width: "91%",
+    alignSelf: "center",
+    padding: 15,
+    marginTop: 20,
+    marginBottom: 20,
+    backgroundColor: "white",
+
+  },
+  buttonForms: {
+    marginTop: 10
+  },
+  textForms: {
+    marginLeft: 10,
+    marginVertical: 5
   }
 });
 
