@@ -79,7 +79,7 @@ export default function PickAvatar({ userId, firstName, lastName }) {
   return (
     <View>
       <Pressable onPress={pickImage}>
-        {image ? <Avatar.Image source={{ uri: image }} size={100} /> : <Avatar.Icon size={100} icon="account" />}
+        {image ? <Avatar.Image source={{ uri: image !== null ? image : 'https://picsum.photos/700' }} size={100} /> : <Avatar.Icon size={100} icon="account" />}
         {/* <Icon  name="pencil-outline" size={50} color="black" style={styles.icon}/> */}
       </Pressable>
     </View>
