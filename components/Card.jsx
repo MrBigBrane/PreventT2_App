@@ -71,6 +71,7 @@ export default function UserCard({
           alertContent={"Are you sure you want to delete this item?"}
           alertTitle={"Delete Item"}
           alertAction={deleteAction}
+          style={{ flex: 1}}
         />
       </Card.Actions>
     </Card>

@@ -56,12 +56,15 @@ export default function MinutesGraph({ user }) {
 
     return (
       <View>
-        <NewDropdownList
+        <View style={styles.menu}>
+          <NewDropdownList
           data={timeSettings}
           title="Time Range"
           setSelected={setSetting}
           defaultValue={setting}
         />
+        </View>
+        
         <View
           style={[
             styles.container,
@@ -109,6 +112,9 @@ const styles = StyleSheet.create({
         marginTop: 20,
         height: 250,
         // marginLeft: -5
+    },
+    menu: {
+        marginBottom: 50
     },
     paper: {
         padding: 10,
