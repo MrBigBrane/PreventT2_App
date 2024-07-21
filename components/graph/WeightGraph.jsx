@@ -55,17 +55,15 @@ export default function WeightGraph({ user }) {
 
     return (
       <View>
-        <NewDropdownList
-          data={timeSettings}
-          title="Time Range"
-          setSelected={setSetting}
-          defaultValue={setting}
-        />
-        <View
-          style={[
-            styles.container,
-          ]}
-        >
+        <View style={styles.menu}>
+          <NewDropdownList
+            data={timeSettings}
+            title="Time Range"
+            setSelected={setSetting}
+            defaultValue={setting}
+          />
+        </View>
+        <View style={[styles.container]}>
           {data.length > 0 && (
             <>
               {value !== null && (
@@ -107,6 +105,9 @@ const styles = StyleSheet.create({
         marginTop: 20,
         height: 250,
         // marginLeft: -5
+    },
+    menu: {
+      marginBottom: 50
     },
     paper: {
         padding: 10,

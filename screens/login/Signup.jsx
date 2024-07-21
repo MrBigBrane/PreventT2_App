@@ -36,7 +36,15 @@ export default function Signup() {
               },
             });
 
-            if (error) Alert.alert(error.message);
+            const { data, error: error2 } = await supabase
+              .from("profiles")
+              .insert({
+                name: `${firstName} ${lastName}`,
+                email_address: email,
+                id: session.user.id,
+              });
+
+            if (error || error2) Alert.alert(error.message);
             else if (!session) {
               Alert.alert("Please check your inbox for email verification!");
             }

@@ -8,6 +8,7 @@ import UserDashNav from "./UserDashNav";
 import MyClass from "../screens/myclass/MyClass";
 import ProfileNav from "../screens/profile/ProfileNav";
 import Resources from "../screens/resources/Resources";
+import { useEffect, useState } from "react";
 
 const Tab = createBottomTabNavigator();
 
@@ -54,6 +55,29 @@ const tabBar = ({ navigation, state, descriptors, insets }) => (
   )
 
 export default function TabNav() {
+    const [inClass, setInClass] = useState('');
+
+    async function getUser() {
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if(user.id) {
+          const { data, error } = await supabase
+            .from("profiles")
+            .select()
+            .eq("id", user.id)
+
+          if (error) {
+            console.log(error);
+          } else {
+            setInClass(data[0].class_codes);
+          }
+        }
+    }
+
+    useEffect(() => {
+        getUser();
+    }, [])
+
     return (
       <Tab.Navigator tabBar={tabBar}>
         <Tab.Screen
@@ -76,16 +100,14 @@ export default function TabNav() {
             tabBarIcon: ({ color, size }) => {
               return <Icon name="whistle" size={size} color={color} />;
             },
-            
           }}
-          
         />
         <Tab.Screen
-          name="MyClass"
+          name={inClass !== null ? "MyClass" : "JoinClass"}
           component={MyClass}
           options={{
-            headerShown: false,
-            tabBarLabel: "My Class",
+            // headerShown: false,
+            tabBarLabel: inClass !== null ? "My Class" : "Join Class",
             tabBarIcon: ({ color, size }) => {
               return <Icon name="account-group" size={size} color={color} />;
             },
