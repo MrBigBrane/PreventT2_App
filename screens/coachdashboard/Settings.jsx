@@ -75,7 +75,7 @@ export default function Settings({ navigation, route }) {
             <TextInput
               mode="outlined"
               placeholder="Enter Class Name"
-              label={"Class Name"}
+              // label={"Class Name"}
               onChangeText={(text) => setText1(text)}
               value={text1}
               disabled={locked}
@@ -85,7 +85,7 @@ export default function Settings({ navigation, route }) {
             <TextInput
               mode="outlined"
               placeholder="Enter Coach ID"
-              label={"Coach ID"}
+              // label={"Coach ID"}
               onChangeText={(text) => setText2(text)}
               value={text2}
               disabled={locked}
@@ -95,7 +95,7 @@ export default function Settings({ navigation, route }) {
             <TextInput
               mode="outlined"
               placeholder="Enter Cohort ID"
-              label={"Cohort ID"}
+              // label={"Cohort ID"}
               onChangeText={(text) => setText3(text)}
               value={text3}
               disabled={locked}
@@ -105,7 +105,7 @@ export default function Settings({ navigation, route }) {
             <TextInput
               mode="outlined"
               placeholder="Enter Organization Code"
-              label={"Organization Code"}
+              // label={"Organization Code"}
               onChangeText={(text) => setText4(text)}
               value={text4}
               disabled={locked}
@@ -115,7 +115,7 @@ export default function Settings({ navigation, route }) {
             <TextInput
               mode="outlined"
               placeholder="Enter Class Meeting Link"
-              label={"Meeting Link"}
+              // label={"Meeting Link"}
               onChangeText={(text) => setText5(text)}
               value={text5}
               disabled={locked}
@@ -124,7 +124,8 @@ export default function Settings({ navigation, route }) {
           <View style={styles.buttons}>
             {locked ? (
               <Button
-                mode="contained"
+                mode="elevated"
+                icon={"circle-edit-outline"}
                 onPress={() => setLocked(!locked)}
                 style={{ marginBottom: 15, margin: 10 }}
               >
@@ -133,7 +134,7 @@ export default function Settings({ navigation, route }) {
             ) : (
               <>
                 <Button
-                  mode="contained"
+                  mode="elevated"
                   onPress={handleLoading}
                   loading={loading}
                   style={{ marginBottom: 15, margin: 10 }}
@@ -141,7 +142,7 @@ export default function Settings({ navigation, route }) {
                   Save
                 </Button>
                 <Button
-                  mode="outlined"
+                  mode="elevated"
                   onPress={() => setLocked(!locked)}
                   style={{ marginBottom: 15, margin: 10 }}
                 >
@@ -163,7 +164,8 @@ export default function Settings({ navigation, route }) {
           {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 10 }}> */}
             <DialogComponent
             mode={"outlined"}
-            buttonTitle="Remove Class"
+            // icon={"trash-can-outline"}
+            buttonTitle="Delete Class"
             alertTitle={"Are you sure you want to remove this class?"}
             alertContent={"This cannot be undone."}
             alertAction={handleDelete}

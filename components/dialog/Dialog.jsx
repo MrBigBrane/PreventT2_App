@@ -14,6 +14,7 @@ export default function DialogComponent({ buttonTitle, alertTitle, alertContent,
       <Button
         mode={mode ? mode : "contained"}
         onPress={showDialog}
+        icon={"trash-can-outline"}
         style={[buttonStyle ? buttonStyle : null]}
         textColor={textColor ? textColor : "white"}
       >

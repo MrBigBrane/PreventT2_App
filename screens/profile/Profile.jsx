@@ -92,9 +92,13 @@ export default function Profile({ navigation }) {
               get started!
             </Text>
             <Button
-              mode="contained"
+              mode="elevated"
+              buttonColor="green"
+              textColor="white"
               onPress={() => navigation.navigate("Onboarding")}
               style={styles.buttonForms}
+              contentStyle={styles.buttonContent}
+              icon={"launch"}
             >
               Onboarding Form
             </Button>
@@ -106,9 +110,13 @@ export default function Profile({ navigation }) {
               Sign up to become a coach today!
             </Text>
             <Button
-              mode="contained"
+              mode="elevated"
+              buttonColor="green"
+              textColor="white"
               onPress={() => navigation.navigate("Become Coach")}
               style={styles.buttonForms}
+              contentStyle={styles.buttonContent}
+              icon={"launch"}
             >
               Become a Coach
             </Button>
@@ -160,7 +168,7 @@ const styles = StyleSheet.create({
   },
   avatar: {
     marginTop: 50,
-    marginBottom: 100,
+    marginBottom: 75,
     marginLeft: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -195,6 +203,9 @@ const styles = StyleSheet.create({
   textForms: {
     marginLeft: 10,
     marginVertical: 5
-  }
+  },
+  buttonContent: {
+    flexDirection: "row-reverse",
+  },
 });
 
