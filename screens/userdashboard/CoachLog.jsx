@@ -11,62 +11,61 @@ export default function CoachLog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
     const [user, setUser] = useState({});
+    const [userAvatar, setUserAvatar] = useState('');
+
+    const [counter, setCounter] = useState(0);
 
     useEffect(() => {
-        async function coachLog() {
-          const {
-            data: { user },
-          } = await supabase.auth.getUser();
-          setUser(user);
-          const { data, error } = await supabase
-            .from("lifestyle_coach_log")
-            .select()
-            .eq("user", user.id)
-            .order("created_at", { ascending: false });
-
-          if (error) {
-            console.log(error);
-          } else {
-            setData(data);
-          }
-        }
-
         coachLog();
     }, [])
 
     async function coachLog() {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (searchQuery === "") {
-          const { data, error } = await supabase
-            .from("lifestyle_coach_log")
-            .select()
-            .eq("user", user.id)
-            .order("created_at", { ascending: false });
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+      if (searchQuery === "") {
+        const { data, error } = await supabase
+          .from("lifestyle_coach_log")
+          .select()
+          .eq("user", user.id)
+          .order("created_at", { ascending: false });
 
-          if (error) {
-            console.log(error);
-          } else {
-            setData(data);
-          }
-        } else {
-            // Fix on the backend so there is new column that is date as a string not a date
+        if (counter === 0) {
+          setCounter(1);
+          const avatar = await supabase
+            .from("profiles")
+            .select("avatar_path")
+            .eq("id", user.id);
 
-          const { data, error } = await supabase
-            .from("lifestyle_coach_log")
-            .select()
-            .eq("user", user.id)
-            .ilike("created_at_string", `%${searchQuery}%`)
+          const image = await supabase.storage
+            .from("user_avatars")
+            .getPublicUrl(avatar.data[0].avatar_path);
 
-          if (error) {
-            console.log(error);
-          } else {
-            setData(data);
-          }
+          setUserAvatar(image.data.publicUrl);
         }
-        
+
+        if (error) {
+          console.log(error);
+        } else {
+          setData(data);
+        }
+      } else {
+        // Fix on the backend so there is new column that is date as a string not a date
+
+        const { data, error } = await supabase
+          .from("lifestyle_coach_log")
+          .select()
+          .eq("user", user.id)
+          .ilike("created_at_string", `%${searchQuery}%`);
+
+        if (error) {
+          console.log(error);
+        } else {
+          setData(data);
+        }
       }
+    }
 
       async function deleteItem(id) {
         const { error } = await supabase
@@ -118,6 +117,8 @@ export default function CoachLog() {
                   date={item.created_at.substring(0, 10)}
                   editPage={"Add Coach Log"}
                   deleteAction={() => deleteItem(item.id)}
+                  hideDate={true}
+                  avatar={userAvatar}
                 />
               </View>
             );

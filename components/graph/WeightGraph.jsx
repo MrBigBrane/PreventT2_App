@@ -6,7 +6,7 @@ import { Surface, Text } from "react-native-paper";
 import getWeeklyWeight from "../../serveractions/graph/getWeeklyWeight";
 import getMonthlyWeight from "../../serveractions/graph/getMonthlyWeight";
         
-export default function WeightGraph({ user }) {
+export default function WeightGraph({ user, coachView }) {
     const [setting, setSetting] = useState({ title: "Week", icon: "calendar" });
     const [data, setData] = useState([]);
     const [monthData, setMonthData] = useState([]);
@@ -55,7 +55,7 @@ export default function WeightGraph({ user }) {
 
     return (
       <View>
-        <View style={styles.menu}>
+        <View style={coachView ? styles.coachMenu : styles.menu}>
           <NewDropdownList
             data={timeSettings}
             title="Time Range"
@@ -102,12 +102,14 @@ export default function WeightGraph({ user }) {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
         height: 250,
         // marginLeft: -5
     },
     menu: {
-      marginBottom: 50
+      marginBottom: 70
+    },
+    coachMenu: {
+      marginBottom: 20
     },
     paper: {
         padding: 10,

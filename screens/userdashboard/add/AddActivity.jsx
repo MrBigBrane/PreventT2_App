@@ -84,27 +84,53 @@ export default function AddActivity({ navigation, route }) {
     }
 
     return (
-      <View style={styles.spacing}> 
+      <View style={styles.spacing}>
         <View style={styles.padding}>
           <Text>Activity Name</Text>
-          <TextInput mode="outlined" placeholder="Enter Activity Name" onChangeText={(text) => setText1(text)} value={text1} />
+          <TextInput
+            mode="outlined"
+            placeholder="Enter Activity Name"
+            onChangeText={(text) => setText1(text)}
+            value={text1}
+          />
         </View>
         <View style={styles.padding}>
           <Text>Exercise Type</Text>
           {/* <DropdownList setSelected={setSelected1} data={exerciseTypes} defaultValue={data?.exercise_type} /> */}
-          <NewDropdownList data={exerciseTypes} setSelected={setSelected1} title={"Exercise Type"} defaultValue={selected1} />
+          <View style={{ marginBottom: 50 }}>
+            <NewDropdownList
+              data={exerciseTypes}
+              setSelected={setSelected1}
+              title={"Exercise Type"}
+              defaultValue={selected1}
+            />
+          </View>
         </View>
         <View style={styles.padding}>
           <Text>Duration (in minutes)</Text>
-          <TextInput mode="outlined" placeholder="How long was your activity?" onChangeText={(text) => setText2(text)} value={text2} />
+          <TextInput
+            mode="outlined"
+            placeholder="How long was your activity?"
+            onChangeText={(text) => setText2(text)}
+            value={text2}
+          />
         </View>
         <View style={styles.padding}>
           <Text>Perceived Difficulty</Text>
           {/* <DropdownList setSelected={setSelected2} data={perceivedDifficulty} defaultValue={data?.difficulty}/> */}
-          <NewDropdownList data={perceivedDifficulty} setSelected={setSelected2} title={"Perceived Difficulty"} defaultValue={selected2} />
+          <View style={{ marginBottom: 50 }}>
+            <NewDropdownList
+              data={perceivedDifficulty}
+              setSelected={setSelected2}
+              title={"Perceived Difficulty"}
+              defaultValue={selected2}
+            />
+          </View>
         </View>
         <View style={styles.padding}>
-            <Button mode="contained" onPress={submit} loading={loading}>{datum ? "Update" : "Submit"}</Button>
+          <Button mode="contained" onPress={submit} loading={loading}>
+            {datum ? "Update" : "Submit"}
+          </Button>
         </View>
       </View>
     );

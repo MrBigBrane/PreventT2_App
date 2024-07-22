@@ -5,31 +5,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import FloatingButton from '../../components/userdashboard/FloatingButton';
+import { RefreshControl } from 'react-native';
 
 export default function ActionPlan() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
+    const [userAvatar, setUserAvatar] = useState('');
+    const [counter, setCounter] = useState(0);
 
-    useEffect(() => {
-        async function actionPlan() {
-          const {
-            data: { user },
-          } = await supabase.auth.getUser();
-          const { data, error } = await supabase
-            .from("action_plans")
-            .select()
-            .eq("user", user.id)
-            .order("created_at", { ascending: false });
-
-          if (error) {
-            console.log(error);
-          } else {
-            setData(data);
-          }
-        }
-
-        actionPlan();
-    }, [])
+    
 
     async function actionPlan() {
         const {
@@ -41,6 +25,22 @@ export default function ActionPlan() {
             .select()
             .eq("user", user.id)
             .order("created_at", { ascending: false });
+
+            if(counter === 0) {
+              setCounter(1);
+
+            const avatar = await supabase
+            .from("profiles")
+            .select("avatar_path")
+            .eq("id", user.id)
+
+          const image = await supabase
+            .storage
+            .from("user_avatars")
+            .getPublicUrl(avatar.data[0].avatar_path)
+
+            setUserAvatar(image.data.publicUrl);
+          }
 
           if (error) {
             console.log(error);
@@ -75,7 +75,9 @@ export default function ActionPlan() {
         }
       }
     
-    
+    useEffect(() => {
+      actionPlan();
+    }, []);
 
     return (
       <View style={styles.container}>
@@ -101,10 +103,14 @@ export default function ActionPlan() {
                 date={item.created_at}
                 editPage={"Add Action Plan"}
                 deleteAction={() => deleteItem(item.id)}
+                avatar={userAvatar}
               />
             </View>
           ))}
           keyExtractor={(item) => item.id}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={actionPlan} />
+          }
         />
         <FloatingButton />
       </View>

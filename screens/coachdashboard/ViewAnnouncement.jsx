@@ -57,7 +57,6 @@ export default function ViewAnnouncement({ navigation, route }) {
             style={{ flex: 1, margin: 8 }}
           />
         </View>
-        <ComposeFloatingButton />
       </View>
     );
 }

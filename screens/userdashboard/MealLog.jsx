@@ -10,60 +10,60 @@ import { RefreshControl } from 'react-native';
 export default function MealLog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([]);
+    const [userAvatar, setUserAvatar] = useState('');
+    const [counter, setCounter] = useState(0);
 
     useEffect(() => {
-        async function mealLog() {
-          const {
-            data: { user },
-          } = await supabase.auth.getUser();
-          const { data, error } = await supabase
-            .from("meal_plans")
-            .select()
-            .eq("user", user.id)
-            .order("created_at", { ascending: false });
-
-          if (error) {
-            console.log(error);
-          } else {
-            setData(data);
-          }
-        }
-
         mealLog();
     }, [])
 
     async function mealLog() {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (searchQuery === "") {
-          const { data, error } = await supabase
-            .from("meal_plans")
-            .select()
-            .eq("user", user.id)
-            .order("created_at", { ascending: false });
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-          if (error) {
-            console.log(error);
-          } else {
-            setData(data);
-          }
-        } else {
-          const { data, error } = await supabase
-            .from("meal_plans")
-            .select()
-            .eq("user", user.id)
-            .ilike("activity", `%${searchQuery}%`)
-            .order("created_at", { ascending: false });
+      if (searchQuery === "") {
+        const { data, error } = await supabase
+          .from("meal_plans")
+          .select()
+          .eq("user", user.id)
+          .order("created_at", { ascending: false });
 
-          if (error) {
-            console.log(error);
-          } else {
-            setData(data);
-          }
+        if (counter === 0) {
+          setCounter(1);
+
+          const avatar = await supabase
+            .from("profiles")
+            .select("avatar_path")
+            .eq("id", user.id);
+
+          const image = await supabase.storage
+            .from("user_avatars")
+            .getPublicUrl(avatar.data[0].avatar_path);
+
+          setUserAvatar(image.data.publicUrl);
         }
-        
+
+        if (error) {
+          console.log(error);
+        } else {
+          setData(data);
+        }
+      } else {
+        const { data, error } = await supabase
+          .from("meal_plans")
+          .select()
+          .eq("user", user.id)
+          .ilike("activity", `%${searchQuery}%`)
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.log(error);
+        } else {
+          setData(data);
+        }
       }
+    }
 
       async function deleteItem(id) {
         const { error } = await supabase
@@ -106,6 +106,7 @@ export default function MealLog() {
                 date={item.created_at}
                 editPage={"Add Meal"}
                 deleteAction={() => deleteItem(item.id)}
+                avatar={userAvatar}
               />
             </View>
           ))}

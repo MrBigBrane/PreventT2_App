@@ -86,7 +86,14 @@ export default function AddMeal({ navigation, route }) {
         </View>
         <View style={styles.padding}>
           <Text>Meal Type</Text>
-          <NewDropdownList setSelected={setSelected1} data={mealTypes} title={"Meal Type"} defaultValue={selected1} />
+          <View style={{ marginBottom: 50 }}>
+            <NewDropdownList
+              setSelected={setSelected1}
+              data={mealTypes}
+              title={"Meal Type"}
+              defaultValue={selected1}
+            />
+          </View>
         </View>
         <View style={styles.padding}>
           <Text>Item</Text>

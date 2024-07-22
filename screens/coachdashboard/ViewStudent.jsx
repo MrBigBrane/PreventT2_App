@@ -114,26 +114,28 @@ export default function ViewStudent({ route, navigation }) {
           col2={item.attendance.title}
           col3icon={item.sesstype.icon}
           col3={sessType}
-          date={item.created_at.substring(0, 10)}       
+          date={item.created_at.substring(0, 10)}
+          coach={true} 
         />
       </View>
     })
 
-    return (<ScrollView style={styles.container}>
-        {/* {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={[0, 0, 0, 0]} hiddenIndex={graphData[2]} yAxisSuffix={" lbs"}/>}   */}
-        {user.id && <MinutesGraph user={user} />}
-        {user.id && <WeightGraph user={user} />}
-        
-        <Searchbar
-          placeholder="Search by Date (YYYY-MM-DD)"
-          onChangeText={setSearchQuery}
-          onIconPress={coachLog}
-          value={searchQuery}
-        />
-        {coachLogs}
+    return (
+      <View style={styles.container}>
+        <ScrollView>
+          {/* {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={[0, 0, 0, 0]} hiddenIndex={graphData[2]} yAxisSuffix={" lbs"}/>}   */}
+          {user.id && <MinutesGraph user={user} coachView={true} />}
+          {user.id && <WeightGraph user={user} coachView={true} />}
 
-          
-      </ScrollView>
+          <Searchbar
+            placeholder="Search by Date (YYYY-MM-DD)"
+            onChangeText={setSearchQuery}
+            onIconPress={coachLog}
+            value={searchQuery}
+          />
+          {coachLogs}
+        </ScrollView>
+      </View>
     );  
 }
 
