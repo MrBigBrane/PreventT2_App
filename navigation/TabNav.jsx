@@ -9,6 +9,7 @@ import MyClass from "../screens/myclass/MyClass";
 import ProfileNav from "../screens/profile/ProfileNav";
 import Resources from "../screens/resources/Resources";
 import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 
 const Tab = createBottomTabNavigator();
 

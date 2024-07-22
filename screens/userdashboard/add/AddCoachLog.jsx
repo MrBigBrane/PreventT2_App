@@ -116,12 +116,27 @@ export default function AddCoachLog({ navigation, route }) {
         <View style={styles.padding}>
           <Text>Attendance</Text>
           {/* <DropdownList setSelected={setSelected1} data={attendanceTypes} /> */}
-          <NewDropdownList data={attendanceTypes} setSelected={setSelected1} title={"Attendance"} defaultValue={selected1} />
+          <View style={{ marginBottom: 50 }}>
+            <NewDropdownList
+            data={attendanceTypes}
+            setSelected={setSelected1}
+            title={"Attendance"}
+            defaultValue={selected1}
+          />
+          </View>
+          
         </View>
         <View style={styles.padding}>
           <Text>Session Type</Text>
           {/* Change this so it supports the new select component */}
-          <NewDropdownList setSelected={setSelected2} data={sessionTypes} title={"Session Type"} defaultValue={selected2} />
+          <View style={{ marginBottom: 50 }}>
+            <NewDropdownList
+              setSelected={setSelected2}
+              data={sessionTypes}
+              title={"Session Type"}
+              defaultValue={selected2}
+            />
+          </View>
         </View>
         <View style={styles.padding}>
           <Button mode="contained" onPress={submit} loading={loading}>

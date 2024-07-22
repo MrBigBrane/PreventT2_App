@@ -7,7 +7,7 @@ import getMonthlyMinutes from "../../serveractions/graph/getMonthlyMinutes";
 import { Surface } from "react-native-paper";
 import { Text } from "react-native";
         
-export default function MinutesGraph({ user }) {
+export default function MinutesGraph({ user, coachView }) {
     const [setting, setSetting] = useState({ title: "Week", icon: "calendar" });
     const [data, setData] = useState([]);
     const [monthData, setMonthData] = useState([]);
@@ -56,7 +56,7 @@ export default function MinutesGraph({ user }) {
 
     return (
       <View>
-        <View style={styles.menu}>
+        <View style={coachView ? styles.coachMenu : styles.menu}>
           <NewDropdownList
           data={timeSettings}
           title="Time Range"
@@ -109,12 +109,15 @@ export default function MinutesGraph({ user }) {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        // marginTop: 20,
         height: 250,
         // marginLeft: -5
     },
     menu: {
-        marginBottom: 50
+        marginBottom: 70
+    },
+    coachMenu: {
+      marginBottom: 20
     },
     paper: {
         padding: 10,
@@ -125,6 +128,5 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 2,
         right: 0
-
     }
 })

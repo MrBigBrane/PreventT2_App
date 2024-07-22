@@ -76,7 +76,7 @@ export default function ViewClass({ route, navigation }) {
         return (
           <Card style={styles.card} onPress={handleButtonPress}>
             <Card.Title
-              title={`${item.first_name} ${item.last_name}`}
+              title={`${item.name}`}
               titleVariant="headlineMedium"
               left={(props) => <LeftContent {...props} />}
             />
@@ -85,7 +85,7 @@ export default function ViewClass({ route, navigation }) {
                 <View style={styles.grouping}>
                   <Text variant="bodyMedium">Join Date</Text>
                   <View style={styles.text}>
-                    <Text variant="bodySmall">{item.created_at.substring(0, 10)}</Text>
+                    <Text variant="bodySmall">{item.joined_class_at.substring(0, 10)}</Text>
                   </View>
                 </View>
                 <View style={styles.grouping}>

@@ -6,9 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-const LeftContent = (props) => (
-  <Avatar.Icon {...props} icon={"account-circle"} />
-);
+
 
 const ActionPlan = ({
   title,
@@ -22,18 +20,26 @@ const ActionPlan = ({
   data,
   editPage,
   deleteAction,
+  avatar
 }) => {
   const navigation = useNavigation();
+
+  const LeftContent = (props) => (
+    <Avatar.Image
+      {...props}
+      source={{ uri: avatar !== null ? avatar : "https://picsum.photos/700" }}
+    />
+  );
 
   return (
     <Card style={styles.container}>
       {/* <View style={styles.title}> */}
       <Card.Title
         title={title}
-        left={LeftContent}
+        left={avatar !== null && LeftContent}
         titleVariant="titleLarge"
-        right={() => <Text variant="labelSmall">{date}</Text>}
-        rightStyle={styles.date}
+        // right={() => <Text variant="labelSmall">{date}</Text>}
+        // rightStyle={styles.date}
       />
       <Card.Content style={styles.textSpace}>
         <View style={styles.grouping}>
@@ -69,7 +75,7 @@ const ActionPlan = ({
       </Card.Content>
       {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
       <Card.Actions>
-        <Button onPress={() => navigation.navigate(editPage, { datum: data })}>
+        <Button onPress={() => navigation.navigate(editPage, { datum: data })} mode="outlined" icon={"lead-pencil"}>
           Edit
         </Button>
         <DialogComponent
