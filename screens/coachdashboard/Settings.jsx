@@ -79,6 +79,7 @@ export default function Settings({ navigation, route }) {
               onChangeText={(text) => setText1(text)}
               value={text1}
               disabled={locked}
+              maxLength={15}
             />
           </View>
           <View style={styles.spacing}>

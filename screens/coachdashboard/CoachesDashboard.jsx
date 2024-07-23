@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { FlatList } from "react-native-gesture-handler";
 import CoachClassCard from "../../components/CoachClassCard";
-import { Searchbar } from 'react-native-paper';
+import { IconButton, Searchbar } from 'react-native-paper';
 import NewFloatingButton from "../../components/coachesdashboard/NewFloatingButton";
 
 export default function CoachesDashboard({ navigation }) {
@@ -62,6 +62,7 @@ export default function CoachesDashboard({ navigation }) {
                   classId={item.code}
                   className={item.class_name}
                   backgroundUri={item.background_picture_path !== null ? item.background_picture_path : 'https://picsum.photos/700'}
+                  createdAt={item.created_at}
                 />
               </View>;
             }}

@@ -61,7 +61,7 @@ export default function AddClass({ navigation }) {
         <View style={styles.spacing}> 
         <View style={styles.padding}>
           <Text>Class Name</Text>
-          <TextInput mode="outlined" placeholder="Enter Class Name" onChangeText={(text) => setText1(text)} value={text1} />
+          <TextInput mode="outlined" placeholder="Enter Class Name" onChangeText={(text) => setText1(text)} value={text1} maxLength={15} />
         </View>
         <View style={styles.padding}>
           <Text>Coach ID</Text>
