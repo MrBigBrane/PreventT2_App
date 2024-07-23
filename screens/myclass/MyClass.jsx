@@ -80,6 +80,28 @@ export default function MyClass() {
     }
   }
 
+  async function leaveClass() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .update({
+        class_codes: null,
+      })
+      .eq("id", user.id)
+      .select();
+
+    if (error) {
+      console.log(error);
+    } else {
+      setInClass(false)
+      console.log(data);
+      // getInClass();
+    }
+  }
+
   useLayoutEffect(() => {
     getInClass();
   }, []);
@@ -125,7 +147,10 @@ export default function MyClass() {
                 </View>
                 <Button
                   onPress={() => console.log("announcements")}
-                  mode="contained"
+                  mode="elevated"
+                  icon={"bullhorn"}
+                  textColor="white"
+                  buttonColor="green"
                   style={{ margin: 10 }}
                 >
                   Announcements
@@ -133,20 +158,28 @@ export default function MyClass() {
 
                 <Button
                   onPress={() => console.log("exercise plan")}
-                  mode="contained"
+                  mode="elevated"
+                  icon={"dumbbell"}
+                  textColor="white"
+                  buttonColor="green"
                   style={{ margin: 10 }}
                 >
                   Exercise Plan
                 </Button>
-                <Surface style={styles.padding}>
-                  <Text>Meeting Link</Text>
-                  <Text style={{ marginBottom: 12 }}>{data.meet_link}</Text>
-                  <Text>Class Code</Text>
-                  <Text>{data.code}</Text>
-                </Surface>
+                <View>
+                  <Surface style={styles.padding}>
+                    <Text>Meeting Link:</Text>
+                    <Text style={{ marginBottom: 12 }}>{data.meet_link}</Text>
+                    <Text>Class Code:</Text>
+                    <Text>{data.code}</Text>
+                  </Surface>
+                </View>
                 <Button
-                  onPress={() => console.log("leaving class")}
-                  mode="contained"
+                  onPress={leaveClass}
+                  mode="elevated"
+                  icon={"exit-run"}
+                  textColor="white"
+                  buttonColor="red"
                   style={{ margin: 10 }}
                 >
                   Leave Class
@@ -154,20 +187,26 @@ export default function MyClass() {
               </View>
             ) : (
               <View style={styles.container}>
-                <View style={styles.padding}>
+                <View style={styles.infoView}>
+                <Surface style={styles.padding}>
                   <Text>Enter Class Code</Text>
                   <TextInput
                     placeholder="Class Code"
+                    mode="outlined"
+                    outlineColor="green"
+                    activeOutlineColor="green"
                     value={classCode}
                     onChangeText={setClassCode}
+                    style={styles.input}
                   />
                   <Button
                     onPress={joinClass}
-                    mode="contained"
+                    mode="elevated"
                     style={{ marginTop: 12 }}
                   >
                     Join Class
                   </Button>
+                </Surface>
                 </View>
               </View>
             )}
@@ -184,7 +223,39 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   padding: {
-    padding: 30,
-    width: Dimensions.get("window").width
+    // flex: 1,
+    width: "91%",
+    alignSelf: "center",
+    padding: 15,
+    marginTop: 20,
+    marginBottom: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    // borderColor: "red",
+    // borderWidth: 1
   },
+  infoView: {
+    width: "100%",
+    // flex: 1,
+    // alignItems: "center",
+    // justifyContent: "center",
+    // alignSelf: "center",
+    // padding: 15,
+    // marginTop: 20,
+    // marginBottom: 20,
+    // backgroundColor: "white",
+    // borderColor: "red",
+    // borderWidth: 1
+  },
+  text: {
+    // flexDirection: "row",
+    // justifyContent: "center",
+    // textAlign: "center",
+    marginTop: 10,
+    marginBottom: 10
+  },
+  input: {
+    // flex: 1,
+    width: "100%",
+  }
 });

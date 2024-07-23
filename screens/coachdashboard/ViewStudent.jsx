@@ -15,31 +15,28 @@ export default function ViewStudent({ route, navigation }) {
 
 
     const [data, setData] = useState([]);
-    const [user, setUser] = useState({});
+    // const [user, setUser] = useState({});
     const [searchQuery, setSearchQuery] = useState('');
 
-    async function getStudent() {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select()
-        .eq("id", studentData.id);
+    // async function getStudent() {
+    //   const { data, error } = await supabase
+    //     .from("profiles")
+    //     .select()
+    //     .eq("id", studentData.id);
 
-      // if (error) {
-      //   console.log(error);
-      // } else {
-      //   console.log(data);
-      // }
-    }
+    //   // if (error) {
+    //   //   console.log(error);
+    //   // } else {
+    //   //   console.log(data);
+    //   // }
+    // }
 
     async function coachLog() {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
         if (searchQuery === "") {
           const { data, error } = await supabase
             .from("lifestyle_coach_log")
             .select()
-            .eq("user", user.id)
+            .eq("user", studentData.id)
             .order("created_at", { ascending: false });
 
           if (error) {
@@ -53,7 +50,7 @@ export default function ViewStudent({ route, navigation }) {
           const { data, error } = await supabase
             .from("lifestyle_coach_log")
             .select()
-            .eq("user", user.id)
+            .eq("user", studentData.id)
             .ilike("created_at_string", `%${searchQuery}%`)
 
           if (error) {
@@ -67,14 +64,11 @@ export default function ViewStudent({ route, navigation }) {
 
     useEffect(() => {
         async function coachLog() {
-            const {
-              data: { user },
-            } = await supabase.auth.getUser();
-            setUser(user);
+            // setUser(user);
             const { data, error } = await supabase
               .from("lifestyle_coach_log")
               .select()
-              .eq("user", user.id)
+              .eq("user", studentData.id)
               .order("created_at", { ascending: false });
   
             if (error) {
@@ -86,7 +80,7 @@ export default function ViewStudent({ route, navigation }) {
           }
   
           coachLog();
-        getStudent();
+        // getStudent();
     }, [])
 
     let coachLogs = data.map((item) => {
@@ -124,8 +118,8 @@ export default function ViewStudent({ route, navigation }) {
       <View style={styles.container}>
         <ScrollView>
           {/* {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={[0, 0, 0, 0]} hiddenIndex={graphData[2]} yAxisSuffix={" lbs"}/>}   */}
-          {user.id && <MinutesGraph user={user} coachView={true} />}
-          {user.id && <WeightGraph user={user} coachView={true} />}
+          {studentData.id && <MinutesGraph user={studentData} coachView={true} />}
+          {studentData.id && <WeightGraph user={studentData} coachView={true} />}
 
           <Searchbar
             placeholder="Search by Date (YYYY-MM-DD)"

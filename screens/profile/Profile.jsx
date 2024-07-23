@@ -182,7 +182,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: "white",
     borderColor: "red",
-    borderWidth: 1
+    borderWidth: 1,
+    borderRadius: 10
   },
   divider: {
     marginTop: 10,
@@ -195,6 +196,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     backgroundColor: "white",
+    // borderColor: "red",
+    // borderWidth: 1,
+    borderRadius: 10
 
   },
   buttonForms: {
@@ -208,4 +212,3 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
   },
 });
-

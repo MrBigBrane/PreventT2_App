@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import getWeeklyMinutes from "../../serveractions/graph/getWeeklyMinutes";
 import { RefreshControl } from "react-native-gesture-handler";
 import ViewStudent from "./ViewStudent";
+import getWeeklyWeight from "../../serveractions/graph/getWeeklyWeight";
 
 export default function ViewClass({ route, navigation }) {
     const { classData } = route.params;
@@ -13,6 +14,7 @@ export default function ViewClass({ route, navigation }) {
     const [studentData, setStudentData] = useState([]);
     const [weekData, setWeekData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [bmi, setBmi] = useState(null);
 
     
 
@@ -59,6 +61,8 @@ export default function ViewClass({ route, navigation }) {
             async function fetch() {
                 const data = Array.from(await getWeeklyMinutes(item.id))
                 setWeekData(data[data.length - 1].value);
+                const weekGraph = Array.from(await getWeeklyWeight(item.id))
+                item.bmi = (((weekGraph[weekGraph.length - 1].value / (item.height ** 2)) * 703).toFixed(2));
             }
             fetch();
         }, [])
@@ -70,7 +74,7 @@ export default function ViewClass({ route, navigation }) {
         const [showDetails, setShowDetails] = useState(false);
 
         function handleButtonPress() {
-            navigation.navigate("View Student", { studentData: studentData });
+            navigation.navigate("View Student", { studentData: item });
         }
 
         return (
