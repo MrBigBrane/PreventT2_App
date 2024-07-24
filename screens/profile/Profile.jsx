@@ -98,7 +98,7 @@ export default function Profile({ navigation }) {
               onPress={() => navigation.navigate("Onboarding")}
               style={styles.buttonForms}
               contentStyle={styles.buttonContent}
-              icon={"launch"}
+              // icon={"launch"}
             >
               Onboarding Form
             </Button>
@@ -116,7 +116,7 @@ export default function Profile({ navigation }) {
               onPress={() => navigation.navigate("Become Coach")}
               style={styles.buttonForms}
               contentStyle={styles.buttonContent}
-              icon={"launch"}
+              // icon={"launch"}
             >
               Become a Coach
             </Button>

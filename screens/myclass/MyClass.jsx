@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
-import { Button, Surface, Text, TextInput } from "react-native-paper";
+import { Button, Divider, Surface, Text, TextInput } from "react-native-paper";
 import { supabase } from "../../lib/supabase";
 
 export default function MyClass() {
@@ -144,6 +144,18 @@ export default function MyClass() {
                   >
                     Joined at: {joinTime.substring(0, 10)}
                   </Text>
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 20,
+                      color: "white",
+                      position: "absolute",
+                      bottom: 10,
+                      left: 10,
+                    }}
+                  >
+                    Class Code: {data.code}
+                  </Text>
                 </View>
                 <Button
                   onPress={() => console.log("announcements")}
@@ -166,14 +178,14 @@ export default function MyClass() {
                 >
                   Exercise Plan
                 </Button>
+                <Divider />
                 <View>
-                  <Surface style={styles.padding}>
-                    <Text>Meeting Link:</Text>
-                    <Text style={{ marginBottom: 12 }}>{data.meet_link}</Text>
-                    <Text>Class Code:</Text>
-                    <Text>{data.code}</Text>
-                  </Surface>
+                  <Text>Meeting Link:</Text>
+                  <Text style={{ marginBottom: 12 }}>{data.meet_link}</Text>
+                  <Text>Class Code:</Text>
+                  <Text>{data.code}</Text>
                 </View>
+                <Divider />
                 <Button
                   onPress={leaveClass}
                   mode="elevated"
@@ -188,25 +200,25 @@ export default function MyClass() {
             ) : (
               <View style={styles.container}>
                 <View style={styles.infoView}>
-                <Surface style={styles.padding}>
-                  <Text>Enter Class Code</Text>
-                  <TextInput
-                    placeholder="Class Code"
-                    mode="outlined"
-                    outlineColor="green"
-                    activeOutlineColor="green"
-                    value={classCode}
-                    onChangeText={setClassCode}
-                    style={styles.input}
-                  />
-                  <Button
-                    onPress={joinClass}
-                    mode="elevated"
-                    style={{ marginTop: 12 }}
-                  >
-                    Join Class
-                  </Button>
-                </Surface>
+                  <Surface style={styles.padding}>
+                    <Text>Enter Class Code</Text>
+                    <TextInput
+                      placeholder="Class Code"
+                      mode="outlined"
+                      outlineColor="green"
+                      activeOutlineColor="green"
+                      value={classCode}
+                      onChangeText={setClassCode}
+                      style={styles.input}
+                    />
+                    <Button
+                      onPress={joinClass}
+                      mode="elevated"
+                      style={{ marginTop: 12 }}
+                    >
+                      Join Class
+                    </Button>
+                  </Surface>
                 </View>
               </View>
             )}
