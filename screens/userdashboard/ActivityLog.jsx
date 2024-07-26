@@ -78,7 +78,6 @@ export default function ActivityLog() {
 
   return (
     <View style={styles.container}>
-      {user.id && <NewGraph user={user} />}
       <Searchbar
         placeholder="Search by activity"
         onChangeText={setSearchQuery}

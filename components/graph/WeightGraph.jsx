@@ -22,10 +22,10 @@ export default function WeightGraph({ user, coachView }) {
             // console.log(user.id)
           const weekGraph = Array.from(await getWeeklyWeight(user.id))
           const monthGraph = Array.from(await getMonthlyWeight(user.id));
-          console.log(monthGraph)
+          // console.log(weekGraph)
+          // console.log(monthGraph)
           setData(weekGraph)
           setMonthData(monthGraph)
-        //   console.log(graph)
         }
 
         graph()
@@ -55,16 +55,20 @@ export default function WeightGraph({ user, coachView }) {
 
     return (
       <View>
-        <View style={coachView ? styles.coachMenu : styles.menu}>
-          <NewDropdownList
+        <View style={styles.menu}>
+          <Text style={styles.title} variant="titleLarge" >
+            Weight Graph
+          </Text>
+            <NewDropdownList
             data={timeSettings}
             title="Time Range"
             setSelected={setSetting}
             defaultValue={setting}
           />
+          
         </View>
         <View style={[styles.container]}>
-          {data.length > 0 && (
+          {data.length > 0 && monthData.length > 0 && (
             <>
               {value !== null && (
                 <Surface style={styles.paper}>
@@ -76,7 +80,7 @@ export default function WeightGraph({ user, coachView }) {
               <LineChart
                 initialSpacing={50}
                 interpolateMissingValues
-                data={setting.title === "Week" ? data : monthData}
+                data={setting.title === "Week" && monthData.length > 0 && data.length > 0 ? data : monthData}
                 xAxisLabelTextStyle={{ width: 100, marginLeft: -36 }}
                 width={Dimensions.get("window").width * 0.8}
                 yAxisLabelSuffix=" lbs"
@@ -89,9 +93,11 @@ export default function WeightGraph({ user, coachView }) {
                 maxValue={400}
                 focusEnabled
                 showStripOnFocus
+                scrollToEnd
                 focusedDataPointIndex={value}
                 onFocus={(item, index) => setValue(index)}
                 dataPointsColor="blue"
+                noOfSections={4}
               />
             </>
           )}
@@ -106,10 +112,10 @@ const styles = StyleSheet.create({
         // marginLeft: -5
     },
     menu: {
-      marginBottom: 70
-    },
-    coachMenu: {
-      marginBottom: 20
+      marginBottom: 20,
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      alignContent: "center",
     },
     paper: {
         padding: 10,
@@ -121,5 +127,11 @@ const styles = StyleSheet.create({
         top: 2,
         right: 0
 
+    },
+    title: {
+        alignContent: "center",
+        alignItems: "center",
+        margin: 10,
+        flex: 1,
     }
 })

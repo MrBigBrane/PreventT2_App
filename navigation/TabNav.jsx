@@ -10,6 +10,7 @@ import ProfileNav from "../screens/profile/ProfileNav";
 import Resources from "../screens/resources/Resources";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import Inbox from "../screens/inbox/Inbox";
 
 const Tab = createBottomTabNavigator();
 
@@ -115,14 +116,14 @@ export default function TabNav() {
           }}
         />
         <Tab.Screen
-          name="Resources"
-          component={Resources}
+          name="Inbox"
+          component={Inbox}
           options={{
-            tabBarLabel: "Resources",
+            tabBarLabel: "Inbox",
             tabBarIcon: ({ color, size }) => {
               return (
                 <Icon
-                  name="clipboard-multiple-outline"
+                  name="email"
                   size={size}
                   color={color}
                 />
