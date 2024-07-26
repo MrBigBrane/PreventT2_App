@@ -1,15 +1,16 @@
 import { useLayoutEffect, useState } from "react";
-import { Image, StyleSheet, View, ScrollView } from "react-native";
+import { Image, StyleSheet, View, ScrollView, FlatList } from "react-native";
 import { supabase } from "../../lib/supabase"
 import { Avatar, Button, Text, Surface, Divider } from "react-native-paper";
 import PickAvatar from "../../components/pickphoto/PickAvatar";
 import ChangeEmail from "../../components/reset/ChangeEmail";
 import ChangePassword from "../../components/reset/ChangePassword";
-import { S } from "@expo/html-elements";
 
 
 export default function Profile({ navigation }) {
     const [data, setData] = useState({});
+    // let [ShowComment, setShowModelComment] = useState(false);
+    // let [animateModal, setanimateModal] = useState(false);
 
     async function signOutUser() {
         const { error } = await supabase.auth.signOut()
@@ -73,9 +74,48 @@ export default function Profile({ navigation }) {
             >
               {data.first_name} {data.last_name}
             </Text>
-          </View>
+
+            <Button
+              mode="elevated"
+              buttonColor="white"
+              textColor="green"
+              onPress={() => navigation.navigate("Edit Profile")}
+              style={styles.buttonForms}
+              // contentStyle={styles.buttonContent}
+              icon={"pencil"}
+            > Edit Profile
+            </Button>
+            
         </View>
         <View>
+        {/* <SwipeUpDownModal
+              modalVisible={ShowComment}
+              PressToanimate={animateModal}
+              //if you don't pass HeaderContent you should pass marginTop in view of ContentModel to Make modal swipeable
+              ContentModal={
+                <View style={styles.containerContent}>
+                  <EditProfile />
+                </View>
+              }
+              HeaderStyle={styles.headerContent}
+              ContentModalStyle={styles.Modal}
+              HeaderContent={
+                <View style={styles.containerHeader}>
+                  <Button
+                    Title={"Press Me"}
+                    onPress={() => {
+                      setanimateModal(true);
+                    }}
+                  />
+                </View>
+              }
+              onClose={() => {
+                setModelComment(false);
+                setanimateModal(false);
+              }}
+            /> */}
+          </View>
+          
           <Surface elevation={4} style={styles.forms}>
             <Text
               variant="headlineMedium"
@@ -161,18 +201,24 @@ const styles = StyleSheet.create({
     right: 0,
     width: '100%',
     height: 200,
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     margin: 12,
     marginTop: 40,
   },
   avatar: {
-    marginTop: 50,
+    // marginTop: 50,
     marginBottom: 75,
     marginLeft: 20,
     flexDirection: 'row',
     alignItems: 'center',
     // justifyContent: 'center',
+    borderColor: 'red',
+    borderWidth: 1,
+    height: 200,
   },
   security: {
     width: "91%",
@@ -211,4 +257,21 @@ const styles = StyleSheet.create({
   buttonContent: {
     flexDirection: "row-reverse",
   },
+  containerContent: {flex: 1, marginTop: 40},
+  containerHeader: {
+    flex: 1,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    // backgroundColor: '#F1F1F1',
+    marginTop: 100,
+  },
+  headerContent:{
+    marginTop: 100,
+  },
+  Modal: {
+    backgroundColor: '#005252',
+    marginTop: 0,
+  }
 });

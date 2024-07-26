@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import Profile from './Profile';
 import Onboarding from './Onboarding';
 import BecomeCoach from './BecomeCoach';
+import EditProfile from './EditProfile';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export default function ProfileNav() {
         // options={{ headerShown: false }}
       />
       <Stack.Screen name="Become Coach" component={BecomeCoach} />
+      <Stack.Screen name="Edit Profile" component={EditProfile} options={{ presentation: 'modal', headerBackTitleVisible: false, headerLeft: null }} />
     </Stack.Navigator>
   );
 }
