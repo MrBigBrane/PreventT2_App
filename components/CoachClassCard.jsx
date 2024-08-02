@@ -21,14 +21,14 @@ export default function CoachClassCard({ className, classId, backgroundUri, crea
           style={styles.textSpace}
           titleStyle={styles.title}
           contentstyle={styles.content}
-          right={() => (
-            <IconButton
-              icon="pencil"
-              size={20}
-              color="black"
-              // onPress={() => navigation.navigate("EditClass", { classId: item.code })}
-            />
-          )}
+          // right={() => (
+          //   // <IconButton
+          //   //   icon="pencil"
+          //   //   size={20}
+          //   //   color="black"
+          //   //   // onPress={() => navigation.navigate("EditClass", { classId: item.code })}
+          //   // />
+          // )}
         />
         <Text variant="bodyLarge" style={styles.content}>Created at: {createdAt}</Text>
       </Card.Content>
