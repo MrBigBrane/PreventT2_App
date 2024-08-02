@@ -1,8 +1,9 @@
 import { View, TextInput, StyleSheet } from "react-native";
 import { useState } from "react";
 import { Button, Divider } from "react-native-paper";
-import DocumentPicker from "../../components/announcements/DocumentPicker";
+import DocumentPicker from "../../components/coachesdashboard/announcements/DocumentPicker";
 import { supabase } from "../../lib/supabase";
+import { RichEditor } from "react-native-pell-rich-editor";
 
 
 export default function AddAnnouncemnt({ navigation, route }) {

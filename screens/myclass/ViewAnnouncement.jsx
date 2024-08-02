@@ -33,30 +33,6 @@ export default function ViewAnnouncement({ navigation, route }) {
         <Text variant="bodyLarge" style={styles.body}>
           {announcementData.message}
         </Text>
-        <View style={styles.button}>
-          <Button
-            mode="contained-tonal"
-            onPress={() =>
-              navigation.navigate("Edit Announcement", {
-                announcementData: announcementData,
-              })
-            }
-            style={{ flex: 1, margin: 8 }}
-          >
-            Edit
-          </Button>
-          <DialogComponent
-            buttonTitle={"Delete"}
-            alertTitle={"Delete Announcement"}
-            alertContent={"Are you sure you want to delete this announcement?"}
-            alertAction={() => {
-              deleteAnnouncement();
-            }}
-            alertActionTitle={"Delete"}
-            mode="contained-tonal"
-            style={{ flex: 1, margin: 8 }}
-          />
-        </View>
       </View>
     );
 }
@@ -75,8 +51,4 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    button: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    }
 })

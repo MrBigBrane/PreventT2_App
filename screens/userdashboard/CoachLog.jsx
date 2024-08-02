@@ -83,7 +83,7 @@ export default function CoachLog() {
 
     return (
       <View style={styles.container}>
-        {user.id && <WeightGraph user={user} />}
+        {/* {user.id && <WeightGraph user={user} />} */}
         <Searchbar
           placeholder="Search by Date (YYYY-MM-DD)"
           onChangeText={setSearchQuery}

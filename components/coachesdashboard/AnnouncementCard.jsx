@@ -3,12 +3,12 @@ import { StyleSheet } from 'react-native';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-export default function AnnouncementCard({ item, classData }) {
+export default function AnnouncementCard({ item }) {
 
     const navigation = useNavigation();
 
   return (
-    <Card style={styles.container} onPress={() => navigation.navigate('View Announcement', { announcementData: item, classData: classData })}>
+    <Card style={styles.container} onPress={() => navigation.navigate('View Announcement', { announcementData: item })}>
       <Card.Title
         title={item.title}
         titleVariant="titleLarge"
