@@ -5,7 +5,7 @@ import { supabase } from '../../lib/supabase';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar } from 'react-native-paper';
 
-export default function PickAvatar({ userId, firstName, lastName }) {
+export default function PickAvatar({ userId }) {
   const [image, setImage] = useState(null);
   const [imagePath, setImagePath] = useState({});
 
@@ -75,6 +75,8 @@ export default function PickAvatar({ userId, firstName, lastName }) {
       setImagePath(data.path);
     }
   };
+
+  console.log(image);
 
   return (
     <View>

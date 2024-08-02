@@ -71,6 +71,7 @@ export default function Settings({ navigation, route }) {
         </View>
 
         <Surface style={styles.surface} elevation={4}>
+          <Text>Settings</Text>
           <View style={styles.spacing}>
             <TextInput
               mode="outlined"
@@ -163,7 +164,7 @@ export default function Settings({ navigation, route }) {
             Remove Class
           </Button> */}
           {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 10 }}> */}
-            <DialogComponent
+          <DialogComponent
             mode={"outlined"}
             // icon={"trash-can-outline"}
             buttonTitle="Delete Class"
@@ -176,8 +177,6 @@ export default function Settings({ navigation, route }) {
             textColor={"red"}
           />
           {/* </View> */}
-          
-
         </Surface>
       </ScrollView>
     );
