@@ -5,7 +5,7 @@ import { supabase } from '../../lib/supabase';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar } from 'react-native-paper';
 
-export default function PickAvatar({ userId }) {
+export default function PickAvatar({ userId, editMode }) {
   const [image, setImage] = useState(null);
   const [imagePath, setImagePath] = useState({});
 
@@ -80,10 +80,26 @@ export default function PickAvatar({ userId }) {
 
   return (
     <View>
-      <Pressable onPress={pickImage}>
-        {image ? <Avatar.Image source={{ uri: image !== null ? image : 'https://picsum.photos/700' }} size={100} /> : <Avatar.Icon size={100} icon="account" />}
-        {/* <Icon  name="pencil-outline" size={50} color="black" style={styles.icon}/> */}
-      </Pressable>
+      {editMode ? (
+        <Pressable onPress={pickImage}>
+          {image ? (
+            <Avatar.Image
+              source={{
+                uri: image !== null ? image : "https://picsum.photos/700",
+              }}
+              size={100}
+            />
+          ) : (
+            <Avatar.Icon size={100} icon="account" />
+          )}
+          {/* <Icon  name="pencil-outline" size={50} color="black" style={styles.icon}/> */}
+        </Pressable>
+      ) : (
+        <Avatar.Image
+          source={{ uri: image !== null ? image : "https://picsum.photos/700" }}
+          size={100}
+        />
+      )}
     </View>
   );
 }
