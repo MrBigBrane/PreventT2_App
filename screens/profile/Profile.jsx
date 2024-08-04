@@ -79,7 +79,7 @@ export default function Profile({ navigation }) {
               mode="elevated"
               buttonColor="teal"
               textColor="white"
-              onPress={() => navigation.navigate("Edit Profile")}
+              onPress={() => navigation.navigate("Edit Profile", { data: data.name })}
               style={styles.editProfile}
               // contentStyle={styles.buttonContent}
               icon={"pencil"}
