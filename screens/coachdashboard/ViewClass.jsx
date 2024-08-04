@@ -24,7 +24,8 @@ export default function ViewClass({ route, navigation }) {
         const { data, error } = await supabase
           .from("profiles")
           .select()
-          .eq("class_codes", classCode);
+          .eq("class_codes", classCode)
+          .order('name', { ascending: true });
 
         if (error) {
           console.log(error);
@@ -63,8 +64,22 @@ export default function ViewClass({ route, navigation }) {
                 const data = Array.from(await getWeeklyMinutes(item.id))
                 setWeekData(data[data.length - 1].value);
                 const weekGraph = Array.from(await getWeeklyWeight(item.id))
-                item.bmi = (((weekGraph[weekGraph.length - 1].value / (item.height ** 2)) * 703).toFixed(2));
-
+                let index = weekGraph.length - 1
+                while (index >= 0) {
+                  if (weekGraph[index].value !== null) {
+                    break;
+                  }
+                  index--
+                }
+                if (index !== -1) {
+                  item.bmi = (
+                    (weekGraph[index].value / item.height ** 2) *
+                    703
+                  ).toFixed(2);
+                } else {
+                  item.bmi = null;
+                }
+                
                 if(item.avatar_path !== null) {
 
                 const publicURL = await supabase.storage

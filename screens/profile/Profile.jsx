@@ -63,8 +63,7 @@ export default function Profile({ navigation }) {
             {data.id && (
               <PickAvatar
                 userId={data.id}
-                // name = {data.name}
-                // // firstName = {data.name}
+                editMode={false}
               />
             )}
 

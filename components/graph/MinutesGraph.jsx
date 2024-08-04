@@ -4,8 +4,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import getWeeklyMinutes from '../../serveractions/graph/getWeeklyMinutes';
 import getMonthlyMinutes from "../../serveractions/graph/getMonthlyMinutes";
-import { Surface } from "react-native-paper";
-import { Text } from "react-native";
+import { Surface, Text } from "react-native-paper";
         
 export default function MinutesGraph({ user, coachView }) {
     const [setting, setSetting] = useState({ title: "Week", icon: "calendar" });
@@ -56,27 +55,28 @@ export default function MinutesGraph({ user, coachView }) {
 
     return (
       <View>
-        <View style={coachView ? styles.coachMenu : styles.menu}>
+        <View style={styles.menu}>
+        <Text style={styles.title} variant="titleLarge" >
+            Minutes Graph
+          </Text>
           <NewDropdownList
-          data={timeSettings}
-          title="Time Range"
-          setSelected={setSetting}
-          defaultValue={setting}
-        />
+            data={timeSettings}
+            title="Time Range"
+            setSelected={setSetting}
+            defaultValue={setting}
+          />
         </View>
-        
-        <View
-          style={[
-            styles.container,
-          ]}
-        >
+
+        <View style={[styles.container]}>
           {data.length > 0 && (
             <>
-              {value !== null ? <Surface style={styles.paper}>
-                {/* <Text>{setting.title === "Week" && data[value]?.date || monthData[value]?.date ? data[value]?.date.toString() : monthData[value]?.date.toString()}</Text>
+              {value !== null ? (
+                <Surface style={styles.paper}>
+                  {/* <Text>{setting.title === "Week" && data[value]?.date || monthData[value]?.date ? data[value]?.date.toString() : monthData[value]?.date.toString()}</Text>
                 <Text>{setting.title === "Week" && data[value]?.value || monthData[value]?.value ? data[value]?.value : monthData[value]?.value} min</Text> */}
-                {text}
-              </Surface> : null}
+                  {text}
+                </Surface>
+              ) : null}
               <LineChart
                 initialSpacing={50}
                 areaChart
@@ -93,12 +93,14 @@ export default function MinutesGraph({ user, coachView }) {
                 maxValue={600}
                 focusEnabled
                 showStripOnFocus
+                scrollToEnd
                 // focusedDataPointIndex={value}
                 onFocus={(item, index) => {
                   setValue(index);
                 }}
                 thickness={3}
                 dataPointsColor="blue"
+                noOfSections={6}
               />
             </>
           )}
@@ -108,25 +110,31 @@ export default function MinutesGraph({ user, coachView }) {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        // marginTop: 20,
-        height: 250,
-        // marginLeft: -5
-    },
-    menu: {
-        marginBottom: 70
-    },
-    coachMenu: {
-      marginBottom: 20
-    },
-    paper: {
-        padding: 10,
-        margin: 10,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 8, 
-        position: "absolute",
-        top: 2,
-        right: 0
-    }
-})
+  container: {
+    // marginTop: 20,
+    height: 250,
+    // marginLeft: -5
+  },
+  menu: {
+    marginBottom: 20,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignContent: "center",
+  },
+  paper: {
+    padding: 10,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+    position: "absolute",
+    top: 2,
+    right: 0,
+  },
+  title: {
+    alignContent: "center",
+    alignItems: "center",
+    margin: 10,
+    flex: 1,
+  },
+});
