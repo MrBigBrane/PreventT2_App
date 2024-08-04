@@ -63,8 +63,8 @@ export default function Profile({ navigation }) {
             {data.id && (
               <PickAvatar
                 userId={data.id}
-                firstName={data.first_name}
-                lastName={data.last_name}
+                // name = {data.name}
+                // // firstName = {data.name}
               />
             )}
 
@@ -72,23 +72,23 @@ export default function Profile({ navigation }) {
               variant="displayMedium"
               style={{ color: "white", marginLeft: 20 }}
             >
-              {data.first_name} {data.last_name}
+              {data.name}
             </Text>
 
             <Button
               mode="elevated"
-              buttonColor="white"
-              textColor="green"
+              buttonColor="teal"
+              textColor="white"
               onPress={() => navigation.navigate("Edit Profile")}
-              style={styles.buttonForms}
+              style={styles.editProfile}
               // contentStyle={styles.buttonContent}
               icon={"pencil"}
             > Edit Profile
             </Button>
             
         </View>
-        <View>
-        {/* <SwipeUpDownModal
+        {/* <View>
+        <SwipeUpDownModal
               modalVisible={ShowComment}
               PressToanimate={animateModal}
               //if you don't pass HeaderContent you should pass marginTop in view of ContentModel to Make modal swipeable
@@ -113,8 +113,8 @@ export default function Profile({ navigation }) {
                 setModelComment(false);
                 setanimateModal(false);
               }}
-            /> */}
-          </View>
+            />
+          </View> */}
           
           <Surface elevation={4} style={styles.forms}>
             <Text
@@ -211,13 +211,13 @@ const styles = StyleSheet.create({
   },
   avatar: {
     // marginTop: 50,
-    marginBottom: 75,
+    marginBottom: 45,
     marginLeft: 20,
     flexDirection: 'row',
     alignItems: 'center',
     // justifyContent: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
+    // borderColor: 'red',
+    // borderWidth: 1,
     height: 200,
   },
   security: {
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     width: "91%",
     alignSelf: "center",
     padding: 15,
-    marginTop: 20,
+    marginTop: 5,
     marginBottom: 20,
     backgroundColor: "white",
     // borderColor: "red",
@@ -273,5 +273,18 @@ const styles = StyleSheet.create({
   Modal: {
     backgroundColor: '#005252',
     marginTop: 0,
-  }
+  },
+  editProfile: {
+    // flex: 1,
+    // alignContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // height: 40,
+    // // backgroundColor: '#F1F1F1',
+    // marginTop: 100,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    borderRadius: 10,
+  },
 });
