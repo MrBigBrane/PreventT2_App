@@ -1,14 +1,13 @@
 import { useLayoutEffect, useState } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
-import { Button, Divider, Surface, Text, TextInput } from "react-native-paper";
+import { Button, Surface, Text, TextInput } from "react-native-paper";
 import { supabase } from "../../lib/supabase";
 
-export default function MyClass() {
-  const [data, setData] = useState([]);
-  const [joinTime, setJoinTime] = useState("");
+export default function MyClass({ navigation, route }) {
+
+  const [classData, setClassData] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [isData , setIsData] = useState(false);
-  const [classCode, setClassCode] = useState("");
-  const [inClass, setInClass] = useState('');
   const [image, setImage] = useState();
 
     async function getInClass() {
@@ -22,12 +21,11 @@ export default function MyClass() {
           .select()
           .eq("id", user.id);
 
-        setJoinTime(data[0].joined_class_at);
+        setUserData(data[0]);
 
         if (error) {
           console.log(error);
         } else {
-          setInClass(data[0].class_codes);
           setIsData(true);
 
           if (data[0].class_codes !== null) {
@@ -43,7 +41,7 @@ export default function MyClass() {
             if (error || pictureFetch.error) {
               console.log(error, pictureFetch.error);
             } else {
-              setData(coachCodes.data[0]);
+              setClassData(coachCodes.data[0]);
               setImage(
                 pictureFetch.data.publicUrl
                   ? pictureFetch.data.publicUrl
@@ -74,8 +72,8 @@ export default function MyClass() {
     if (error) {
       console.log(error);
     } else {
-      setInClass(true)
-      console.log(data);
+      setUserData(data[0]);
+      navigation.setParams({ label: "My Class" });
       getInClass();
     }
   }
@@ -96,7 +94,7 @@ export default function MyClass() {
     if (error) {
       console.log(error);
     } else {
-      setInClass(false)
+      setUserData(data[0]);
       console.log(data);
       // getInClass();
     }
@@ -110,7 +108,7 @@ export default function MyClass() {
       <View style={styles.container}>
         {isData && (
           <View style={styles.container}>
-            {inClass ? (
+            {userData.class_codes !== null ? (
               <View style={{ width: "100%", flex: 1 }}>
                 <View>
                   <Image
@@ -130,7 +128,7 @@ export default function MyClass() {
                       left: 10,
                     }}
                   >
-                    {data.class_name}
+                    {classData.class_name}
                   </Text>
                   <Text
                     style={{
@@ -142,23 +140,11 @@ export default function MyClass() {
                       left: 10,
                     }}
                   >
-                    Joined at: {joinTime.substring(0, 10)}
-                  </Text>
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 20,
-                      color: "white",
-                      position: "absolute",
-                      bottom: 10,
-                      left: 10,
-                    }}
-                  >
-                    Class Code: {data.code}
+                    Joined at: {userData.joined_class_at.substring(0, 10)}
                   </Text>
                 </View>
                 <Button
-                  onPress={() => console.log("announcements")}
+                  onPress={() => navigation.navigate("View Announcements", { classData: classData })}
                   mode="elevated"
                   icon={"bullhorn"}
                   textColor="white"
@@ -178,14 +164,14 @@ export default function MyClass() {
                 >
                   Exercise Plan
                 </Button>
-                <Divider />
                 <View>
-                  <Text>Meeting Link:</Text>
-                  <Text style={{ marginBottom: 12 }}>{data.meet_link}</Text>
-                  <Text>Class Code:</Text>
-                  <Text>{data.code}</Text>
+                  <Surface style={styles.padding}>
+                    <Text>Meeting Link:</Text>
+                    <Text style={{ marginBottom: 12 }}>{classData.meet_link}</Text>
+                    <Text>Class Code:</Text>
+                    <Text>{classData.code}</Text>
+                  </Surface>
                 </View>
-                <Divider />
                 <Button
                   onPress={leaveClass}
                   mode="elevated"
@@ -200,25 +186,25 @@ export default function MyClass() {
             ) : (
               <View style={styles.container}>
                 <View style={styles.infoView}>
-                  <Surface style={styles.padding}>
-                    <Text>Enter Class Code</Text>
-                    <TextInput
-                      placeholder="Class Code"
-                      mode="outlined"
-                      outlineColor="green"
-                      activeOutlineColor="green"
-                      value={classCode}
-                      onChangeText={setClassCode}
-                      style={styles.input}
-                    />
-                    <Button
-                      onPress={joinClass}
-                      mode="elevated"
-                      style={{ marginTop: 12 }}
-                    >
-                      Join Class
-                    </Button>
-                  </Surface>
+                <Surface style={styles.padding}>
+                  <Text>Enter Class Code</Text>
+                  <TextInput
+                    placeholder="Class Code"
+                    mode="outlined"
+                    outlineColor="green"
+                    activeOutlineColor="green"
+                    value={classCode}
+                    onChangeText={setClassCode}
+                    style={styles.input}
+                  />
+                  <Button
+                    onPress={joinClass}
+                    mode="elevated"
+                    style={{ marginTop: 12 }}
+                  >
+                    Join Class
+                  </Button>
+                </Surface>
                 </View>
               </View>
             )}
