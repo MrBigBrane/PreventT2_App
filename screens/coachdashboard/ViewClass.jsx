@@ -14,7 +14,6 @@ export default function ViewClass({ route, navigation }) {
     const [studentData, setStudentData] = useState([]);
     const [weekData, setWeekData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [bmi, setBmi] = useState(null);
 
     
 
@@ -57,19 +56,39 @@ export default function ViewClass({ route, navigation }) {
     
 
     function CardButton({ item }) {
+        const [image, setImage] = useState(null);
+
         useEffect(() => {
             async function fetch() {
                 const data = Array.from(await getWeeklyMinutes(item.id))
                 setWeekData(data[data.length - 1].value);
                 const weekGraph = Array.from(await getWeeklyWeight(item.id))
                 item.bmi = (((weekGraph[weekGraph.length - 1].value / (item.height ** 2)) * 703).toFixed(2));
+
+                if(item.avatar_path !== null) {
+
+                const publicURL = await supabase.storage
+                .from("user_avatars")
+                .getPublicUrl(item.avatar_path);
+
+                const avatarPath = publicURL.data.publicUrl
+                console.log(avatarPath)
+                console.log('1')
+                setImage(avatarPath)
+                console.log(image)
+                console.log('2')
+                }
+                else {
+                    setImage("https://picsum.photos/700")
+                }
             }
             fetch();
         }, [])
         
         const LeftContent = (props) => (
-            <Avatar.Icon {...props} icon={"account-circle"} />
+            <Avatar.Image {...props} source={{ uri: image }}  />
           );
+          
 
         const [showDetails, setShowDetails] = useState(false);
 
@@ -82,7 +101,7 @@ export default function ViewClass({ route, navigation }) {
             <Card.Title
               title={`${item.name}`}
               titleVariant="headlineMedium"
-              left={(props) => <LeftContent {...props} />}
+              left={image !== null && LeftContent}
             />
             {showDetails && (
               <Card.Content style={styles.textSpace}>

@@ -3,9 +3,8 @@ import { Searchbar, Text } from "react-native-paper";
 import AnnouncementCard from "../../components/coachesdashboard/AnnouncementCard";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
-import ComposeFloatingButton from "../../components/announcements/ComposeFloatingButton";
 
-export default function Announcements({ navigation, route }) {
+export default function ViewAnnouncements({ navigation, route }) {
 
     const { classData } = route.params;
 
@@ -14,7 +13,11 @@ export default function Announcements({ navigation, route }) {
 
     async function getAnnouncements() {
       if(searchQuery === "") {
-          const { data, error } = await supabase.from("announcements").select().eq('class_code', classData.code).order("created_at", { ascending: false });
+          const { data, error } = await supabase
+            .from("announcements")
+            .select()
+            .eq("class_code", classData.code)
+            .order("created_at", { ascending: false });
 
       if (error) {
         console.log(error);
@@ -69,7 +72,6 @@ export default function Announcements({ navigation, route }) {
                 }
                 
             />
-            <ComposeFloatingButton classData={classData} />
         </View>
     );
 }

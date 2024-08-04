@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 
-export default function App() {
+export default function DocumentPick() {
   const [document, setDocument] = React.useState(null);
 
   const pickDocument = async () => {

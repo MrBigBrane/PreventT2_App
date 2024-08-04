@@ -1,15 +1,14 @@
-import UserDrawer from "../screens/userdashboard/UserDrawer";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CommonActions } from '@react-navigation/native';
 import { BottomNavigation } from 'react-native-paper';
 import CoachNav from "../screens/coachdashboard/CoachNav";
 import UserDashNav from "./UserDashNav";
-import MyClass from "../screens/myclass/MyClass";
 import ProfileNav from "../screens/profile/ProfileNav";
-import Resources from "../screens/resources/Resources";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import Inbox from "../screens/inbox/Inbox";
+import MyClassNav from "../screens/myclass/MyClassNav";
 
 const Tab = createBottomTabNavigator();
 
@@ -75,7 +74,7 @@ export default function TabNav() {
         }
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getUser();
     }, [])
 
@@ -104,29 +103,28 @@ export default function TabNav() {
           }}
         />
         <Tab.Screen
-          name={inClass !== null ? "MyClass" : "JoinClass"}
-          component={MyClass}
-          options={{
-            // headerShown: false,
+          name={"MyClassNav"}
+          component={MyClassNav}
+          initialParams={{
+            label: inClass !== null ? "My Class" : "Join Class",
+          }}
+          options={({ route }) => ({
+    
+            headerShown: false,
+            // tabBarLabel: inClass !== null ? "My Class" : "Join Class",
             tabBarLabel: inClass !== null ? "My Class" : "Join Class",
             tabBarIcon: ({ color, size }) => {
               return <Icon name="account-group" size={size} color={color} />;
             },
-          }}
+          })}
         />
         <Tab.Screen
-          name="Resources"
-          component={Resources}
+          name="Inbox"
+          component={Inbox}
           options={{
-            tabBarLabel: "Resources",
+            tabBarLabel: "Inbox",
             tabBarIcon: ({ color, size }) => {
-              return (
-                <Icon
-                  name="clipboard-multiple-outline"
-                  size={size}
-                  color={color}
-                />
-              );
+              return <Icon name="email" size={size} color={color} />;
             },
           }}
         />

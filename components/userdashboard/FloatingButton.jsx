@@ -23,7 +23,7 @@ export default function FloatingButton() {
   return (
       <FAB.Group
       theme={theme}
-        // style={styles.container}
+        style={styles.container}
         open={open}
         visible
         icon={open ? "minus" : "plus"}
@@ -60,8 +60,8 @@ export default function FloatingButton() {
   );
 };
 
-// const styles = StyleSheet.create({
-//     container: {
-//       marginBottom: 100,
-//     },
-  // });
+const styles = StyleSheet.create({
+    container: {
+      marginBottom: -35,
+    },
+  });
