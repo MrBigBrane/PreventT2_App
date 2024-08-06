@@ -58,6 +58,7 @@ export default function Announcements({ navigation, route }) {
                       <View key={item.id} style={styles.container}>
                         <AnnouncementCard
                           item={item}
+                          classData={classData}
                         />
                         
                       </View>

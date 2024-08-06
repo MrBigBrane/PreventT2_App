@@ -2,6 +2,7 @@ import { useLayoutEffect, useState } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
 import { Button, Surface, Text, TextInput } from "react-native-paper";
 import { supabase } from "../../lib/supabase";
+import * as WebBrowser from "expo-web-browser";
 
 export default function MyClass({ navigation, route }) {
 
@@ -124,27 +125,56 @@ export default function MyClass({ navigation, route }) {
                       fontSize: 30,
                       color: "white",
                       position: "absolute",
-                      bottom: 40,
+                      bottom: 20,
                       left: 10,
                     }}
                   >
                     {classData.class_name}
                   </Text>
-                  <Text
+                  <View
                     style={{
-                      fontWeight: "bold",
-                      fontSize: 20,
-                      color: "white",
+                      flexDirection: "row",
                       position: "absolute",
-                      bottom: 10,
+                      bottom: 0,
                       left: 10,
+                      alignItems: "center",
+                      justifyContent: "space-evenly",
                     }}
                   >
-                    Joined at: {userData.joined_class_at.substring(0, 10)}
-                  </Text>
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        color: "white",
+                        flex: 3,
+                        // position: "absolute",
+                        // bottom: 20,
+                        // left: 10,
+                      }}
+                    >
+                      Joined at: {userData.joined_class_at.substring(0, 10)}
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 10,
+                        color: "white",
+                        flex: 1.2,
+                        // position: "absolute",
+                        // bottom: 10,
+                        // left: 10,
+                      }}
+                    >
+                      Class Code: {classData.code}
+                    </Text>
+                  </View>
                 </View>
                 <Button
-                  onPress={() => navigation.navigate("View Announcements", { classData: classData })}
+                  onPress={() =>
+                    navigation.navigate("View Announcements", {
+                      classData: classData,
+                    })
+                  }
                   mode="elevated"
                   icon={"bullhorn"}
                   textColor="white"
@@ -164,14 +194,20 @@ export default function MyClass({ navigation, route }) {
                 >
                   Exercise Plan
                 </Button>
-                <View>
-                  <Surface style={styles.padding}>
-                    <Text>Meeting Link:</Text>
-                    <Text style={{ marginBottom: 12 }}>{classData.meet_link}</Text>
-                    <Text>Class Code:</Text>
-                    <Text>{classData.code}</Text>
-                  </Surface>
-                </View>
+                {classData.meet_link !== null && classData.meet_link !== "" && (
+                  <Button
+                    mode="elevated"
+                    onPress={() =>
+                      WebBrowser.openBrowserAsync(classData.meet_link)
+                    }
+                    textColor="green"
+                    style={{ margin: 10 }}
+                    contentStyle={styles.buttonContent}
+                    icon={"launch"}
+                  >
+                    Meeting Link
+                  </Button>
+                )}
                 <Button
                   onPress={leaveClass}
                   mode="elevated"
@@ -186,25 +222,25 @@ export default function MyClass({ navigation, route }) {
             ) : (
               <View style={styles.container}>
                 <View style={styles.infoView}>
-                <Surface style={styles.padding}>
-                  <Text>Enter Class Code</Text>
-                  <TextInput
-                    placeholder="Class Code"
-                    mode="outlined"
-                    outlineColor="green"
-                    activeOutlineColor="green"
-                    value={classCode}
-                    onChangeText={setClassCode}
-                    style={styles.input}
-                  />
-                  <Button
-                    onPress={joinClass}
-                    mode="elevated"
-                    style={{ marginTop: 12 }}
-                  >
-                    Join Class
-                  </Button>
-                </Surface>
+                  <Surface style={styles.padding}>
+                    <Text>Enter Class Code</Text>
+                    <TextInput
+                      placeholder="Class Code"
+                      mode="outlined"
+                      outlineColor="green"
+                      activeOutlineColor="green"
+                      value={classCode}
+                      onChangeText={setClassCode}
+                      style={styles.input}
+                    />
+                    <Button
+                      onPress={joinClass}
+                      mode="elevated"
+                      style={{ marginTop: 12 }}
+                    >
+                      Join Class
+                    </Button>
+                  </Surface>
                 </View>
               </View>
             )}

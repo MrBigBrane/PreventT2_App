@@ -4,6 +4,7 @@ import CoachLog from './CoachLog';
 import MealLog from './MealLog';
 import ActionPlan from './ActionPlan';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Resources from './Resources';
 
 export default function UserDrawer() {
   const Drawer = createDrawerNavigator()
@@ -42,6 +43,15 @@ export default function UserDrawer() {
         options={{
           drawerIcon: ({ color, size }) => (
             <Icon name="notebook-edit" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Resources"
+        component={Resources}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Icon name="clipboard-multiple-outline" size={size} color={color} />
           ),
         }}
       />

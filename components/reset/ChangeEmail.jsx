@@ -4,9 +4,12 @@ import { TextInput } from "react-native-paper";
 import { useState } from "react";
 
 
-export default function ChangeEmail() {
-    const [email, setEmail] = useState("");
+export default function ChangeEmail({ emailAddress, phoneNum }) {
+    const [email, setEmail] = useState(emailAddress);
+    const [phone, setPhone] = useState(phoneNum);
     const [loading, setLoading] = useState(false);
+    const [locked1, setLocked1] = useState(true);
+    const [locked2, setLocked2] = useState(true);
 
     async function changeEmail() {
         setLoading(true);
@@ -22,9 +25,22 @@ export default function ChangeEmail() {
         }
     }
 
+    async function changePhone() {
+        setLoading(true);
+        const { data, error } = await supabase.from("profiles").update({ phone: phone }).eq("id", supabase.auth.user().id);
+
+        if (error) {
+            console.log(error)
+        } else {
+            setLoading(false);
+            console.log(data)
+        }
+    }
+
 
     return (
       <View>
+        <Text variant="bodyLarge" style={{ fontSize: 15 }}>Change Email:</Text>
         <TextInput
           mode="outlined"
           placeholder="Change Email"
@@ -32,8 +48,21 @@ export default function ChangeEmail() {
           activeOutlineColor="gray"
           value={email}
           onChangeText={(text) => setEmail(text)}
-          right={<TextInput.Icon color={"red"} icon="check" onPress={changeEmail} loading={loading} />}
+          right={locked1 ? <TextInput.Icon icon="pencil" onPress={() => setLocked1(false)}/> : <TextInput.Icon color={"green"} icon="check" onPress={changeEmail} loading={loading} />}
           style={styles.input}
+          disabled={locked1}
+        />
+        <Text variant="bodyLarge" style={{ fontSize: 15 }}>Change Phone Number:</Text>
+        <TextInput
+          mode="outlined"
+          placeholder="Change Phone Number"
+          outlineColor="gray"
+          activeOutlineColor="gray"
+          value={phone}
+          onChangeText={(text) => setPhone(text)}
+          right={locked2 ? <TextInput.Icon icon="pencil" onPress={() => setLocked2(false)}/> : <TextInput.Icon color={"green"} icon="check" onPress={changePhone} loading={loading} />}
+          style={styles.input}
+          disabled={locked2}
         />
       </View>
     );

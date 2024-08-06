@@ -5,7 +5,7 @@ import { supabase } from "../../lib/supabase";
 
 export default function ViewAnnouncement({ navigation, route }) {
 
-    const { announcementData } = route.params;
+    const { classData, announcementData } = route.params;
 
     let date = new Date(announcementData.created_at);
 
@@ -25,7 +25,9 @@ export default function ViewAnnouncement({ navigation, route }) {
 
     return (
       <View style={{ flex: 1, padding: 12 }}>
-        <Text style={styles.date}>{date.toLocaleString()}</Text>
+        <Text style={styles.date}>
+          {date.toLocaleString()} {announcementData.edited && `• Edited`}
+        </Text>
         <Text variant="displaySmall" style={styles.title}>
           {announcementData.title}
         </Text>
@@ -36,8 +38,9 @@ export default function ViewAnnouncement({ navigation, route }) {
           <Button
             mode="contained-tonal"
             onPress={() =>
-              navigation.navigate("Edit Announcement", {
+              navigation.navigate("Add Announcement", {
                 announcementData: announcementData,
+                classData: classData,
               })
             }
             style={{ flex: 1, margin: 8 }}
