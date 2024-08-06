@@ -1,20 +1,40 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-export default function AnnouncementCard({ item }) {
+export default function AnnouncementCard({ item, classData }) {
 
     const navigation = useNavigation();
+    console.log(item.edited ? true : false)
+
+    function EditText() {
+      return <Text variant="labelSmall">Edited</Text>
+    }
+
 
   return (
-    <Card style={styles.container} onPress={() => navigation.navigate('View Announcement', { announcementData: item })}>
+    <Card
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate("View Announcement", {
+          announcementData: item,
+          classData: classData,
+        })
+      }
+    >
+      {/* <View style={{ flexDirection: 'row' }}> */}
+
+      {/* <Card.Title title={item.created_at.substring(0, 10)} titleVariant="titleSmall" /> */}
+      {/* </View> */}
+      <Text titleVariant="titleSmall" style={{ marginLeft: 10, marginTop: 5 }}>
+        {item.created_at.substring(0, 10)} {item.edited && `• Edited`}
+      </Text>
       <Card.Title
         title={item.title}
         titleVariant="titleLarge"
-        right={() => <Text variant="labelSmall">{item.created_at.substring(0, 10)}</Text>}
-        rightStyle={styles.date}
       />
+
       <Card.Content>
         <Text variant="bodyMedium">{item.message}</Text>
       </Card.Content>

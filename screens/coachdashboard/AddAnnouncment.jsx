@@ -1,12 +1,11 @@
 import { View, TextInput, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Button, Divider } from "react-native-paper";
 import { supabase } from "../../lib/supabase";
 import DocumentPicker from "../../components/announcements/DocumentPicker";
 
 
 export default function AddAnnouncemnt({ navigation, route }) {
-  const { classData } = route.params;
   const pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({});
     if (result.type === 'success') {
@@ -14,9 +13,22 @@ export default function AddAnnouncemnt({ navigation, route }) {
     }
     };
 
+    const [classData, setClassData] = useState();
     const [text1, setText1] = useState("");
     const [text2, setText2] = useState("");
+    const [announcementId, setAnnouncementId] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    useLayoutEffect(() => {
+    const data = route.params;
+    setClassData(data.classData)
+    if(data.announcementData) {
+      setText1(data.announcementData.title)
+      setText2(data.announcementData.message)
+      setAnnouncementId(data.announcementData.id)
+    }
+
+  }, []);
 
     async function submit() {
         setLoading(true);
@@ -25,13 +37,18 @@ export default function AddAnnouncemnt({ navigation, route }) {
           data: { user },
         } = await supabase.auth.getUser();
 
+        let date = new Date();
+
         const { data, error } = await supabase
           .from("announcements")
-          .insert({
+          .upsert({
             title: text1,
             message: text2,
             class_code: classData.code,
             user: user.id,
+            id: announcementId,
+            edited: announcementId ? true : false,
+            created_at: date
           })
           .select();
         if (error) {

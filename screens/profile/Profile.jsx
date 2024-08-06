@@ -1,14 +1,16 @@
 import { useLayoutEffect, useState } from "react";
 import { Image, StyleSheet, View, ScrollView, FlatList } from "react-native";
 import { supabase } from "../../lib/supabase"
-import { Avatar, Button, Text, Surface, Divider } from "react-native-paper";
+import { Avatar, Button, Text, Surface, Divider, Card } from "react-native-paper";
 import PickAvatar from "../../components/pickphoto/PickAvatar";
 import ChangeEmail from "../../components/reset/ChangeEmail";
 import ChangePassword from "../../components/reset/ChangePassword";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 export default function Profile({ navigation }) {
     const [data, setData] = useState({});
+    const [user, setUser] = useState({});
     // let [ShowComment, setShowModelComment] = useState(false);
     // let [animateModal, setanimateModal] = useState(false);
 
@@ -28,6 +30,8 @@ export default function Profile({ navigation }) {
           data: { user },
         } = await supabase.auth.getUser();
 
+        setUser(user);
+
         const { data, error } = await supabase
           .from("profiles")
           .select()
@@ -44,6 +48,20 @@ export default function Profile({ navigation }) {
     useLayoutEffect(() => {
         getUser();
     }, [])
+
+    function CardButton({ title, icon, onPress}) {
+      return (
+        <Card style={styles.card} onPress={onPress}>
+          <Card.Title
+            title={title}
+            titleVariant="headlineMedium"
+            left={(props) => (
+              <Icon name={icon} size={24} color="black" {...props} />
+            )}
+          />
+        </Card>
+      );
+  }
     
 
     return (
@@ -60,12 +78,7 @@ export default function Profile({ navigation }) {
               size={100}
               source={{ uri: "https://picsum.photos/700" }}
             /> */}
-            {data.id && (
-              <PickAvatar
-                userId={data.id}
-                editMode={false}
-              />
-            )}
+            {data.id && <PickAvatar userId={data.id} editMode={false} />}
 
             <Text
               variant="displayMedium"
@@ -82,39 +95,12 @@ export default function Profile({ navigation }) {
               style={styles.editProfile}
               // contentStyle={styles.buttonContent}
               icon={"pencil"}
-            > Edit Profile
+            >
+              {" "}
+              Edit Profile
             </Button>
-            
-        </View>
-        {/* <View>
-        <SwipeUpDownModal
-              modalVisible={ShowComment}
-              PressToanimate={animateModal}
-              //if you don't pass HeaderContent you should pass marginTop in view of ContentModel to Make modal swipeable
-              ContentModal={
-                <View style={styles.containerContent}>
-                  <EditProfile />
-                </View>
-              }
-              HeaderStyle={styles.headerContent}
-              ContentModalStyle={styles.Modal}
-              HeaderContent={
-                <View style={styles.containerHeader}>
-                  <Button
-                    Title={"Press Me"}
-                    onPress={() => {
-                      setanimateModal(true);
-                    }}
-                  />
-                </View>
-              }
-              onClose={() => {
-                setModelComment(false);
-                setanimateModal(false);
-              }}
-            />
-          </View> */}
-          
+          </View>
+
           <Surface elevation={4} style={styles.forms}>
             <Text
               variant="headlineMedium"
@@ -162,7 +148,7 @@ export default function Profile({ navigation }) {
           </Surface>
         </View>
         <View>
-          <Surface elevation={4} style={styles.security}>
+          {/* <Surface elevation={4} style={styles.security}>
             <Text
               variant="headlineMedium"
               style={{ fontWeight: "bold", color: "green" }}
@@ -175,8 +161,17 @@ export default function Profile({ navigation }) {
             <Divider style={styles.divider} />
             <Text variant="bodyLarge">Change/Reset Password:</Text>
             <ChangePassword />
-          </Surface>
-
+          </Surface> */}
+          <CardButton
+            title={"Account Information"}
+            icon={"security"}
+            onPress={() =>
+              navigation.navigate("Account Information", {
+                data: data,
+                user: user,
+              })
+            }
+          />
           <Button
             mode="elevated"
             textColor="white"
@@ -235,7 +230,8 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   forms: {
-    width: "91%",
+    // width: "91%",
+    marginHorizontal: 10,
     alignSelf: "center",
     padding: 15,
     marginTop: 5,
@@ -265,6 +261,10 @@ const styles = StyleSheet.create({
     height: 40,
     // backgroundColor: '#F1F1F1',
     marginTop: 100,
+  },
+  card: {
+    padding: 12,
+    margin: 12,
   },
   headerContent:{
     marginTop: 100,
