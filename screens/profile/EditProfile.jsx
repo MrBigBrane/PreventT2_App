@@ -4,25 +4,37 @@ import { Divider } from "@rneui/themed";
 import { supabase } from "../../lib/supabase";
 import { useEffect, useState } from "react";
 import { useLayoutEffect } from "react";
-import { Text } from "react-native-paper";
+import { Text, TextInput, Button } from "react-native-paper";
 
 
-export default function EditProfile() {
+export default function EditProfile({ navigation, route }) {
+  const { datum } = route.params;
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [text1, setText1] = useState(datum);
     // let [ShowComment, setShowModelComment] = useState(false);
     // let [animateModal, setanimateModal] = useState(false);
 
-    async function signOutUser() {
-        const { error } = await supabase.auth.signOut()
+    async function submit() {
+        setLoading(true);
 
-        if (error) {
-          console.log(error);
-        } else {
-          navigation.navigate("Login");
-        }
-        
-    } 
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
 
+        const { data, error } = await supabase
+          .from("profiles")
+          .update({ name: text1, id: user.id })
+          .eq("id", user.id)
+
+      if (error) {
+          console.log(error)
+      } else {
+          setLoading(false);
+          console.log(data)
+      }
+      navigation.goBack();
+    }
     async function getUser() {
         const {
           data: { user },
@@ -54,12 +66,14 @@ export default function EditProfile() {
           style={styles.avatar}
         />
         <Divider style={styles.Divider} />
-        <Text
-              variant="displayMedium"
-              style={styles.displayName}
-            >
-              {data.name}
-        </Text>
+        <TextInput
+          mode="outlined"
+          placeholder="Name"
+          onChangeText={(text) => setText1(text)}
+          value={text1}
+          left={<TextInput.Icon icon="pen" />}
+        />
+        <Button mode="contained" onPress={submit}>Save</Button>
       </View>
     );  
 

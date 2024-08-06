@@ -13,6 +13,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import InviteUser from './InviteUser';
 import { navigation } from '@react-navigation/native';
 import AddAnnouncemnt from './AddAnnouncment';
+import ViewStudentNav from './viewstudent/ViewStudentNav';
 
 
 export default function CoachNav({navigation}) {
@@ -50,7 +51,7 @@ export default function CoachNav({navigation}) {
       />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="View Class" component={ViewClass} />
-      <Stack.Screen name="View Student" component={ViewStudent} />
+      <Stack.Screen name="View Student" component={ViewStudentNav} options={{ headerShown: false}} />
       <Stack.Screen name="Announcements" component={Announcements} />
       <Stack.Screen name="View Announcement" component={ViewAnnouncement} />
       <Stack.Screen name="Invite User" component={InviteUser} />
