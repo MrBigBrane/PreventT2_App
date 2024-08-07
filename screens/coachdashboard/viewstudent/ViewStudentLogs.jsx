@@ -1,23 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 import { supabase } from '../../../lib/supabase';
 import { useEffect, useState } from 'react';
 import { Searchbar } from 'react-native-paper';
+import { RefreshControl } from 'react-native';
 
 export default function ViewStudentLogs({ route, navigation }) {
     // const { studentData } = route.params;
 
 
     const [data, setData] = useState([]);
-    const [user, setUser] = useState({});
+    // const [user, setUser] = useState({});
     const [searchQuery, setSearchQuery] = useState('');
 
     async function coachLog() {
         const {
             data: { user },
           } = await supabase.auth.getUser();
-          setUser(user);
+          // setUser(user);
         if (searchQuery === "") {
           const { data, error } = await supabase
             .from("lifestyle_coach_log")
@@ -50,7 +51,10 @@ export default function ViewStudentLogs({ route, navigation }) {
 
     useEffect(() => {
         async function coachLog() {
-            // setUser(user);
+          const {
+            data: { user },
+          } = await supabase.auth.getUser();
+          // setUser(user);
             const { data, error } = await supabase
               .from("lifestyle_coach_log")
               .select()
@@ -60,7 +64,7 @@ export default function ViewStudentLogs({ route, navigation }) {
             if (error) {
               console.log(error);
             } else {
-              // console.log(data);
+              console.log(data);
               setData(data);
             }
           }
@@ -69,56 +73,84 @@ export default function ViewStudentLogs({ route, navigation }) {
         // getStudent();
     }, [])
 
-    let coachLogs = data.map((item) => {
-      let sessType;
-      if(item.sesstype.title.includes('-')) {
-        sessType = item.sesstype.title.substring(0, 4);
-      }
-      else{
-        sessType = item.sesstype.title.substring(0, 2).replace(/\s/g, '')
-      }
+    // let coachLogs = data.map((item) => {
+    //   let sessType;
+    //   if(item.sesstype.title.includes('-')) {
+    //     sessType = item.sesstype.title.substring(0, 4);
+    //   }
+    //   else{
+    //     sessType = item.sesstype.title.substring(0, 2).replace(/\s/g, '')
+    //   }
 
-      // console.log(item)
+    //   // console.log(item)
 
 
-      return <View key={item.id} style={styles.container}>
-        <Card
-          data={item}
-          title={`Week of ${item.created_at.substring(0, 10)}`}
-          col1title={"Current Weight"}
-          col2title={"Attendance"}
-          col3title={"Session Type"}
-          col1={item.current_weight}
-          col1icon={"weight"}
-          col2icon={item.attendance.icon}
-          col2={item.attendance.title}
-          col3icon={item.sesstype.icon}
-          col3={sessType}
-          date={item.created_at.substring(0, 10)}
-          coach={true} 
-        />
-      </View>
-    })
+    //   return <View key={item.id} style={styles.container}>
+    //     <Card
+    //       data={item}
+    //       title={`Week of ${item.created_at.substring(0, 10)}`}
+    //       col1title={"Current Weight"}
+    //       col2title={"Attendance"}
+    //       col3title={"Session Type"}
+    //       col1={item.current_weight}
+    //       col1icon={"weight"}
+    //       col2icon={item.attendance.icon}
+    //       col2={item.attendance.title}
+    //       col3icon={item.sesstype.icon}
+    //       col3={sessType}
+    //       date={item.created_at.substring(0, 10)}
+    //       coach={true} 
+    //     />
+    //   </View>
+    // })
 
     return (
       <View>
-        <ScrollView>
-          {/* {graphData.length > 0 && <Graph xdata={graphData[1]} ydata={[0, 0, 0, 0]} hiddenIndex={graphData[2]} yAxisSuffix={" lbs"}/>}  
-          {studentData.id && (
-            <MinutesGraph user={studentData} coachView={true} />
-          )}
-          {studentData.id && (
-            <WeightGraph user={studentData} coachView={true} />
-          )} */}
+        <Searchbar
+          placeholder="Search by Date (YYYY-MM-DD)"
+          onChangeText={setSearchQuery}
+          onIconPress={coachLog}
+          value={searchQuery}
+        />
+        <FlatList
+          data={data}
+          renderItem={({ item }) => {
+            let sessType;
+            console.log(item);
+            if (item.sesstype.title.includes("-")) {
+              sessType = item.sesstype.title.substring(0, 4);
+            } else {
+              sessType = item.sesstype.title.substring(0, 2).replace(/\s/g, "");
+            }
 
-          <Searchbar
-            placeholder="Search by Date (YYYY-MM-DD)"
-            onChangeText={setSearchQuery}
-            onIconPress={coachLog}
-            value={searchQuery}
-          />
-          {coachLogs}
-        </ScrollView>
+            return (
+              <View key={item.id} style={styles.container}>
+                <Card
+                  data={item}
+                  title={`Week of ${item.created_at.substring(0, 10)}`}
+                  col1title={"Current Weight"}
+                  col2title={"Attendance"}
+                  col3title={"Session Type"}
+                  col1={item.current_weight}
+                  col1icon={"weight"}
+                  col2icon={item.attendance.icon}
+                  col2={item.attendance.title}
+                  col3icon={item.sesstype.icon}
+                  col3={sessType}
+                  date={item.created_at.substring(0, 10)}
+                  editPage={"Add Coach Log"}
+                  deleteAction={() => deleteItem(item.id)}
+                  hideDate={true}
+                  avatar={userAvatar}
+                />
+              </View>
+            );
+          }}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={coachLog} />
+          }
+          keyExtractor={(item) => item.id}
+        />
       </View>
     );
 }
