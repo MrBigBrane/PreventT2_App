@@ -1,15 +1,17 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { supabase } from "../../lib/supabase";
-import { TextInput } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
 import { useState } from "react";
 
 export default function ChangePassword() {
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     async function changePassword() {
         setLoading(true);
-        const { data, error } = await supabase.auth.updateUser({
+        if(password == confirmPassword) {
+            const { data, error } = await supabase.auth.updateUser({
             password: password,
         })
 
@@ -19,11 +21,22 @@ export default function ChangePassword() {
             setLoading(false);
             console.log(data)
         }
+        }
+        else if (password.length < 6) {
+            Alert.alert('Password must be at least 6 characters')
+            setLoading(false);
+        }
+        else {
+            setLoading(false);
+            Alert.alert('Passwords do not match');
+        }
+        
     }
 
 
     return (
         <View>
+            <Text variant="bodyLarge" style={{ fontSize: 15 }}>Change Password:</Text>
             <TextInput
                 mode="outlined"
                 placeholder="Change Password"
@@ -31,9 +44,29 @@ export default function ChangePassword() {
                 activeOutlineColor="gray"
                 value={password}
                 onChangeText={(text) => setPassword(text)}
-                right={<TextInput.Icon color={"red"} icon="check" onPress={changePassword} loading={loading} />}
+                // right={<TextInput.Icon color={"red"} icon="check" onPress={changePassword} loading={loading} />}
                 style={styles.input}
             />
+            <Text variant="bodyLarge" style={{ fontSize: 15 }}>Confirm Password:</Text>
+            <TextInput
+                mode="outlined"
+                placeholder="Confirm Password"
+                outlineColor="gray"
+                activeOutlineColor="gray"
+                value={confirmPassword}
+                onChangeText={(text) => setConfirmPassword(text)}
+                // right={<TextInput.Icon color={"green"} icon="check" onPress={changePassword} loading={loading} />}
+                style={styles.input}
+            />
+            <Button
+                mode="contained"
+                onPress={changePassword}
+                style={styles.input}
+                loading={loading}
+                buttonColor="green"
+            >
+                Change Password
+            </Button>
         </View>
     );
 }

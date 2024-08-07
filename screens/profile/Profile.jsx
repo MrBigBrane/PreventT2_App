@@ -11,6 +11,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 export default function Profile({ navigation }) {
     const [data, setData] = useState({});
     const [user, setUser] = useState({});
+    const [onboarding, setOnboarding] = useState({});
     // let [ShowComment, setShowModelComment] = useState(false);
     // let [animateModal, setanimateModal] = useState(false);
 
@@ -36,12 +37,18 @@ export default function Profile({ navigation }) {
           .from("profiles")
           .select()
           .eq("id", user.id);
+
+        const { data: onboardingData, error: onboardingError } = await supabase
+          .from("onboarding")
+          .select()
+          .eq("id", user.id)
           
         if (error) {
           console.log(error);
         } else {
           console.log(data);
           setData(data[0]);
+          setOnboarding(onboardingData[0]);
         }
     }
 
@@ -148,20 +155,15 @@ export default function Profile({ navigation }) {
           </Surface>
         </View>
         <View>
-          {/* <Surface elevation={4} style={styles.security}>
-            <Text
-              variant="headlineMedium"
-              style={{ fontWeight: "bold", color: "green" }}
-            >
-              Security:
-            </Text>
-            <Divider style={styles.divider} />
-            <Text variant="bodyLarge">Change Email:</Text>
-            <ChangeEmail />
-            <Divider style={styles.divider} />
-            <Text variant="bodyLarge">Change/Reset Password:</Text>
-            <ChangePassword />
-          </Surface> */}
+          <CardButton
+            title={"General Information"}
+            icon={"information"}
+            onPress={() =>
+              navigation.navigate("General Information", {
+                onboarding: onboarding,
+              })
+            }
+          />
           <CardButton
             title={"Account Information"}
             icon={"security"}
