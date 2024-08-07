@@ -5,6 +5,7 @@ import Onboarding from './Onboarding';
 import BecomeCoach from './BecomeCoach';
 import EditProfile from './EditProfile';
 import AccountInfo from './AccountInfo';
+import GeneralInfo from './GeneralInfo';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ export default function ProfileNav() {
       <Stack.Screen name="Become Coach" component={BecomeCoach} />
       <Stack.Screen name="Edit Profile" component={EditProfile} options={{ presentation: 'modal', headerBackTitleVisible: false, headerLeft: null }} />
       <Stack.Screen name="Account Information" component={AccountInfo} />
+      <Stack.Screen name="General Information" component={GeneralInfo} />
     </Stack.Navigator>
   );
 }

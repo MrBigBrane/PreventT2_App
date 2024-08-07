@@ -12,8 +12,9 @@ export default function AccountInfo({ navigation, route }) {
         <Divider style={styles.divider} />
         
         <ChangeEmail phoneNum={data.phone} email={data.email_address}/>
+        
+        <Text variant="titleLarge">Change/Reset Password:</Text>
         <Divider style={styles.divider} />
-        <Text variant="bodyLarge">Change/Reset Password:</Text>
         <ChangePassword />
       </View>
     );
