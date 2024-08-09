@@ -8,6 +8,8 @@ export default function GeneralInfo({ navigation, route }) {
 
     return (
       <ScrollView style={styles.container}>
+        <Text variant="displaySmall">Demographics</Text>
+        <Divider style={styles.divider} />
         <View>
           <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
             Height:
@@ -33,43 +35,9 @@ export default function GeneralInfo({ navigation, route }) {
         </View>
         <Divider style={styles.divider} />
         <View>
-          <Text variant="headlineSmall">State:</Text>
-
-          <View style={styles.text}>
-            <Icon
-              name="warehouse"
-              size={30}
-              style={{ justifyContent: "center" }}
-            />
-            <Text variant="headlineSmall"> {onboarding.state}</Text>
-          </View>
-        </View>
-        <Divider style={styles.divider} />
-        <View>
-          <Text variant="headlineSmall">City:</Text>
-          <View style={styles.text}>
-            <Icon name="city" size={30} style={{ justifyContent: "center" }} />
-            <Text variant="headlineSmall"> {onboarding.city}</Text>
-          </View>
-        </View>
-        <Divider style={styles.divider} />
-        <View>
-          <Text variant="headlineSmall">Insurance Provider:</Text>
-          <View style={styles.text}>
-            <Icon
-              name={onboarding.payersource.icon}
-              size={30}
-              style={{ justifyContent: "center" }}
-            />
-            <Text variant="headlineSmall">
-              {" "}
-              {onboarding.payersource.title.substring(2)}
-            </Text>
-          </View>
-        </View>
-        <Divider style={styles.divider} />
-        <View>
-          <Text variant="headlineSmall">Gender:</Text>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Gender:
+          </Text>
           <View style={styles.text}>
             <Icon
               name={onboarding.gender.icon}
@@ -84,7 +52,81 @@ export default function GeneralInfo({ navigation, route }) {
         </View>
         <Divider style={styles.divider} />
         <View>
-          <Text variant="headlineSmall">A1C:</Text>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Sex:
+          </Text>
+          <View style={styles.text}>
+            <Icon
+              name="weight-kilogram"
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.sex.title}</Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Ethnicity:
+          </Text>
+          <View style={styles.text}>
+            <Icon
+              name={onboarding.ethnicity.icon}
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.ethnicity.title}</Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Race:
+          </Text>
+          <View style={styles.text}>
+            <Icon
+              name={onboarding.race.icon}
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.race.title}</Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            State:
+          </Text>
+          <View style={styles.text}>
+            <Icon
+              name="warehouse"
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.state}</Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            City:
+          </Text>
+          <View style={styles.text}>
+            <Icon name="city" size={30} style={{ justifyContent: "center" }} />
+            <Text variant="headlineSmall"> {onboarding.city}</Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        
+        {/* <Text variant="displaySmall">Contact Information</Text>
+        <Divider style={styles.divider} /> */}
+        
+        <Text variant="displaySmall">Health Information</Text>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            A1C:
+          </Text>
           <View style={styles.text}>
             <Icon
               name="test-tube"
@@ -95,8 +137,11 @@ export default function GeneralInfo({ navigation, route }) {
           </View>
         </View>
         <Divider style={styles.divider} />
-        <View >
-          <Text variant="headlineSmall"> Diabetes</Text>
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            {" "}
+            Diabetes
+          </Text>
           <View style={styles.text}>
             <Icon
               name={onboarding.diabetes.icon}
@@ -107,114 +152,136 @@ export default function GeneralInfo({ navigation, route }) {
           </View>
         </View>
         <Divider style={styles.divider} />
-        <View style={styles.text}>
-           <Text variant="headlineSmall">CDC Risk Score:</Text>
-           <View>
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            CDC Risk Score:
+          </Text>
+          <View style={styles.text}>
             <Icon
-            name="weight-kilogram"
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall"> {onboarding.score}</Text>
-           </View>
-          
-          
+              name="scoreboard"
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.score}</Text>
+          </View>
         </View>
         <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon
-            name="weight-kilogram"
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall"> Blood Pressure: </Text>
-        </View>
-        <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon
-            name="weight-kilogram"
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall"> Share Info Anonymously:</Text>
-        </View>
-        <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon
-            name="weight-kilogram"
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall"> Sex:</Text>
-        </View>
-        <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon
-            name="weight-kilogram"
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall"> Ethnicity:</Text>
-        </View>
-        <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon
-            name="weight-kilogram"
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall"> Race: {}</Text>
-        </View>
-        <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon
-            name={onboarding.education.icon}
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall">
-            {" "}
-            Education:{" "}
-            {onboarding.education.title.substring(
-              2,
-              onboarding.education.title.length
-            )}
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Blood Pressure:
           </Text>
+          <View style={styles.text}>
+            <Icon
+              name={onboarding.bp.icon}
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.bp.title}</Text>
+          </View>
         </View>
         <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon
-            name="weight-kilogram"
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall"> Prediabetic:</Text>
-        </View>
-        <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon
-            name="weight-kilogram"
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall"> Enrollment Source: </Text>
-        </View>
-        <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon
-            name="weight-kilogram"
-            size={30}
-            style={{ justifyContent: "center" }}
-          />
-          <Text variant="headlineSmall"> Enrollment Motivation:</Text>
-        </View>
-        <Divider style={styles.divider} />
-        <View style={styles.text}>
-          <Icon name="weight-kilogram" size={30} style={{ marginBottom: 10 }} />
-          <Text variant="headlineSmall" style={{ marginBottom: 10 }}>
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
             {" "}
-            Weight Goal:{" "}
+            Prediabetic:
           </Text>
+          <View style={styles.text}>
+            <Icon
+              name={onboarding.prediabetic.icon}
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.prediabetic.title}</Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        
+        <Text variant="displaySmall">Personal Information</Text>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Insurance Provider:
+          </Text>
+          <View style={styles.text}>
+            <Icon
+              name={onboarding.payersource.icon}
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall">
+              {" "}
+              {onboarding.payersource.title.substring(2)}
+            </Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Education:
+          </Text>
+          <View style={styles.text}>
+            <Icon
+              name={onboarding.education.icon}
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall">
+              {" "}
+              {onboarding.education.title.substring(2)}
+            </Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Enrollment Source:
+          </Text>
+          <View style={styles.text}>
+            <Icon
+              name={onboarding.enrsource.icon}
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.enrsource.title.substring(2)}</Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Enrollment Motivation:
+          </Text>
+          <View style={styles.text}>
+            <Icon
+              name={onboarding.enrmot.icon}
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.enrmot.title.substring(2)}</Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        <View>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Share Info Anonymously:
+          </Text>
+          <View style={styles.text}>
+            <Icon
+              name={onboarding.share.icon}
+              size={30}
+              style={{ justifyContent: "center" }}
+            />
+            <Text variant="headlineSmall"> {onboarding.share.title}</Text>
+          </View>
+        </View>
+        <Divider style={styles.divider} />
+        <View style={{ marginBottom: 5 }}>
+          <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+            Weight Goal:
+          </Text>
+          <View style={styles.text}>
+            <Icon name="weight-kilogram" size={30} />
+            <Text variant="headlineSmall"> {onboarding.weight_goal}</Text>
+          </View>
         </View>
       </ScrollView>
     );

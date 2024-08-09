@@ -16,29 +16,24 @@ export default function ViewStudentLanding({navigation, route}) {
     return (
       <View style={styles.container}>
         {/* <Text>View Student Landing</Text> */}
-        <Button
-          mode="elevated"
-          style={styles.buttons}
-          labelStyle={styles.labelButton}
-        >
-          Data Graphs
-        </Button>
-        <Button
-          mode="elevated"
-          style={styles.buttons}
-          labelStyle={styles.labelButton}
-          onPress={handleClickLog}
-        >
-          Personal Logs
-        </Button>
-        <Button
-          mode="elevated"
-          style={styles.buttons}
-          labelStyle={styles.labelButton}
-          onPress={handleClickInfo}
-        >
-          Student Info
-        </Button>
+        <View>
+          <Button
+            mode="elevated"
+            style={styles.buttons}
+            labelStyle={styles.labelButton}
+            onPress={handleClickLog}
+          >
+            Personal Logs
+          </Button>
+          <Button
+            mode="elevated"
+            style={styles.buttons}
+            labelStyle={styles.labelButton}
+            onPress={handleClickInfo}
+          >
+            Student Info
+          </Button>
+        </View>
       </View>
     );
 }
