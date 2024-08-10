@@ -20,13 +20,12 @@ export default function ProfileDrawer() {
         }}
       />
       <Drawer.Screen
-        name="FormNav"
+        name="Forms"
         component={FormNav}
         options={{
           drawerIcon: ({ color, size }) => (
             <Icon name="hand-heart" size={size} color={color} />
           ),
-          headerShown: false
         }}
       />
       <Drawer.Screen

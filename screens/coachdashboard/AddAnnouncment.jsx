@@ -83,7 +83,7 @@ export default function AddAnnouncemnt({ navigation, route }) {
         </View>
         
         <View style={styles.padding}>
-            <DocumentPicker />
+            {/* <DocumentPicker /> */}
             <Button icon="send-circle-outline" contentStyle={styles.buttonContent} mode="contained" onPress={submit} loading={loading}>Send</Button>
         </View>
       </View>
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
         width: '100%',
         bottom: 0,
         padding: 10,
-        borderTopColor: "gray",
-        borderTopWidth: 2,
+        // borderTopColor: "gray",
+        // borderTopWidth: 2,
     },
     buttonContent: {
         flexDirection: "row-reverse",

@@ -14,7 +14,7 @@ export default function FormNav() {
 
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Forms" component={Forms} />
+        <Stack.Screen name="Form" component={Forms} options={{ headerShown: false }}  />
       <Stack.Screen
         name="Onboarding"
         component={Onboarding}
