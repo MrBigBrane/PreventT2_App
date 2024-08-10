@@ -1,29 +1,60 @@
-import { createStackNavigator } from '@react-navigation/stack';
-import 'react-native-gesture-handler';
-import Profile from './Profile';
-import Onboarding from './Onboarding';
-import BecomeCoach from './BecomeCoach';
-import EditProfile from './EditProfile';
-import AccountInfo from './AccountInfo';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import ProfileNav from './ProfileNav';
 import GeneralInfo from './GeneralInfo';
+import AccountInfo from './AccountInfo';
+import FormNav from './FormNav';
+import Profile from './Profile';
 
-const Stack = createStackNavigator();
-
-export default function ProfileNav() {
-
+export default function ProfileDrawer() {
+  const Drawer = createDrawerNavigator()
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen
-        name="Onboarding"
-        component={Onboarding}
-        // options={{ headerShown: false }}
+    <Drawer.Navigator>
+      <Drawer.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Icon name="run" size={size} color={color} />
+          ),
+        }}
       />
-      
-      <Stack.Screen name="Become Coach" component={BecomeCoach} />
-      <Stack.Screen name="Edit Profile" component={EditProfile} options={{ presentation: 'modal', headerBackTitleVisible: false, headerLeft: null }} />
-      <Stack.Screen name="Account Information" component={AccountInfo} />
-      <Stack.Screen name="General Information" component={GeneralInfo} />
-    </Stack.Navigator>
+      <Drawer.Screen
+        name="Forms"
+        component={FormNav}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Icon name="hand-heart" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="General Information"
+        component={GeneralInfo}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Icon name="food-fork-drink" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Account Information"
+        component={AccountInfo}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Icon name="notebook-edit" size={size} color={color} />
+          ),
+        }}
+      />
+      {/* <Drawer.Screen
+        name="Resources"
+        component={Resources}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Icon name="clipboard-multiple-outline" size={size} color={color} />
+          ),
+        }}
+      /> */}
+    </Drawer.Navigator>
   );
 }

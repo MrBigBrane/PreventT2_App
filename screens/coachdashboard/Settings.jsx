@@ -70,8 +70,7 @@ export default function Settings({ navigation, route }) {
           <PickPhoto classData={classData} backgroundUri={backgroundUri} />
         </View>
 
-        <Surface style={styles.surface} elevation={4}>
-          <Text>Settings</Text>
+        {/* <Surface style={styles.surface} elevation={4}> */}
           <View style={styles.spacing}>
             <TextInput
               mode="outlined"
@@ -177,7 +176,7 @@ export default function Settings({ navigation, route }) {
             textColor={"red"}
           />
           {/* </View> */}
-        </Surface>
+        {/* </Surface> */}
       </ScrollView>
     );
 }
