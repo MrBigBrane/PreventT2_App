@@ -87,11 +87,9 @@ export default function ViewClass({ route, navigation }) {
                 .getPublicUrl(item.avatar_path);
 
                 const avatarPath = publicURL.data.publicUrl
-                console.log(avatarPath)
-                console.log('1')
+                
                 setImage(avatarPath)
                 console.log(image)
-                console.log('2')
                 }
                 else {
                     setImage("https://picsum.photos/700")
@@ -108,8 +106,14 @@ export default function ViewClass({ route, navigation }) {
         const [showDetails, setShowDetails] = useState(false);
 
         function handleButtonPress() {
-            navigation.navigate("View Student", { studentData: item });
+            navigation.navigate("View Student", {
+              screen: "View Student Landing",
+              params: { studentData: item, image: image },
+            });
+
         }
+
+        
 
         return (
           <Card style={styles.card} onPress={handleButtonPress}>
