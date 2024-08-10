@@ -1,6 +1,5 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import ProfileNav from './ProfileNav';
 import GeneralInfo from './GeneralInfo';
 import AccountInfo from './AccountInfo';
 import FormNav from './FormNav';

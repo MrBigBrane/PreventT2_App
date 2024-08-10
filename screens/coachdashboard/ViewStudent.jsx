@@ -1,10 +1,7 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { supabase } from "../../lib/supabase";
-import { useEffect, useState, useRef, useCallback } from "react";
-import NewDropdownList from "../../components/inputs/NewDropdownList";
-import { FlatList } from "react-native";
+import { useEffect, useState } from "react";
 import Card from "../../components/Card";
-import { RefreshControl } from "react-native-gesture-handler";
 import { Searchbar } from 'react-native-paper';
 import WeightGraph from '../../components/graph/WeightGraph';
 import MinutesGraph from '../../components/graph/MinutesGraph';
