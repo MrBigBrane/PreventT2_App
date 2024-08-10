@@ -26,8 +26,8 @@ export default function Resources() {
                 "https://www.nhlbi.nih.gov/health-topics/bmi-calculator"
               )
             }
-            textColor="green"
-            style={styles.button}
+            buttonColor="green"
+            textColor="white"
             contentStyle={styles.buttonContent}
             icon={"launch"}
           >
@@ -35,35 +35,35 @@ export default function Resources() {
           </Button>
         </Surface>
 
-          <Surface style={styles.surface}>
-            <Text
-              variant="titleLarge"
-              style={{ color: "green", fontWeight: "bold", marginBottom: 15 }}
-            >
-              Calorie Calculator
-            </Text>
-            <Divider />
-            <Text variant="bodyLarge" style={styles.text}>
-              Use the calorie calculator to estimate the number of daily
-              calories your body needs to maintain your current weight.
-            </Text>
-            <Divider />
-            <Button
-              mode="elevated"
-              onPress={() =>
-                WebBrowser.openBrowserAsync(
-                  "https://www.mayoclinic.org/healthy-lifestyle/weight-loss/in-depth/calorie-calculator/itt-20402304"
-                )
-              }
-              buttonColor="green"
-              textColor="white"
-              style={styles.button}
-              contentStyle={styles.buttonContent}
-              icon={"launch"}
-            >
-              Calorie Calculator
-            </Button>
-          </Surface>
+        <Surface style={styles.surface}>
+          <Text
+            variant="titleLarge"
+            style={{ color: "green", fontWeight: "bold", marginBottom: 15 }}
+          >
+            Calorie Calculator
+          </Text>
+          <Divider />
+          <Text variant="bodyLarge" style={styles.text}>
+            Use the calorie calculator to estimate the number of daily calories
+            your body needs to maintain your current weight.
+          </Text>
+          <Divider />
+          <Button
+            mode="elevated"
+            onPress={() =>
+              WebBrowser.openBrowserAsync(
+                "https://www.mayoclinic.org/healthy-lifestyle/weight-loss/in-depth/calorie-calculator/itt-20402304"
+              )
+            }
+            buttonColor="green"
+            textColor="white"
+            style={styles.button}
+            contentStyle={styles.buttonContent}
+            icon={"launch"}
+          >
+            Calorie Calculator
+          </Button>
+        </Surface>
 
         <Surface style={styles.surface}>
           <Text
@@ -85,7 +85,8 @@ export default function Resources() {
                 "https://drive.google.com/file/d/1ciZHPCOOi-_-LhbSlqpLU7TXtonOwhhH/view"
               )
             }
-            textColor="green"
+            buttonColor="green"
+            textColor="white"
             style={styles.button}
             contentStyle={styles.buttonContent}
             icon={"launch"}
