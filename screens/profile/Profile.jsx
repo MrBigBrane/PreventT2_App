@@ -98,7 +98,9 @@ export default function Profile({ navigation }) {
               mode="elevated"
               buttonColor="teal"
               textColor="white"
-              onPress={() => navigation.navigate("Edit Profile", { data: data.name })}
+              onPress={() =>
+                navigation.navigate("Edit Profile", { data: data.name })
+              }
               style={styles.editProfile}
               // contentStyle={styles.buttonContent}
               icon={"pencil"}
@@ -109,49 +111,106 @@ export default function Profile({ navigation }) {
           </View>
 
           <Surface elevation={4} style={styles.forms}>
-            <Text
-              variant="headlineMedium"
-              style={{ fontWeight: "bold", color: "green" }}
-            >
-              Forms
-            </Text>
+          {onboarding.height && (
+          <View>
+            <Text variant="displaySmall">Demographics</Text>
             <Divider style={styles.divider} />
-            <Text variant="titleLarge" style={styles.textForms}>
-              Onboarding Form
-            </Text>
-            <Text style={styles.textForms}>
-              If you are an NRIVA DPP member, fill out the onboarding form to
-              get started!
-            </Text>
-            <Button
-              mode="elevated"
-              buttonColor="green"
-              textColor="white"
-              onPress={() => navigation.navigate("Onboarding")}
-              style={styles.buttonForms}
-              contentStyle={styles.buttonContent}
-              // icon={"launch"}
-            >
-              Onboarding Form
-            </Button>
+            <View style={styles.textRow}>
+            <View style={{ flexDirection: "row", marginRight: 60 }}>
+              <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                Height:
+              </Text>
+              <View>
+                {/* <Icon
+                  name="ruler"
+                  size={30}
+                  style={{ justifyContent: "center" }}
+                /> */}
+                <Text variant="bodyLarge"> {onboarding.height}</Text>
+              </View>
+            </View>
+            {/* <Divider style={styles.divider} /> */}
+            <View style={{ flexDirection: "row" }}>
+              <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                Age:
+              </Text>
+              <View style={styles.text}>
+                {/* <Icon
+                  name="white-balance-sunny"
+                  size={30}
+                  style={{ justifyContent: "center" }}
+                /> */}
+                <Text variant="bodyLarge"> {onboarding.age}</Text>
+              </View>
+            </View>
+            </View>
             <Divider style={styles.divider} />
-            <Text variant="titleLarge" style={styles.textForms}>
-              Become a Coach
-            </Text>
-            <Text style={styles.textForms}>
-              Sign up to become a coach today!
-            </Text>
-            <Button
-              mode="elevated"
-              buttonColor="green"
-              textColor="white"
-              onPress={() => navigation.navigate("Become Coach")}
-              style={styles.buttonForms}
-              contentStyle={styles.buttonContent}
-              // icon={"launch"}
-            >
-              Become a Coach
-            </Button>
+            <View style={styles.textRow}>
+            <View style={{ flexDirection: "row", marginRight: 60 }}>
+              <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                Gender:
+              </Text>
+              <View style={styles.text}>
+                {/* <Icon
+                  name={onboarding.gender.icon}
+                  size={30}
+                  style={{ justifyContent: "center" }}
+                /> */}
+                <Text variant="bodyLarge">
+                  {" "}
+                  {onboarding.gender.title.substring(2)}
+                </Text>
+              </View>
+            </View>
+            <Divider style={styles.divider} />
+            <View style={{ flexDirection: "row" }}>
+              <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                Sex:
+              </Text>
+              <View style={styles.text}>
+                {/* <Icon
+                  name="weight-kilogram"
+                  size={30}
+                  style={{ justifyContent: "center" }}
+                /> */}
+                <Text variant="bodyLarge"> {onboarding.sex.title}</Text>
+              </View>
+            </View>
+            </View>
+            <Divider style={styles.divider} />
+            <View>
+              <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+                Ethnicity:
+              </Text>
+              <View style={styles.text}>
+                <Icon
+                  name={onboarding.ethnicity.icon}
+                  size={30}
+                  style={{ justifyContent: "center" }}
+                />
+                <Text variant="headlineSmall">
+                  {" "}
+                  {onboarding.ethnicity.title}
+                </Text>
+              </View>
+            </View>
+            <Divider style={styles.divider} />
+            <View>
+              <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
+                Race:
+              </Text>
+              <View style={styles.text}>
+                <Icon
+                  name={onboarding.race.icon}
+                  size={30}
+                  style={{ justifyContent: "center" }}
+                />
+                <Text variant="headlineSmall"> {onboarding.race.title}</Text>
+              </View>
+            </View>
+            </View>
+            )}
+
           </Surface>
         </View>
         <View>
@@ -232,7 +291,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   forms: {
-    // width: "91%",
+    width: "91%",
     marginHorizontal: 10,
     alignSelf: "center",
     padding: 15,
@@ -287,5 +346,10 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 10,
     borderRadius: 10,
+  },
+  textRow: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
