@@ -25,7 +25,9 @@ export default function ViewAnnouncement({ navigation, route }) {
 
     return (
       <View style={{ flex: 1, padding: 12 }}>
-        <Text style={styles.date}>{date.toLocaleString()}</Text>
+        <Text style={styles.date}>
+          {date.toLocaleString()} {announcementData.edited && `• Edited`}
+        </Text>
         <Text variant="displaySmall" style={styles.title}>
           {announcementData.title}
         </Text>

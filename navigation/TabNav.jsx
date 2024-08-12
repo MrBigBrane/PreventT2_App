@@ -4,7 +4,7 @@ import { CommonActions } from '@react-navigation/native';
 import { BottomNavigation } from 'react-native-paper';
 import CoachNav from "../screens/coachdashboard/CoachNav";
 import UserDashNav from "./UserDashNav";
-import ProfileNav from "../screens/profile/ProfileNav";
+import ProfileNav from "../screens/profile/ProfileDrawer";
 import { useLayoutEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import Inbox from "../screens/inbox/Inbox";

@@ -90,6 +90,7 @@ export default function ViewStudentLogs({ route, navigation }) {
                   deleteAction={() => deleteItem(item.id)}
                   hideDate={true}
                   avatar={image}
+                  coach={true}
                 />
               </View>
             );

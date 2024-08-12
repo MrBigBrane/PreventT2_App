@@ -1,9 +1,7 @@
-import { Divider, Surface, Text } from "react-native-paper";
-import ChangeEmail from "../../components/reset/ChangeEmail";
-import ChangePassword from "../../components/reset/ChangePassword";
 import { StyleSheet, View } from "react-native";
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../../../lib/supabase";
 import { useLayoutEffect, useState } from "react";
+import ContactInfoCard from "../../../components/reset/ContactInfoCard";
 
 export default function AccountInfo({ navigation, route }) {
     const [datum, setDatum] = useState({});
@@ -27,19 +25,14 @@ export default function AccountInfo({ navigation, route }) {
 
     useLayoutEffect(() => {
       getData();
+
+      console.log("hello1");
       console.log(datum);
     }, []);
 
     return (
       <View style={styles.container}>
-        <Text variant="titleLarge">Contact Information</Text>
-        <Divider style={styles.divider} />
-        
-        <ChangeEmail phoneNum={datum.phone} email={datum.email_address}/>
-        
-        <Text variant="titleLarge">Change/Reset Password:</Text>
-        <Divider style={styles.divider} />
-        <ChangePassword />
+        {datum.id && <ContactInfoCard contactDetails={datum}/>}
       </View>
     );
 

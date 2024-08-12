@@ -11,9 +11,24 @@ export default function ViewStudentNav({navigation}) {
       <Stack.Screen
         name="View Student Landing"
         component={ViewStudentLanding}
+        options={({ route }) => ({
+          title: route.params.studentData.name,
+        })}
       />
-      <Stack.Screen name="View Student Logs" component={ViewStudentLogs} />
-      <Stack.Screen name="View Student Info" component={ViewStudentInfo} />
+      <Stack.Screen
+        name="View Student Logs"
+        component={ViewStudentLogs}
+        options={({ route }) => ({
+          title: `${route.params.studentData.name} Logs`,
+        })}
+      />
+      <Stack.Screen
+        name="View Student Info"
+        component={ViewStudentInfo}
+        options={({ route }) => ({
+          title: `${route.params.studentData.name} Info`,
+        })}
+      />
     </Stack.Navigator>
   );
 
