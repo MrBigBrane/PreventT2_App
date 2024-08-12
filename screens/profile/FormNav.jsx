@@ -1,11 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import Profile from './Profile';
 import Onboarding from './Onboarding';
 import BecomeCoach from './BecomeCoach';
 import EditProfile from './EditProfile';
-import AccountInfo from './AccountInfo';
-import GeneralInfo from './GeneralInfo';
 import Forms from './Forms';
 
 const Stack = createStackNavigator();

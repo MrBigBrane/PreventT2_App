@@ -35,7 +35,7 @@ export default function ChangePassword() {
 
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text variant="bodyLarge" style={{ fontSize: 15 }}>Change Password:</Text>
             <TextInput
                 mode="outlined"
@@ -73,9 +73,7 @@ export default function ChangePassword() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
+        padding: 12,
     },
     input: {
        marginTop: 10,

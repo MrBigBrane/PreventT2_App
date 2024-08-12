@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Dialog, Portal, PaperProvider, Text } from 'react-native-paper';
 
-export default function DialogComponent({ buttonTitle, alertTitle, alertContent, alertAction, alertActionTitle, mode, style, buttonStyle, textColor }) {
+export default function DialogComponent({ buttonTitle, alertTitle, alertContent, alertAction, alertActionTitle, mode, style, buttonStyle, textColor, icon }) {
   const [visible, setVisible] = useState(false);
 
   const showDialog = () => setVisible(true);
@@ -14,7 +14,7 @@ export default function DialogComponent({ buttonTitle, alertTitle, alertContent,
       <Button
         mode={mode ? mode : "contained"}
         onPress={showDialog}
-        icon={"trash-can-outline"}
+        icon={icon ? icon : "trash-can-outline"}
         style={[buttonStyle ? buttonStyle : null]}
         textColor={textColor ? textColor : "white"}
       >

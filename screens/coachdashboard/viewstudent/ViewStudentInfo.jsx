@@ -3,7 +3,9 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text, Divider } from 'react-native-paper';
 import { supabase } from '../../../lib/supabase';
 
-export default function ViewStudentInfo() {
+export default function ViewStudentInfo({ route }) {
+    const { studentData } = route.params;
+
     const [data, setData] = useState([]);
 
     useEffect(() => {

@@ -3,8 +3,6 @@ import { Image, StyleSheet, View, ScrollView, FlatList } from "react-native";
 import { supabase } from "../../lib/supabase"
 import { Avatar, Button, Text, Surface, Divider, Card } from "react-native-paper";
 import PickAvatar from "../../components/pickphoto/PickAvatar";
-import ChangeEmail from "../../components/reset/ChangeEmail";
-import ChangePassword from "../../components/reset/ChangePassword";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 

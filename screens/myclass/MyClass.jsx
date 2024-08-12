@@ -3,6 +3,8 @@ import { Dimensions, Image, StyleSheet, View } from "react-native";
 import { Button, Surface, Text, TextInput } from "react-native-paper";
 import { supabase } from "../../lib/supabase";
 import * as WebBrowser from "expo-web-browser";
+import DialogComponent from "../../components/dialog/Dialog";
+import CardButton from "../../components/CardButton";
 
 export default function MyClass({ navigation, route }) {
 
@@ -10,6 +12,7 @@ export default function MyClass({ navigation, route }) {
   const [userData, setUserData] = useState([]);
   const [isData , setIsData] = useState(false);
   const [image, setImage] = useState();
+  const [classCode, setClassCode] = useState();
 
     async function getInClass() {
       const {
@@ -73,6 +76,7 @@ export default function MyClass({ navigation, route }) {
     if (error) {
       console.log(error);
     } else {
+      setClassCode("");
       setUserData(data[0]);
       navigation.setParams({ label: "My Class" });
       getInClass();
@@ -169,7 +173,7 @@ export default function MyClass({ navigation, route }) {
                     </Text>
                   </View>
                 </View>
-                <Button
+                {/* <Button
                   onPress={() =>
                     navigation.navigate("View Announcements", {
                       classData: classData,
@@ -182,9 +186,17 @@ export default function MyClass({ navigation, route }) {
                   style={{ margin: 10 }}
                 >
                   Announcements
-                </Button>
-
-                <Button
+                </Button> */}
+                <CardButton
+                  title={"Announcements"}
+                  icon={"bullhorn"}
+                  onPress={() =>
+                    navigation.navigate("View Announcements", {
+                      classData: classData,
+                    })
+                  }
+                />
+                {/* <Button
                   onPress={() => console.log("exercise plan")}
                   mode="elevated"
                   icon={"dumbbell"}
@@ -193,7 +205,7 @@ export default function MyClass({ navigation, route }) {
                   style={{ margin: 10 }}
                 >
                   Exercise Plan
-                </Button>
+                </Button> */}
                 {classData.meet_link !== null && classData.meet_link !== "" && (
                   <Button
                     mode="elevated"
@@ -208,7 +220,7 @@ export default function MyClass({ navigation, route }) {
                     Meeting Link
                   </Button>
                 )}
-                <Button
+                {/* <Button
                   onPress={leaveClass}
                   mode="elevated"
                   icon={"exit-run"}
@@ -217,7 +229,18 @@ export default function MyClass({ navigation, route }) {
                   style={{ margin: 10 }}
                 >
                   Leave Class
-                </Button>
+                </Button> */}
+                <DialogComponent
+                  buttonTitle={"Leave Class"}
+                  alertTitle={"Leaving Class"}
+                  alertContent={"Are you sure you want to leave this class?"}
+                  alertAction={leaveClass}
+                  alertActionTitle={"Leave Class"}
+                  mode={"contained"}
+                  style={{ margin: 10 }}
+                  icon={"exit-run"}
+                  buttonStyle={{ backgroundColor: "red" }}
+                />
               </View>
             ) : (
               <View style={styles.container}>
@@ -230,7 +253,7 @@ export default function MyClass({ navigation, route }) {
                       outlineColor="green"
                       activeOutlineColor="green"
                       value={classCode}
-                      onChangeText={setClassCode}
+                      onChangeText={(text) => setClassCode(text)}
                       style={styles.input}
                     />
                     <Button

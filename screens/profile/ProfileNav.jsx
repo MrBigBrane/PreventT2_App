@@ -1,59 +1,45 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import GeneralInfo from './GeneralInfo';
-import AccountInfo from './AccountInfo';
-import FormNav from './FormNav';
-import Profile from './Profile';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+import ProfileDrawer from './ProfileDrawer';
 
-export default function ProfileDrawer() {
-  const Drawer = createDrawerNavigator()
+
+const Stack = createStackNavigator();
+
+
+
+
+
+export default function UserDashNav() {
+
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen
-        name="Profile"
-        component={Profile}
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ProfileNav"
+        component={ProfileDrawer}
         options={{
-          drawerIcon: ({ color, size }) => (
-            <Icon name="run" size={size} color={color} />
-          ),
+          headerShown: false,
         }}
       />
-      <Drawer.Screen
-        name="Forms"
-        component={FormNav}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <Icon name="hand-heart" size={size} color={color} />
-          ),
-        }}
+      <Stack.Screen
+        name="Add Activity"
+        component={AddActivity}
+        // options={{ headerShown: false }}
       />
-      <Drawer.Screen
-        name="General Information"
-        component={GeneralInfo}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <Icon name="food-fork-drink" size={size} color={color} />
-          ),
-        }}
+      <Stack.Screen
+        name="Add Coach Log"
+        component={AddCoachLog}
+        // options={{ headerShown: false }}
       />
-      <Drawer.Screen
-        name="Account Information"
-        component={AccountInfo}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <Icon name="notebook-edit" size={size} color={color} />
-          ),
-        }}
+      <Stack.Screen
+        name="Add Meal"
+        component={AddMeal}
+        // options={{ headerShown: false }}
       />
-      {/* <Drawer.Screen
-        name="Resources"
-        component={Resources}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <Icon name="clipboard-multiple-outline" size={size} color={color} />
-          ),
-        }}
-      /> */}
-    </Drawer.Navigator>
+      <Stack.Screen
+        name="Add Action Plan"
+        component={AddActionPlan}
+        // options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }
