@@ -73,6 +73,7 @@ export default function EditProfile({ navigation, route }) {
           value={text1}
           left={<TextInput.Icon icon="pen" />}
         />
+        
         <Button mode="contained" onPress={submit}>Save</Button>
       </View>
     );  
