@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: Dimensions.get('window').width,
-    height: 300,
+    height: 250,
   },
   icon: {
     position: 'absolute',

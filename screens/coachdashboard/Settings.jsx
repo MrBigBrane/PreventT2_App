@@ -65,61 +65,71 @@ export default function Settings({ navigation, route }) {
 
 
     return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={{ flex: 1 }}>
           <PickPhoto classData={classData} backgroundUri={backgroundUri} />
         </View>
-
-        {/* <Surface style={styles.surface} elevation={4}> */}
+        <View style={styles.surface}>
+          {/* <Surface style={styles.surface} elevation={4}> */}
           <View style={styles.spacing}>
+            <Text variant="titleSmall">Class Name</Text>
             <TextInput
-              mode="outlined"
+              mode={locked ? "flat" : "outlined"}
               placeholder="Enter Class Name"
               // label={"Class Name"}
               onChangeText={(text) => setText1(text)}
               value={text1}
               disabled={locked}
               maxLength={15}
+              style={{ backgroundColor: locked ? "transparent" : "white",  }}
             />
           </View>
           <View style={styles.spacing}>
+            <Text variant="titleSmall">Coach ID</Text>
             <TextInput
-              mode="outlined"
+              mode={locked ? "flat" : "outlined"}
               placeholder="Enter Coach ID"
               // label={"Coach ID"}
               onChangeText={(text) => setText2(text)}
               value={text2}
               disabled={locked}
+              style={{ backgroundColor: locked ? "transparent" : "white",  }}
             />
           </View>
           <View style={styles.spacing}>
+            <Text variant="titleSmall">Cohort ID</Text>
             <TextInput
-              mode="outlined"
+              mode={locked ? "flat" : "outlined"}
               placeholder="Enter Cohort ID"
               // label={"Cohort ID"}
               onChangeText={(text) => setText3(text)}
               value={text3}
               disabled={locked}
+              style={{ backgroundColor: locked ? "transparent" : "white",  }}
             />
           </View>
           <View style={styles.spacing}>
+            <Text variant="titleSmall">Organization Code</Text>
             <TextInput
-              mode="outlined"
+              mode={locked ? "flat" : "outlined"}
               placeholder="Enter Organization Code"
               // label={"Organization Code"}
               onChangeText={(text) => setText4(text)}
               value={text4}
               disabled={locked}
+              style={{ backgroundColor: locked ? "transparent" : "white",  }}
             />
           </View>
           <View style={styles.spacing}>
+            <Text variant="titleSmall">Meeting Link</Text>
             <TextInput
-              mode="outlined"
+              mode={locked ? "flat" : "outlined"}
               placeholder="Enter Class Meeting Link"
               // label={"Meeting Link"}
               onChangeText={(text) => setText5(text)}
               value={text5}
               disabled={locked}
+              style={{ backgroundColor: locked ? "transparent" : "white",  }}
             />
           </View>
           <View style={styles.buttons}>
@@ -175,7 +185,7 @@ export default function Settings({ navigation, route }) {
             buttonStyle={{ borderColor: "red" }}
             textColor={"red"}
           />
-          {/* </View> */}
+        </View>
         {/* </Surface> */}
       </ScrollView>
     );
@@ -184,23 +194,21 @@ export default function Settings({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
     },
     surface: {
-      width: "100%",
       alignItems: 'center',
       justifyContent: 'center',
     },
     spacing: {
-      padding: 10,
-      paddingHorizontal: 20,
+      padding: 15,
+      // paddingHorizontal: 20,
       marginTop: 10,
-      width: Dimensions.get('window').width * 0.8,
+      // width: Dimensions.get('window').width * 0.8,
+      width: "100%",
     },
     buttons: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-    }
+    },
 
   });
