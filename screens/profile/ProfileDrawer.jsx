@@ -5,6 +5,7 @@ import AccountInfo from './accountinfo/AccountInfo';
 import FormNav from './FormNav';
 import Profile from './Profile';
 import AccountNav from './accountinfo/AccountNav';
+import ProfileNav from './ProfileNav';
 
 export default function ProfileDrawer() {
   const Drawer = createDrawerNavigator()
@@ -12,7 +13,7 @@ export default function ProfileDrawer() {
     <Drawer.Navigator>
       <Drawer.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileNav}
         options={{
           drawerIcon: ({ color, size }) => (
             <Icon name="run" size={size} color={color} />

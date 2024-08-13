@@ -97,7 +97,7 @@ export default function Profile({ navigation }) {
               buttonColor="teal"
               textColor="white"
               onPress={() =>
-                navigation.navigate("Edit Profile", { data: data.name })
+                navigation.navigate("Edit Profile", { datum: data, onboardingForm: onboarding })
               }
               style={styles.editProfile}
               // contentStyle={styles.buttonContent}
@@ -109,110 +109,142 @@ export default function Profile({ navigation }) {
           </View>
 
           <Surface elevation={4} style={styles.forms}>
-          {onboarding.height && (
-          <View>
-            <Text variant="displaySmall">Demographics</Text>
-            <Divider style={styles.divider} />
-            <View style={styles.textRow}>
-            <View style={{ flexDirection: "row", marginRight: 60 }}>
-              <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
-                Height:
-              </Text>
+            {onboarding.height && (
               <View>
-                {/* <Icon
+                <Text variant="displaySmall">Demographics</Text>
+                <Divider style={styles.divider} />
+                <View style={styles.textRow}>
+                  <View style={{ flexDirection: "row", marginRight: 60 }}>
+                    <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                      City: 
+                    </Text>
+                    <View>
+                      {/* <Icon
                   name="ruler"
                   size={30}
                   style={{ justifyContent: "center" }}
                 /> */}
-                <Text variant="bodyLarge"> {onboarding.height}</Text>
-              </View>
-            </View>
-            {/* <Divider style={styles.divider} /> */}
-            <View style={{ flexDirection: "row" }}>
-              <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
-                Age:
-              </Text>
-              <View style={styles.text}>
-                {/* <Icon
+                      <Text variant="bodyLarge"> {onboarding.city}</Text>
+                    </View>
+                  </View>
+                  {/* <Divider style={styles.divider} /> */}
+                  <View style={{ flexDirection: "row" }}>
+                    <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                      State: 
+                    </Text>
+                    <View style={styles.text}>
+                      {/* <Icon
                   name="white-balance-sunny"
                   size={30}
                   style={{ justifyContent: "center" }}
                 /> */}
-                <Text variant="bodyLarge"> {onboarding.age}</Text>
-              </View>
-            </View>
-            </View>
-            <Divider style={styles.divider} />
-            <View style={styles.textRow}>
-            <View style={{ flexDirection: "row", marginRight: 60 }}>
-              <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
-                Gender:
-              </Text>
-              <View style={styles.text}>
-                {/* <Icon
+                      <Text variant="bodyLarge"> {onboarding.state}</Text>
+                    </View>
+                  </View>
+                </View>
+                <Divider style={styles.divider} />
+                <View style={styles.textRow}>
+                  <View style={{ flexDirection: "row", marginRight: 60 }}>
+                    <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                      Height:
+                    </Text>
+                    <View>
+                      {/* <Icon
+                  name="ruler"
+                  size={30}
+                  style={{ justifyContent: "center" }}
+                /> */}
+                      <Text variant="bodyLarge"> {onboarding.height}</Text>
+                    </View>
+                  </View>
+                  {/* <Divider style={styles.divider} /> */}
+                  <View style={{ flexDirection: "row" }}>
+                    <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                      Age:
+                    </Text>
+                    <View style={styles.text}>
+                      {/* <Icon
+                  name="white-balance-sunny"
+                  size={30}
+                  style={{ justifyContent: "center" }}
+                /> */}
+                      <Text variant="bodyLarge"> {onboarding.age}</Text>
+                    </View>
+                  </View>
+                </View>
+                <Divider style={styles.divider} />
+                <View style={styles.textRow}>
+                  <View style={{ flexDirection: "row", marginRight: 60 }}>
+                    <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                      Gender:
+                    </Text>
+                    <View style={styles.text}>
+                      {/* <Icon
                   name={onboarding.gender.icon}
                   size={30}
                   style={{ justifyContent: "center" }}
                 /> */}
-                <Text variant="bodyLarge">
-                  {" "}
-                  {onboarding.gender.title.substring(2)}
-                </Text>
-              </View>
-            </View>
-            <Divider style={styles.divider} />
-            <View style={{ flexDirection: "row" }}>
-              <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
-                Sex:
-              </Text>
-              <View style={styles.text}>
-                {/* <Icon
+                      <Text variant="bodyLarge">
+                        {" "}
+                        {onboarding.gender.title.substring(2)}
+                      </Text>
+                    </View>
+                  </View>
+                  <Divider style={styles.divider} />
+                  <View style={{ flexDirection: "row" }}>
+                    <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                      Sex:
+                    </Text>
+                    <View style={styles.text}>
+                      {/* <Icon
                   name="weight-kilogram"
                   size={30}
                   style={{ justifyContent: "center" }}
                 /> */}
-                <Text variant="bodyLarge"> {onboarding.sex.title}</Text>
+                      <Text variant="bodyLarge"> {onboarding.sex.title}</Text>
+                    </View>
+                  </View>
+                </View>
+                <Divider style={styles.divider} />
+                <View style = {{flexDirection: "row"}}>
+                  <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                    Ethnicity:
+                  </Text>
+                  <View style={{ flexDirection: "row"}}>
+                    {/* <Icon
+                      name={onboarding.ethnicity.icon}
+                      size={30}
+                      style={{ justifyContent: "center" }}
+                    /> */}
+                    <Text variant="bodyLarge">
+                      {" "}
+                      {onboarding.ethnicity.title}
+                    </Text>
+                  </View>
+                </View>
+                <Divider style={styles.divider} />
+                <View style={{ flexDirection: "row" }}>
+                  <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
+                    Race:
+                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    {/* <Icon
+                      name={onboarding.race.icon}
+                      size={30}
+                      style={{ justifyContent: "center" }}
+                    /> */}
+                    <Text variant="bodyLarge">
+                      {" "}
+                      {onboarding.race.title}
+                    </Text>
+                  </View>
+                </View>
               </View>
-            </View>
-            </View>
-            <Divider style={styles.divider} />
-            <View>
-              <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
-                Ethnicity:
-              </Text>
-              <View style={styles.text}>
-                <Icon
-                  name={onboarding.ethnicity.icon}
-                  size={30}
-                  style={{ justifyContent: "center" }}
-                />
-                <Text variant="headlineSmall">
-                  {" "}
-                  {onboarding.ethnicity.title}
-                </Text>
-              </View>
-            </View>
-            <Divider style={styles.divider} />
-            <View>
-              <Text variant="headlineSmall" style={{ marginBottom: 5 }}>
-                Race:
-              </Text>
-              <View style={styles.text}>
-                <Icon
-                  name={onboarding.race.icon}
-                  size={30}
-                  style={{ justifyContent: "center" }}
-                />
-                <Text variant="headlineSmall"> {onboarding.race.title}</Text>
-              </View>
-            </View>
-            </View>
             )}
-
           </Surface>
         </View>
         <View>
-          <CardButton
+          {/* <CardButton
             title={"General Information"}
             icon={"information"}
             onPress={() =>
@@ -230,7 +262,7 @@ export default function Profile({ navigation }) {
                 user: user,
               })
             }
-          />
+          /> */}
           <Button
             mode="elevated"
             textColor="white"
@@ -259,8 +291,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    margin: 12,
-    marginTop: 40,
+    margin: '5%',
+    marginTop: '15%',
   },
   avatar: {
     // marginTop: 50,
