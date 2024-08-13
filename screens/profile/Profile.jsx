@@ -97,7 +97,7 @@ export default function Profile({ navigation }) {
               buttonColor="teal"
               textColor="white"
               onPress={() =>
-                navigation.navigate("Edit Profile", { data: data })
+                navigation.navigate("Edit Profile", { datum: data, onboardingForm: onboarding })
               }
               style={styles.editProfile}
               // contentStyle={styles.buttonContent}

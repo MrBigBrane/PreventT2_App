@@ -23,7 +23,7 @@ export default function ProfileNav() {
       <Stack.Screen
         name="Edit Profile"
         component={EditProfile}
-        options={{ headerShown: false, presentation: 'modal' }}
+        options={{ presentation: 'modal', headerLeft: null }}
       />
     </Stack.Navigator>
   );
