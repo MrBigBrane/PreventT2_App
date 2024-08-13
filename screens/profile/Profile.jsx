@@ -330,8 +330,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     // borderColor: "red",
     // borderWidth: 1,
-    borderRadius: 10
-
+    borderRadius: 10,
   },
   buttonForms: {
     marginTop: 10
