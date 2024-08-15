@@ -38,34 +38,39 @@ export default function InformationCard({
         <View style={styles.textRow}>
           <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
             <Text variant="bodyLarge">{title1}: </Text>
+            
+            <Text variant="bodyLarge">{data1} </Text>
             {icon1}
-            <Text variant="bodyLarge"> {data1}</Text>
           </View>
           <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
             <Text variant="bodyLarge">{title2}: </Text>
+            
+            <Text variant="bodyLarge">{data2} </Text>
             {icon2}
-            <Text variant="bodyLarge"> {data2} </Text>
           </View>
         </View>
         <Divider style={styles.divider} />
         <View style={styles.textRow}>
           <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
             <Text variant="bodyLarge">{title3}: </Text>
+            
+            <Text variant="bodyLarge">{data3} </Text>
             {icon3}
-            <Text variant="bodyLarge"> {data3}</Text>
           </View>
           <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
             <Text variant="bodyLarge">{title4}: </Text>
+            
+            <Text variant="bodyLarge">{data4} </Text>
             {icon4}
-            <Text variant="bodyLarge"> {data4}</Text>
           </View>
         </View>
         <Divider style={styles.divider} />
         <View style={styles.textRow}>
           <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
             <Text variant="bodyLarge">{title5}: </Text>
+            
+            <Text variant="bodyLarge">{data5} </Text>
             {icon5}
-            <Text variant="bodyLarge"> {data5}</Text>
           </View>
           <Divider style={styles.divider} />
           {title6 && (
@@ -73,8 +78,9 @@ export default function InformationCard({
               style={{ flexDirection: "row", flex: 1, alignItems: "center" }}
             >
               <Text variant="bodyLarge">{title6}:</Text>
-              {icon6}
+              
               <Text variant="bodyLarge"> {data6}</Text>
+              {icon6}
             </View>
           )}
         </View>
@@ -82,8 +88,9 @@ export default function InformationCard({
         {title7 && (
           <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
             <Text variant="bodyLarge">{title7}:</Text>
-            {icon7}
+            
             <Text variant="bodyLarge"> {data7}</Text>
+            {icon7}
           </View>
         )}
         {title8 && <Divider style={styles.divider} />}
@@ -92,8 +99,9 @@ export default function InformationCard({
             <Text variant="bodyLarge" style={{ marginBottom: 5 }}>
               {title8}:
             </Text>
-            {icon8}
+            
             <Text variant="bodyLarge"> {data8}</Text>
+            {icon8}
           </View>
         )}
       </View>
