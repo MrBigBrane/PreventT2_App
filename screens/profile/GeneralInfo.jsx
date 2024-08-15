@@ -76,7 +76,7 @@ export default function GeneralInfo({ navigation, route }) {
             <PersonalInfoCard
               title="Personal Information"
               title1="Insurance Provider"
-              data1={onboarding.payersource.title}
+              data1={onboarding.payersource.title.substring(2)}
               icon1={
                 <Icon
                   name={onboarding.payersource.icon}
@@ -85,7 +85,7 @@ export default function GeneralInfo({ navigation, route }) {
                 />
               }
               title2="Education"
-              data2={onboarding.education.title}
+              data2={onboarding.education.title.substring(2)}
               icon2={
                 <Icon
                   name={onboarding.education.icon}
@@ -94,7 +94,7 @@ export default function GeneralInfo({ navigation, route }) {
                 />
               }
               title3="Enrollment Source"
-              data3={onboarding.enrsource.title}
+              data3={onboarding.enrsource.title.substring(2)}
               icon3={
                 <Icon
                   name={onboarding.enrsource.icon}
@@ -103,7 +103,7 @@ export default function GeneralInfo({ navigation, route }) {
                 />
               }
               title4="Enrollment Motivation"
-              data4={onboarding.enrmot.title}
+              data4={onboarding.enrmot.title.substring(2)}
               icon4={
                 <Icon
                   name={onboarding.enrmot.icon}
