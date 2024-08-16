@@ -6,14 +6,12 @@ import { useEffect, useState } from "react";
 import { useLayoutEffect } from "react";
 import { Text, TextInput, Button } from "react-native-paper";
 import NewDropdownList from "../../components/inputs/NewDropdownList";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 export default function EditProfile({ navigation, route }) {
-  const { datum } = route.params;
-  const { onboardingForm } = route.params;
-  const [data, setData] = useState({});
+  const { datum, onboardingForm } = route.params;
   const [loading, setLoading] = useState(false);
-  const [onboarding, setOnboarding] = useState({});
   const [text1, setText1] = useState(datum ? datum?.name : null);
   const [text2, setText2] = useState(onboardingForm ? onboardingForm?.age.toString() : null);
   const [text3, setText3] = useState(onboardingForm ? onboardingForm?.payersource : null);
@@ -47,42 +45,48 @@ export default function EditProfile({ navigation, route }) {
       }
       navigation.goBack();
     }
-    async function getUser() {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
+    // async function getUser() {
+    //     const {
+    //       data: { user },
+    //     } = await supabase.auth.getUser();
 
-        const { data, error } = await supabase
-          .from("profiles")
-          .select()
-          .eq("id", datum.id);
+    //     const { data, error } = await supabase
+    //       .from("profiles")
+    //       .select()
+    //       .eq("id", datum.id);
 
-        const { data: onboardingData, error: onboardingError } = await supabase
-          .from("onboarding")
-          .select()
-          .eq("id", onboardingForm?.id)
+    //     const { data: onboardingData, error: onboardingError } = await supabase
+    //       .from("onboarding")
+    //       .select()
+    //       .eq("id", onboardingForm?.id)
           
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(data);
-          setData(data[0]);
-          setOnboarding(onboardingData[0]);
-        }
-    }
+    //     if (error) {
+    //       console.log(error);
+    //     } else {
+    //       console.log(data);
+    //       setData(data[0]);
+    //       setOnboarding(onboardingData[0]);
+    //     }
+    // }
 
-    useLayoutEffect(() => {
-      getUser();
-    }, []);
+    // useLayoutEffect(() => {
+    //   getUser();
+    // }, []);
 
     return (
       <ScrollView style={styles.container}>
-        <PickAvatar
-          userId={data.id}
-          // name = {data.name}
-          // // firstName = {data.name}
-          style={styles.avatar}
+        <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center"}}>
+          <View>
+            <PickAvatar
+          userId={datum.id}
+          editMode={true}
         />
+        <Icon  name="pencil-outline" size={25} color="black" style={{ position: "absolute", bottom: 0, right: 45}}/>
+          </View>
+          
+        <Text variant="labelLarge">Click avatar to change profile picture</Text>
+        </View>
+        
         <Divider style={styles.Divider} />
         <Text variant="headlineSmall">Your Information</Text>
         <Text>{" "}</Text>
